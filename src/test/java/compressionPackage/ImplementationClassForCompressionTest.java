@@ -1,9 +1,11 @@
 package compressionPackage;
-import generalPackage.*;
-import javafx.scene.control.Tab;
+import com.capexercise.compressionPackage.ImplementationClassForCompression;
+import com.capexercise.generalPackage.IFileReader;
+import com.capexercise.generalPackage.ImplemenationClassForFileDuringTesting;
+import com.capexercise.generalPackage.Node;
 import org.junit.Before;
 import org.junit.Test;
-import java.io.*;
+
 import java.util.HashMap;
 import java.util.Map;
 import static org.junit.Assert.*;

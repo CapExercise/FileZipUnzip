@@ -1,10 +1,10 @@
+package com.capexercise;
 
-import fileCompressorAndDecompressor.FileZipper;
-import fileCompressorAndDecompressor.HuffManCompressorAndDecompressor;
-import generalPackage.GeneralClass;
-import generalPackage.Path;
+import com.capexercise.fileCompressorAndDecompressor.FileZipper;
+import com.capexercise.fileCompressorAndDecompressor.HuffManCompressorAndDecompressor;
+import com.capexercise.generalPackage.GeneralClass;
+import com.capexercise.generalPackage.Path;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 

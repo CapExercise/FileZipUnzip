@@ -1,8 +1,9 @@
-package compressionPackage;
+package com.capexercise.compressionPackage;
 
-import generalPackage.Node;
+import com.capexercise.generalPackage.FrequencyComparator;
+import com.capexercise.generalPackage.IFileReader;
+import com.capexercise.generalPackage.Node;
 
-import java.io.*;
 import java.util.*;
 import generalPackage.*;
 public class ImplementationClassForCompression implements Compress

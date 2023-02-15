@@ -1,11 +1,11 @@
-package decompressionPackage;
+package com.capexercise.decompressionPackage;
 
-import generalPackage.Node;
+import com.capexercise.generalPackage.Node;
+import com.capexercise.generalPackage.Path;
 import generalPackage.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import generalPackage.*;
 
 
 public class ImplemenatationClassForDecompression implements Decompress

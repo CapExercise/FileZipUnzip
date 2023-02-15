@@ -1,11 +1,10 @@
-package fileCompressorAndDecompressor;
+package com.capexercise.fileCompressorAndDecompressor;
 
-import compressionPackage.Compress;
-import compressionPackage.ImplementationClassForCompression;
-import decompressionPackage.Decompress;
-import decompressionPackage.ImplemenatationClassForDecompression;
-import generalPackage.Node;
-import generalPackage.Path;
+import com.capexercise.compressionPackage.Compress;
+import com.capexercise.compressionPackage.ImplementationClassForCompression;
+import com.capexercise.decompressionPackage.Decompress;
+import com.capexercise.decompressionPackage.ImplemenatationClassForDecompression;
+import com.capexercise.generalPackage.*;
 
 import java.io.*;
 import java.util.HashMap;

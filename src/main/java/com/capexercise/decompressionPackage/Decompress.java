@@ -1,6 +1,6 @@
-package decompressionPackage;
+package com.capexercise.decompressionPackage;
 
-import generalPackage.Node;
+import com.capexercise.generalPackage.Node;
 
 import java.io.IOException;
 import java.util.ArrayList;

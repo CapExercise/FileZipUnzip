@@ -1,9 +1,8 @@
-package compressionPackage;
+package com.capexercise.compressionPackage;
 
-import generalPackage.IFileReader;
-import generalPackage.Node;
+import com.capexercise.generalPackage.IFileReader;
+import com.capexercise.generalPackage.Node;
 
-import java.io.IOException;
 import java.util.Map;
 
 public interface Compress

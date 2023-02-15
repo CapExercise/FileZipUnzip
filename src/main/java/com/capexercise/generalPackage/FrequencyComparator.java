@@ -1,4 +1,4 @@
-package generalPackage;
+package com.capexercise.generalPackage;
 
 import java.util.Comparator;
 
