@@ -6,7 +6,7 @@
 
 
     <groupId>groupId</groupId>
-    <artifactId>HuffManCompressionDecompression</artifactId>
+    <artifactId>FileZipUnzip</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <build>
