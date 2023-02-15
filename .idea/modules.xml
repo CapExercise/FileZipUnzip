@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/HuffManCompressionDecompression.iml" filepath="$PROJECT_DIR$/HuffManCompressionDecompression.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FileZipUnzip.iml" filepath="$PROJECT_DIR$/FileZipUnzip.iml" />
     </modules>
   </component>
 </project>

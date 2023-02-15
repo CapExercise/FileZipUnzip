@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="HuffManCompressionDecompression" />
+        <module name="FileZipUnzip" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="HuffManCompressionDecompression" target="1.8" />
+      <module name="FileZipUnzip" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
