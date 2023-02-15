@@ -1,4 +1,4 @@
-package com.capexercise.compression;
+package com.capexercise.huffman.compression;
 
 import com.capexercise.general.FrequencyComparator;
 import com.capexercise.general.IFileReader;

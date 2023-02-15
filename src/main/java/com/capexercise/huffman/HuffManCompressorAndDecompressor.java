@@ -1,9 +1,10 @@
-package com.capexercise.filezipunzip;
+package com.capexercise.huffman;
 
-import com.capexercise.compression.Compress;
-import com.capexercise.compression.ImplementationClassForCompression;
-import com.capexercise.decompression.Decompress;
-import com.capexercise.decompression.ImplemenatationClassForDecompression;
+import com.capexercise.filezipunzip.FileZipper;
+import com.capexercise.huffman.compression.Compress;
+import com.capexercise.huffman.compression.ImplementationClassForCompression;
+import com.capexercise.huffman.decompression.Decompress;
+import com.capexercise.huffman.decompression.ImplemenatationClassForDecompression;
 import com.capexercise.general.*;
 
 import java.io.*;

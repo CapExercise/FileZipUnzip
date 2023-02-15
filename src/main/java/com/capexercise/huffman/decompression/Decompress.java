@@ -1,4 +1,4 @@
-package com.capexercise.decompression;
+package com.capexercise.huffman.decompression;
 
 import com.capexercise.general.Node;
 

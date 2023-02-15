@@ -1,6 +1,6 @@
 package decompressionPackage;
 
-import com.capexercise.decompression.ImplemenatationClassForDecompression;
+import com.capexercise.huffman.decompression.ImplemenatationClassForDecompression;
 import com.capexercise.general.Path;
 import org.junit.Before;
 import org.junit.Test;

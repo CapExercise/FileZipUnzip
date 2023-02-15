@@ -1,5 +1,5 @@
 package compressionPackage;
-import com.capexercise.compression.ImplementationClassForCompression;
+import com.capexercise.huffman.compression.ImplementationClassForCompression;
 import com.capexercise.general.IFileReader;
 import com.capexercise.general.ImplemenationClassForFileDuringTesting;
 import com.capexercise.general.Node;

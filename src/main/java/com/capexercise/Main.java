@@ -1,7 +1,7 @@
 package com.capexercise;
 
 import com.capexercise.filezipunzip.FileZipper;
-import com.capexercise.filezipunzip.HuffManCompressorAndDecompressor;
+import com.capexercise.huffman.HuffManCompressorAndDecompressor;
 import com.capexercise.general.GeneralClass;
 import com.capexercise.general.Path;
 
