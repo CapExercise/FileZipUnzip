@@ -1,8 +1,8 @@
 package compressionPackage;
-import com.capexercise.compressionPackage.ImplementationClassForCompression;
-import com.capexercise.generalPackage.IFileReader;
-import com.capexercise.generalPackage.ImplemenationClassForFileDuringTesting;
-import com.capexercise.generalPackage.Node;
+import com.capexercise.compression.ImplementationClassForCompression;
+import com.capexercise.general.IFileReader;
+import com.capexercise.general.ImplemenationClassForFileDuringTesting;
+import com.capexercise.general.Node;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.capexercise.generalPackage;
+package com.capexercise.general;
 
 public interface IFileReader {
 

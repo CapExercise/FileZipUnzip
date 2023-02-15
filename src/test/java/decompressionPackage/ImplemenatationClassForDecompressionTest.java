@@ -1,13 +1,13 @@
 package decompressionPackage;
 
-import com.capexercise.decompressionPackage.ImplemenatationClassForDecompression;
-import com.capexercise.generalPackage.Path;
+import com.capexercise.decompression.ImplemenatationClassForDecompression;
+import com.capexercise.general.Path;
 import org.junit.Before;
 import org.junit.Test;
 import static org.mockito.Mockito.spy;
 import static org.junit.Assert.*;
 
-import com.capexercise.generalPackage.Node;
+import com.capexercise.general.Node;
 import org.mockito.Mockito;
 
 import java.io.*;

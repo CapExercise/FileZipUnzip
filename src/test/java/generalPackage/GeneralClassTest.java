@@ -1,6 +1,6 @@
 package generalPackage;
 
-import com.capexercise.generalPackage.GeneralClass;
+import com.capexercise.general.GeneralClass;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

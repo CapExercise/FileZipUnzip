@@ -1,7 +1,7 @@
-package com.capexercise.decompressionPackage;
+package com.capexercise.decompression;
 
-import com.capexercise.generalPackage.Node;
-import com.capexercise.generalPackage.Path;
+import com.capexercise.general.Node;
+import com.capexercise.general.Path;
 import generalPackage.*;
 import java.io.*;
 import java.util.ArrayList;

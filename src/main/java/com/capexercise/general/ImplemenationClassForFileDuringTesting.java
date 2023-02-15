@@ -1,4 +1,4 @@
-package com.capexercise.generalPackage;
+package com.capexercise.general;
 
 public class ImplemenationClassForFileDuringTesting implements IFileReader {
     StringBuilder testingCotent;

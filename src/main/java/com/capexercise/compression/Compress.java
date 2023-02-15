@@ -1,7 +1,7 @@
-package com.capexercise.compressionPackage;
+package com.capexercise.compression;
 
-import com.capexercise.generalPackage.IFileReader;
-import com.capexercise.generalPackage.Node;
+import com.capexercise.general.IFileReader;
+import com.capexercise.general.Node;
 
 import java.util.Map;
 
