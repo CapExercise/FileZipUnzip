@@ -22,7 +22,6 @@ public class WordZipperUnZipper implements FileZipper {
         IFileReader fop=new ImplementationForFileOpearations(Path.inputFilePath);
         try
         {
-            //IMap imap=new MapImplemenationForChar();
             IMap compressionMaps = c.calculateFreq(fop);
             TreeNode root=this.constructTree(compressionMaps);
             c.iterateTreeAndCalculateHuffManCode(root, "",compressionMaps);
@@ -46,7 +45,6 @@ public class WordZipperUnZipper implements FileZipper {
             throw new RuntimeException(e);
         }
 
-        System.out.println((float)new File(Path.compressedFilePath).length()/1024);
         System.out.println("Compression done Successfully");
     }
 
@@ -61,7 +59,6 @@ public class WordZipperUnZipper implements FileZipper {
             Map<String,Integer> freq=(Map<String, Integer>) inStream.readObject();
             IMap decompressionMap=new MapImplementationForWord(freq,null);
             TreeNode  root=this.constructTree(decompressionMap);
-            //TreeNode root=(TreeNode)  inStream.readObject();
             int noOfZeros=inStream.readInt();
             byte[] byteArray= (byte[])inStream.readObject();
             StringBuilder decoded=d.getDecodedString(byteArray);
@@ -72,20 +69,6 @@ public class WordZipperUnZipper implements FileZipper {
         {
             throw new RuntimeException(e);
         }
-
-        //   Node root=d.returnRootOfTree(in);
-
-//        int no_of_Zeros=0;
-//        try {
-//           no_of_Zeros=d.returnNoofZeros(in);
-//        }
-//        catch (Exception e)
-//        {
-//            System.out.println(e);
-//        }
-
-
-
 
         System.out.println("De-Compression done Successfully");
 

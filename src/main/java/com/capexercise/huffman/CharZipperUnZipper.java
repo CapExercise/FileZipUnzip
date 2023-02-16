@@ -22,7 +22,6 @@ public class CharZipperUnZipper implements FileZipper
         IFileReader fop=new ImplementationForFileOpearations(Path.inputFilePath);
         try
         {
-            //IMap imap=new MapImplemenationForChar();
           IMap compressionMaps = c.calculateFreq(fop);
           //  TreeNode root = c.addElementIntoQueueAndReturnRoot(frequencyMap);
             TreeNode root=this.constructTree(compressionMaps);
@@ -72,20 +71,6 @@ public class CharZipperUnZipper implements FileZipper
         {
             throw new RuntimeException(e);
         }
-
-    //   Node root=d.returnRootOfTree(in);
-
-//        int no_of_Zeros=0;
-//        try {
-//           no_of_Zeros=d.returnNoofZeros(in);
-//        }
-//        catch (Exception e)
-//        {
-//            System.out.println(e);
-//        }
-
-
-
 
         System.out.println("De-Compression done Successfully");
 

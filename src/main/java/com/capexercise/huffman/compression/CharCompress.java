@@ -24,40 +24,7 @@ public class CharCompress implements Compress
         }
         return imap;
     }
-    @Override
-    public TreeNode addElementIntoQueueAndReturnRoot(IMap frequencyMap)
-    {
-        PriorityQueue<TreeNode> pq = new PriorityQueue<>(frequencyMap.freqSize(), new FrequencyComparator());
-        Map<Character,Integer> freq= (Map<Character, Integer>) frequencyMap.returnMap();
 
-        for (Map.Entry<Character, Integer> entry : freq.entrySet())
-        {
-            TreeNode nd = new CharTreeNode(entry.getKey(),entry.getValue());
-            pq.add(nd);
-        }
-        TreeNode root = null;
-        if(pq.size()==1)
-        {
-            TreeNode leftSideNode=pq.peek();
-            pq.poll();
-            TreeNode newNode = new CharTreeNode('-', leftSideNode.getFrequency());
-            newNode.setLeft(leftSideNode);
-            newNode.setRight(null);
-            root=newNode;
-            return root;
-        }
-        while (pq.size() > 1) {
-                TreeNode leftSideNode= pq.poll();
-
-                TreeNode rightSideNode = pq.poll();
-           TreeNode newNode = new CharTreeNode('-',leftSideNode.getFrequency() + rightSideNode.getFrequency());
-                newNode.setLeft(leftSideNode);
-                newNode.setRight(rightSideNode);
-            root = newNode;
-            pq.add(newNode);
-        }
-        return root;
-    }
     @Override
     public void iterateTreeAndCalculateHuffManCode(TreeNode newNode, String s,IMap huffmanMap)
     {

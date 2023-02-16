@@ -10,7 +10,6 @@ import java.util.Map;
 public interface Compress
 {
   IMap calculateFreq(IFileReader fileReader);
-    TreeNode addElementIntoQueueAndReturnRoot(IMap frequencyMap);
     void iterateTreeAndCalculateHuffManCode(TreeNode newNode, String s, IMap huffmanMap);
     StringBuilder getCodes(IMap huffmanMap, IFileReader fobj);
     StringBuilder appendRemainingZeros(StringBuilder coded);

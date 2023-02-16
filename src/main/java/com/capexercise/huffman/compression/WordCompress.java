@@ -34,11 +34,6 @@ public class WordCompress implements Compress{
     }
 
     @Override
-    public TreeNode addElementIntoQueueAndReturnRoot(IMap frequencyMap) {
-        return null;
-    }
-
-    @Override
     public void iterateTreeAndCalculateHuffManCode(TreeNode newNode, String s, IMap huffmanMap) {
         if(newNode==null) {
             return;
