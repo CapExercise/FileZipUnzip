@@ -17,23 +17,13 @@ public class GeneralClass
         {
 
             if(val1!=val2)
-            {
-                System.out.println((char) val1);
-                System.out.println((char)val2);
                return false;
-            }
+
             val1=f3.read();
             val2=f4.read();
         }
 
-        if((val1!=-1 && val2==-1) || (val1==-1 && val2!=-1))
-        {
-            System.out.println((char)val1);
-            System.out.println((char)val2);
-            return false;
-        }
-
-        return true;
+        return (val1==-1 && val2==-1);
     }
 
     public static void displayStats(String inputFilePath, String compressedFilePath, String decompressedFilePath)
