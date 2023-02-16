@@ -1,6 +1,7 @@
 package com.capexercise.huffman.compression;
 
 import com.capexercise.general.*;
+import sun.reflect.generics.tree.Tree;
 
 import java.util.*;
 
@@ -25,40 +26,39 @@ public class ImplementationClassForCompression implements Compress
         return imap;
     }
     @Override
-    public Node addElementIntoQueueAndReturnRoot(IMap frequencyMap)
+    public TreeNode addElementIntoQueueAndReturnRoot(IMap frequencyMap)
     {
-        PriorityQueue<Node> pq = new PriorityQueue<>(frequencyMap.freqSize(), new FrequencyComparator());
+        PriorityQueue<TreeNode> pq = new PriorityQueue<>(frequencyMap.freqSize(), new FrequencyComparator());
         Map<Character,Integer> freq= (Map<Character, Integer>) frequencyMap.returnMap();
 
         for (Map.Entry<Character, Integer> entry : freq.entrySet())
         {
-            Node nd = new Node();
-            nd.setVar((entry.getKey()));
-            nd.setFrequency(entry.getValue());
-            nd.setLeft(null);
-            nd.setRight(null);
+            TreeNode nd = new CharTreeNode(entry.getKey(),entry.getValue());
+//            nd.setVar((entry.getKey()));
+//            nd.setFrequency(entry.getValue());
+//            nd.setLeft(null);
+//            nd.setRight(null);
             pq.add(nd);
         }
-        Node root = null;
+        TreeNode root = null;
         if(pq.size()==1) {
-            Node leftSideNode=pq.peek();
+            TreeNode leftSideNode=pq.peek();
             pq.poll();
-            Node newNode = new Node();
-            newNode.setFrequency(leftSideNode.getFrequency());
-            newNode.setVar('-');
+            TreeNode newNode = new CharTreeNode('-', leftSideNode.getFrequency());
+//            newNode.setFrequency(leftSideNode.getFrequency());
+//            newNode.setVar('-');
             newNode.setLeft(leftSideNode);
             newNode.setRight(null);
             root=newNode;
             return root;
         }
         while (pq.size() > 1) {
-                Node leftSideNode= pq.peek();
-                pq.poll();
-                Node rightSideNode = pq.peek();
-                pq.poll();
-            Node newNode = new Node();
-                newNode.setFrequency(leftSideNode.getFrequency() + rightSideNode.getFrequency());
-                newNode.setVar('-');
+                TreeNode leftSideNode= pq.poll();
+
+                TreeNode rightSideNode = pq.poll();
+           TreeNode newNode = new CharTreeNode('-',leftSideNode.getFrequency() + rightSideNode.getFrequency());
+//                newNode.setFrequency(leftSideNode.getFrequency() + rightSideNode.getFrequency());
+//                newNode.setVar('-');
                 newNode.setLeft(leftSideNode);
                 newNode.setRight(rightSideNode);
             root = newNode;
@@ -67,7 +67,7 @@ public class ImplementationClassForCompression implements Compress
         return root;
     }
     @Override
-    public void iterateTreeAndCalculateHuffManCode(Node newNode, String s,IMap huffmanMap)
+    public void iterateTreeAndCalculateHuffManCode(TreeNode newNode, String s,IMap huffmanMap)
     {
         if(newNode==null) {
             return;

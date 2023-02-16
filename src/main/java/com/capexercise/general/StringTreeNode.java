@@ -5,6 +5,13 @@ public class StringTreeNode implements TreeNode{
     private Integer frequency;
     TreeNode left,right;
 
+    StringTreeNode(String stringVal,int frequency){
+        this.stringVal=stringVal;
+        this.frequency=new Integer(frequency);
+        this.left=null;
+        this.right=null;
+    }
+
     @Override
     public void setVar(Object value) {
             this.stringVal = (String) value;
@@ -37,7 +44,7 @@ public class StringTreeNode implements TreeNode{
 
     @Override
     public TreeNode getLeft() {
-        return this.getLeft();
+        return this.left;
     }
 
     @Override

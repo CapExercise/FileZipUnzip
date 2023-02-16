@@ -24,7 +24,7 @@ public class HuffManCompressorAndDecompressor implements FileZipper
         {
             //IMap imap=new MapImplemenationForChar();
           IMap frequencyMap = c.calculateFreq(fop);
-            Node root = c.addElementIntoQueueAndReturnRoot(frequencyMap);
+            TreeNode root = c.addElementIntoQueueAndReturnRoot(frequencyMap);
             IMap HuffMan_Map=new MapImplemenationForChar();
             c.iterateTreeAndCalculateHuffManCode(root, "",HuffMan_Map);
             StringBuilder coded=c.getCodes(HuffMan_Map,fop);
@@ -55,7 +55,7 @@ public class HuffManCompressorAndDecompressor implements FileZipper
         try
         {
             ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(Path.compressedFilePath));
-            Node root=(Node) inStream.readObject();
+            TreeNode root=(TreeNode)  inStream.readObject();
             int noOfZeros=inStream.readInt();
             byte[] byteArray= (byte[])inStream.readObject();
             StringBuilder decoded=d.getDecodedString(byteArray);

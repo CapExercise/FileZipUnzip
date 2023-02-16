@@ -2,6 +2,7 @@ package com.capexercise.huffman.decompression;
 
 import com.capexercise.general.Node;
 import com.capexercise.general.Path;
+import com.capexercise.general.TreeNode;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -36,16 +37,16 @@ public class ImplemenatationClassForDecompression implements Decompress
         return ans;
     }
     @Override
-    public Node goLeftorRightAndReturnNode(Node root, char val)
+    public TreeNode goLeftorRightAndReturnNode(TreeNode root, char val)
     {
         if(val=='0')
         {
-            root=root.left;
+            root=root.getLeft();
             return root;
         }
         else
         {
-            root=root.right;
+            root=root.getRight();
             return root;
         }
     }
@@ -69,17 +70,17 @@ public class ImplemenatationClassForDecompression implements Decompress
     }
 
     @Override
-    public void writeIntoDecompressedFile(Node root, StringBuilder decoded, int no_of_zeros) throws IOException
+    public void writeIntoDecompressedFile(TreeNode root, StringBuilder decoded, int no_of_zeros) throws IOException
     {
      //01101000
-        Node head=root;
+        TreeNode head=root;
             FileWriter fileWriter = new FileWriter(Path.decompressedFilePath);
             for (int i = 0; i < decoded.length() - no_of_zeros; i++) {
                 char cc = (decoded.charAt(i));
-                Node newNode = goLeftorRightAndReturnNode(root, cc);
-                if (newNode.left == null && newNode.right == null)
+                TreeNode newNode = goLeftorRightAndReturnNode(root, cc);
+                if (newNode.getLeft() == null && newNode.getRight() == null)
                 {
-                    fileWriter.write(newNode.var);
+                    fileWriter.write((char)newNode.getVar());
                     root = head;
                 }
                 else

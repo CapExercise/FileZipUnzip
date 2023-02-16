@@ -1,7 +1,9 @@
 package com.capexercise.general;
 
 
-public interface TreeNode {
+import java.io.Serializable;
+
+public interface TreeNode extends Serializable {
     void setVar(Object value);
     void setFrequency(int freq);
 

@@ -2,23 +2,17 @@ package com.capexercise.general;
 
 import java.util.Comparator;
 
-public class FrequencyComparator implements Comparator<Node>
+public class FrequencyComparator implements Comparator<TreeNode>
 {
     @Override
-    public int compare(Node lhs, Node rhs)
+    public int compare(TreeNode lhs, TreeNode rhs)
     {
 
         if(lhs.getFrequency()==rhs.getFrequency())
         {
-            if((int)lhs.getVar()>(int)rhs.getVar())
-            {
-                return 1;
-            }
-            else
-            {
-                return -1;
-            }
-
+           String a=lhs.getVar()+"";
+           String b=rhs.getVar()+"";
+          return a.compareTo(b);
         }
         else if(lhs.getFrequency()>rhs.getFrequency())
         {

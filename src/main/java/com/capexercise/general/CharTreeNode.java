@@ -6,7 +6,7 @@ public class CharTreeNode implements TreeNode{
     private Integer frequency;
     TreeNode left,right;
 
-    CharTreeNode(char character,int frequency){
+    public CharTreeNode(char character, int frequency){
         this.character = new Character(character);
         this.frequency = new Integer(frequency);
         this.left = null;
