@@ -35,7 +35,7 @@ public class Main {
 
 
         while (flag) {
-            System.out.println("enter the option 1 for compression"+System.lineSeparator()+"2 for decompression"+System.lineSeparator()+"3 check validity of the decompressed file"+System.lineSeparator()+" and press 4 to exit"+System.lineSeparator());
+            System.out.println("Enter the option\n1.Compression\n2.Decompression\n3.Check validity of the decompressed file\n4.Exit");
             choice = scr.nextInt();
             int startTime= (int)System.currentTimeMillis();
             switch (choice)
@@ -43,7 +43,7 @@ public class Main {
                 case 1:
                     atleastOnce = 1;
                     zipper.compress();
-                    System.out.println("Time for compression  "+((int)System.currentTimeMillis()-startTime));
+                    System.out.println("Time for compression:"+((int)System.currentTimeMillis()-startTime));
                     break;
 
                 case 2:
@@ -53,17 +53,17 @@ public class Main {
                         break;
                     }
                     zipper.decompress();
-                    System.out.println("Time for De-compression  "+((int)System.currentTimeMillis()-startTime));
+                    System.out.println("Time for De-compression:"+((int)System.currentTimeMillis()-startTime));
                     break;
 
                 case 3:
                     if (GeneralClass.check(Path.inputFilePath, Path.decompressedFilePath) == true)
                     {
-                        System.out.println("match");
+                        System.out.println("Files match!");
                     }
                     else
                     {
-                        System.out.println("mis-match");
+                        System.out.println("Files don't match!");
                     }
                     break;
 
