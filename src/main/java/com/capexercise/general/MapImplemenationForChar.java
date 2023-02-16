@@ -26,7 +26,8 @@ public class MapImplemenationForChar implements IMap {
     }
 
     @Override
-    public int getFrequency(String val) {
+    public int getFrequency(String val)
+    {
      return frequecyMap.getOrDefault(val.charAt(0),0);
     }
 
@@ -67,6 +68,16 @@ public class MapImplemenationForChar implements IMap {
     @Override
     public void clearHuffMap() {
     this.huffmanMap.clear();
+    }
+
+    @Override
+    public boolean containsFreqKey(Object key) {
+        return  this.frequecyMap.containsKey(key);
+    }
+
+    @Override
+    public boolean containsHuffKey(Object key) {
+      return this.huffmanMap.containsKey(key);
     }
 
 }

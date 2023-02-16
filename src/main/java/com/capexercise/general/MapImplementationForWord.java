@@ -7,11 +7,18 @@ public class MapImplementationForWord implements IMap{
 
     Map<String,Integer> frequecyMap;
     Map<String,String> huffmanMap;
-    MapImplementationForWord()
+    public MapImplementationForWord()
     {
         frequecyMap=new HashMap<>();
         huffmanMap =new HashMap<>();
     }
+
+    public MapImplementationForWord(Map<String,Integer> fMap,Map<String,String> hMap)
+    {
+        this.frequecyMap=fMap;
+        this.huffmanMap=hMap;
+    }
+
     @Override
     public void putFrequency(String val,int x) {
         frequecyMap.put(val,x+1);
@@ -19,7 +26,7 @@ public class MapImplementationForWord implements IMap{
 
     @Override
     public int getFrequency(String val) {
-        return frequecyMap.get(val);
+        return frequecyMap.getOrDefault(val,0);
     }
 
     @Override
@@ -29,12 +36,12 @@ public class MapImplementationForWord implements IMap{
 
     @Override
     public String getHUffmanCode(String val) {
-        return huffmanMap.get(val);
+        return huffmanMap.getOrDefault(val,"");
     }
 
     @Override
     public Object returnMap() {
-        return huffmanMap;
+        return frequecyMap;
     }
 
     public int freqSize() {
@@ -54,5 +61,15 @@ public class MapImplementationForWord implements IMap{
     @Override
     public void clearHuffMap() {
        this.huffmanMap.clear();
+    }
+
+    @Override
+    public boolean containsFreqKey(Object key) {
+        return this.frequecyMap.containsKey(key);
+    }
+
+    @Override
+    public boolean containsHuffKey(Object key) {
+        return this.huffmanMap.containsKey(key);
     }
 }

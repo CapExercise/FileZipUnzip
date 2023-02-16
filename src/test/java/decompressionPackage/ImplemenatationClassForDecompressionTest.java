@@ -1,6 +1,6 @@
 package decompressionPackage;
 
-import com.capexercise.huffman.decompression.ImplemenatationClassForDecompression;
+import com.capexercise.huffman.decompression.CharDecompress;
 import com.capexercise.general.Path;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +17,7 @@ import java.util.Arrays;
 public class ImplemenatationClassForDecompressionTest
 {
 
-    ImplemenatationClassForDecompression d=new ImplemenatationClassForDecompression();
+    CharDecompress d=new CharDecompress();
 
     Node root=null;
     @Before
@@ -104,7 +104,7 @@ public class ImplemenatationClassForDecompressionTest
     public void TestgetCodedString_UsingMocking()
     {
 
-      ImplemenatationClassForDecompression mockedDecompression= Mockito.spy(d);
+      CharDecompress mockedDecompression= Mockito.spy(d);
 
        ArrayList<Integer> list1=new ArrayList<Integer>(Arrays.asList(0,1,0,1,0,0,1,0));
        ArrayList<Integer> list2=new ArrayList<Integer>(Arrays.asList(0,1,1,1,1,0,0,0));

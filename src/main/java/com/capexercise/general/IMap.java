@@ -1,8 +1,5 @@
 package com.capexercise.general;
 
-import java.util.Map;
-import java.util.Set;
-
 public interface IMap {
 
     void putFrequency(String val,int x);
@@ -25,6 +22,10 @@ public interface IMap {
     void clearFreqMap();
 
     void clearHuffMap();
+
+    boolean containsFreqKey(Object key);
+
+    boolean containsHuffKey(Object key);
 
 
 }

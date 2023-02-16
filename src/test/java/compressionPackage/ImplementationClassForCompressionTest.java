@@ -1,5 +1,5 @@
 package compressionPackage;
-import com.capexercise.huffman.compression.ImplementationClassForCompression;
+import com.capexercise.huffman.compression.CharCompress;
 import com.capexercise.general.IFileReader;
 import com.capexercise.general.ImplemenationClassForFileDuringTesting;
 import com.capexercise.general.Node;
@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 public class ImplementationClassForCompressionTest
 {
 
-    ImplementationClassForCompression c=new ImplementationClassForCompression();
+    CharCompress c=new CharCompress();
       Node root=null;
 
     @Before

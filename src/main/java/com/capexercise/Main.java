@@ -1,9 +1,10 @@
 package com.capexercise;
 
 import com.capexercise.filezipunzip.FileZipper;
-import com.capexercise.huffman.HuffManCompressorAndDecompressor;
+import com.capexercise.huffman.CharZipperUnZipper;
 import com.capexercise.general.GeneralClass;
 import com.capexercise.general.Path;
+import com.capexercise.huffman.WordZipperUnZipper;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -19,8 +20,8 @@ public class Main {
         boolean flag = true;
 
 
-       FileZipper zipper = new HuffManCompressorAndDecompressor();
-
+      // FileZipper zipper = new CharZipperUnZipper();
+       FileZipper zipper=new WordZipperUnZipper();
       /*
 
       if I want some new Zipping Algorithm to be implemented

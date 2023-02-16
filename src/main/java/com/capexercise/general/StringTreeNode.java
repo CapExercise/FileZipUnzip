@@ -5,7 +5,7 @@ public class StringTreeNode implements TreeNode{
     private Integer frequency;
     TreeNode left,right;
 
-    StringTreeNode(String stringVal,int frequency){
+    public StringTreeNode(String stringVal, int frequency){
         this.stringVal=stringVal;
         this.frequency=new Integer(frequency);
         this.left=null;
