@@ -19,6 +19,8 @@ public class WordZipperUnZipper implements FileZipper {
         
       Compress c=new WordCompress();
 
+      GeneralInterface generalInterface=new GeneralClassImplementation();
+
         IFileReader fop=new ImplementationForFileOpearations(Path.inputFilePath);
         try
         {
@@ -26,12 +28,12 @@ public class WordZipperUnZipper implements FileZipper {
             TreeNode root=this.constructTree(compressionMaps);
             c.iterateTreeAndCalculateHuffManCode(root, "",compressionMaps);
             StringBuilder coded=c.getCodes(compressionMaps,fop);
-            int noOfZerosAppended =c.noofZerosToBeAppended(coded);
+            int noOfZerosAppended =generalInterface.noofZerosToBeAppended(coded);
             if(noOfZerosAppended !=0)
             {
-                coded = c.appendRemainingZeros(coded);
+                coded = generalInterface.appendRemainingZeros(coded);
             }
-            byte[] byteArray=c.compress(coded);
+            byte[] byteArray=generalInterface.compress(coded);
 
             compressionMaps.clearHuffMap();
             ObjectOutputStream outStream=new ObjectOutputStream(new FileOutputStream(Path.compressedFilePath));
@@ -52,6 +54,7 @@ public class WordZipperUnZipper implements FileZipper {
     public void decompress() {
         Decompress d = new WordDecompress();
 
+        GeneralInterface generalInterface=new GeneralClassImplementation();
         try
         {
             //
@@ -73,9 +76,7 @@ public class WordZipperUnZipper implements FileZipper {
         System.out.println("De-Compression done Successfully");
 
 
-        GeneralClass.displayStats(Path.inputFilePath,Path.compressedFilePath,Path.decompressedFilePath);
-
-
+        generalInterface.displayStats(Path.inputFilePath,Path.compressedFilePath,Path.decompressedFilePath);
     }
 
     @Override

@@ -12,7 +12,5 @@ public interface Compress
   IMap calculateFreq(IFileReader fileReader);
     void iterateTreeAndCalculateHuffManCode(TreeNode newNode, String s, IMap huffmanMap);
     StringBuilder getCodes(IMap huffmanMap, IFileReader fobj);
-    StringBuilder appendRemainingZeros(StringBuilder coded);
-    int noofZerosToBeAppended(StringBuilder coded);
-    byte[] compress(StringBuilder coded);
+
 }

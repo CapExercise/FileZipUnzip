@@ -15,6 +15,7 @@ public class ImplementationForFileOpearations implements IFileReader {
        // System.out.println("hello");
         StringBuilder ans=new StringBuilder();
         try {
+
             FileReader fin=new FileReader(filObj);
             int c=fin.read();
             while(c!=-1)

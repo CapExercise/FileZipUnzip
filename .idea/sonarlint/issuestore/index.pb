@@ -12,13 +12,7 @@ b
 Psrc/test/java/decompressionPackage/ImplemenatationClassForDecompressionTest.java,6/6/66378aca7dbff07d7aadaa41a5b7437753ad0f72
 {
 Ksrc/test/java/compressionPackage/ImplementationClassForCompressionTest.java,3/0/30a2254d8424db6213778c8fabfeda0ab4375225
-c
-3src/main/java/com/capexercise/general/GetStats.java,f/5/f51f75a139ca6754d52871c185290b97e1137c26
 Å
 Qsrc/main/java/com/capexercise/general/ImplemenationClassForFileDuringTesting.java,f/5/f56a9fffa92c5001f2ee88681c7f1c31a3655856
-{
-Ksrc/main/java/com/capexercise/general/ImplementationForFileOpearations.java,5/1/51286f6a3b21bd26178b3119efba10281985e4a1
-f
-6src/main/java/com/capexercise/general/IFileReader.java,1/4/14742417f79ec2aef58391b115fa88f90226301f
 _
 /src/main/java/com/capexercise/general/Node.java,9/8/9827bb4644fc029ca0012aec94085bcaecf4c8fc

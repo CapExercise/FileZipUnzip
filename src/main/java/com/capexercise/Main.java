@@ -4,6 +4,7 @@ import com.capexercise.filezipunzip.FileZipper;
 import com.capexercise.huffman.CharZipperUnZipper;
 import com.capexercise.general.GeneralClass;
 import com.capexercise.general.Path;
+import com.capexercise.huffman.GeneralClassImplementation;
 import com.capexercise.huffman.WordZipperUnZipper;
 
 import java.io.IOException;
@@ -57,7 +58,7 @@ public class Main {
                     break;
 
                 case 3:
-                    if (GeneralClass.check(Path.inputFilePath, Path.decompressedFilePath) == true)
+                    if (new GeneralClassImplementation().check(Path.inputFilePath, Path.decompressedFilePath) == true)
                     {
                         System.out.println("Files match!");
                     }
