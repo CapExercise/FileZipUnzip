@@ -2,7 +2,7 @@ package com.capexercise.huffman.decompression;
 
 import com.capexercise.general.Node;
 import com.capexercise.general.Path;
-import generalPackage.*;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -88,6 +88,5 @@ public class ImplemenatationClassForDecompression implements Decompress
                 }
             }
             fileWriter.close();
-
     }
 }

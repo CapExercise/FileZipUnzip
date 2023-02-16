@@ -1,32 +1,36 @@
 package com.capexercise.huffman.compression;
 
-import com.capexercise.general.FrequencyComparator;
-import com.capexercise.general.IFileReader;
-import com.capexercise.general.Node;
+import com.capexercise.general.*;
 
 import java.util.*;
-import generalPackage.*;
+
 public class ImplementationClassForCompression implements Compress
 {
     @Override
-    public Map<Character, Integer> calculateFreq(IFileReader fileReader)
+    public IMap calculateFreq(IFileReader fileReader)
     {
-        Map<Character, Integer> frequencyMap = new HashMap<>();
+       // Map<Character, Integer> frequencyMap = new HashMap<>();
+        IMap imap=new MapImplemenationForChar();
+
         int c =0;
 
         String ans=fileReader.readFile();
 
         for(char x:ans.toCharArray())
         {
-            frequencyMap.put(x,frequencyMap.getOrDefault(x,0)+1);
+            int val=imap.getFrequency(x+"");
+            imap.putFrequency(x+"",val+1);
+            //frequencyMap.put(x,frequencyMap.getOrDefault(x,0)+1);
         }
-        return  frequencyMap;
+        return imap;
     }
     @Override
-    public Node addElementIntoQueueAndReturnRoot(Map<Character, Integer> frequencyMap)
+    public Node addElementIntoQueueAndReturnRoot(IMap frequencyMap)
     {
-        PriorityQueue<Node> pq = new PriorityQueue<>(frequencyMap.size(), new FrequencyComparator());
-        for (Map.Entry<Character, Integer> entry : frequencyMap.entrySet())
+        PriorityQueue<Node> pq = new PriorityQueue<>(frequencyMap.freqSize(), new FrequencyComparator());
+        Map<Character,Integer> freq= (Map<Character, Integer>) frequencyMap.returnMap();
+
+        for (Map.Entry<Character, Integer> entry : freq.entrySet())
         {
             Node nd = new Node();
             nd.setVar((entry.getKey()));
@@ -63,25 +67,28 @@ public class ImplementationClassForCompression implements Compress
         return root;
     }
     @Override
-    public void iterateTreeAndCalculateHuffManCode(Node newNode, String s,Map<Character,String> huffmanMap)
+    public void iterateTreeAndCalculateHuffManCode(Node newNode, String s,IMap huffmanMap)
     {
         if(newNode==null) {
             return;
         }
-        if(newNode.getLeft()==null && newNode.getRight()==null) {
-            huffmanMap.put(newNode.getVar(),s);}
+        if(newNode.getLeft()==null && newNode.getRight()==null)
+        {
+            huffmanMap.putHuffManCode(newNode.getVar()+"",s);
+           // huffmanMap.put(newNode.getVar(),s);
+        }
         iterateTreeAndCalculateHuffManCode(newNode.getLeft(),s+"0",huffmanMap);
         iterateTreeAndCalculateHuffManCode(newNode.getRight(),s+"1",huffmanMap);
     }
 
     @Override
-    public StringBuilder getCodes(Map<Character, String> huffmanMap, IFileReader fobj)
+    public StringBuilder getCodes(IMap huffmanMap, IFileReader fobj)
     {
         StringBuilder ans=new StringBuilder();
         String curr=fobj.readFile();
         for(char x:curr.toCharArray())
         {
-            ans.append(huffmanMap.get(x));
+            ans.append(huffmanMap.getHUffmanCode(x+""));
         }
         return ans;
     }

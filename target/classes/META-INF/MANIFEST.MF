@@ -1,1 +1,1 @@
-Main-Class: Main
+com.capexercise.Main-Class: com.capexercise.Main

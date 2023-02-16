@@ -10,7 +10,7 @@ import com.capexercise.general.*;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
-import generalPackage.*;
+
 public class HuffManCompressorAndDecompressor implements FileZipper
 {
 
@@ -22,9 +22,10 @@ public class HuffManCompressorAndDecompressor implements FileZipper
         IFileReader fop=new ImplementationForFileOpearations(Path.inputFilePath);
         try
         {
-            Map<Character, Integer> frequencyMap = c.calculateFreq(fop);
+            //IMap imap=new MapImplemenationForChar();
+          IMap frequencyMap = c.calculateFreq(fop);
             Node root = c.addElementIntoQueueAndReturnRoot(frequencyMap);
-            Map<Character,String> HuffMan_Map=new HashMap<>();
+            IMap HuffMan_Map=new MapImplemenationForChar();
             c.iterateTreeAndCalculateHuffManCode(root, "",HuffMan_Map);
             StringBuilder coded=c.getCodes(HuffMan_Map,fop);
             int noOfZerosAppended =c.noofZerosToBeAppended(coded);
