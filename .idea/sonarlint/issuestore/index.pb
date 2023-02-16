@@ -12,8 +12,6 @@ b
 Psrc/test/java/decompressionPackage/ImplemenatationClassForDecompressionTest.java,6/6/66378aca7dbff07d7aadaa41a5b7437753ad0f72
 {
 Ksrc/test/java/compressionPackage/ImplementationClassForCompressionTest.java,3/0/30a2254d8424db6213778c8fabfeda0ab4375225
-j
-:src/main/java/com/capexercise/filezipunzip/FileZipper.java,4/8/487bb6e521cb253b445d5d5e5be817b84f22e5d1
 c
 3src/main/java/com/capexercise/general/GetStats.java,f/5/f51f75a139ca6754d52871c185290b97e1137c26
 Å

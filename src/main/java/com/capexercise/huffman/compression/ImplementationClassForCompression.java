@@ -34,19 +34,14 @@ public class ImplementationClassForCompression implements Compress
         for (Map.Entry<Character, Integer> entry : freq.entrySet())
         {
             TreeNode nd = new CharTreeNode(entry.getKey(),entry.getValue());
-//            nd.setVar((entry.getKey()));
-//            nd.setFrequency(entry.getValue());
-//            nd.setLeft(null);
-//            nd.setRight(null);
             pq.add(nd);
         }
         TreeNode root = null;
-        if(pq.size()==1) {
+        if(pq.size()==1)
+        {
             TreeNode leftSideNode=pq.peek();
             pq.poll();
             TreeNode newNode = new CharTreeNode('-', leftSideNode.getFrequency());
-//            newNode.setFrequency(leftSideNode.getFrequency());
-//            newNode.setVar('-');
             newNode.setLeft(leftSideNode);
             newNode.setRight(null);
             root=newNode;
@@ -57,8 +52,6 @@ public class ImplementationClassForCompression implements Compress
 
                 TreeNode rightSideNode = pq.poll();
            TreeNode newNode = new CharTreeNode('-',leftSideNode.getFrequency() + rightSideNode.getFrequency());
-//                newNode.setFrequency(leftSideNode.getFrequency() + rightSideNode.getFrequency());
-//                newNode.setVar('-');
                 newNode.setLeft(leftSideNode);
                 newNode.setRight(rightSideNode);
             root = newNode;

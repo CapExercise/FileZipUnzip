@@ -12,6 +12,12 @@ public class MapImplemenationForChar implements IMap {
      huffmanMap =new HashMap<>();
     }
 
+    public MapImplemenationForChar(Map<Character,Integer> fMap,Map<Character,String> hMap)
+    {
+        this.frequecyMap=fMap;
+        this.huffmanMap=hMap;
+    }
+
 
     @Override
     public void putFrequency(String val,int x) {
@@ -51,6 +57,16 @@ public class MapImplemenationForChar implements IMap {
     @Override
     public int huffmanSize() {
         return huffmanMap.size();
+    }
+
+    @Override
+    public void clearFreqMap() {
+    this.frequecyMap.clear();
+    }
+
+    @Override
+    public void clearHuffMap() {
+    this.huffmanMap.clear();
     }
 
 }

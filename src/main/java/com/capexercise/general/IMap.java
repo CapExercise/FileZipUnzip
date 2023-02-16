@@ -22,5 +22,9 @@ public interface IMap {
 
     int huffmanSize();
 
+    void clearFreqMap();
+
+    void clearHuffMap();
+
 
 }

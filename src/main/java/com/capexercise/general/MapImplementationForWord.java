@@ -45,4 +45,14 @@ public class MapImplementationForWord implements IMap{
     public int huffmanSize() {
         return huffmanMap.size();
     }
+
+    @Override
+    public void clearFreqMap() {
+        this.frequecyMap.clear();
+    }
+
+    @Override
+    public void clearHuffMap() {
+       this.huffmanMap.clear();
+    }
 }
