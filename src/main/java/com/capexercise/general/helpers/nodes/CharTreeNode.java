@@ -1,14 +1,12 @@
 package com.capexercise.general.helpers.nodes;
 
-import com.capexercise.general.helpers.nodes.TreeNode;
-
 public class CharTreeNode implements TreeNode {
 
     private Character character;
     private Integer frequency;
-    TreeNode left,right;
+    TreeNode left, right;
 
-    public CharTreeNode(char character, int frequency){
+    public CharTreeNode(char character, int frequency) {
         this.character = new Character(character);
         this.frequency = new Integer(frequency);
         this.left = null;
@@ -17,12 +15,12 @@ public class CharTreeNode implements TreeNode {
 
     @Override
     public void setVar(Object value) {
-        this.character = new Character((char)value);
+        this.character = new Character((char) value);
     }
 
     @Override
     public void setFrequency(int freq) {
-        this.frequency = new Integer(frequency);
+        this.frequency = frequency;
     }
 
     @Override
@@ -32,7 +30,7 @@ public class CharTreeNode implements TreeNode {
 
     @Override
     public void setRight(TreeNode right) {
-            this.right = right;
+        this.right = right;
     }
 
     @Override

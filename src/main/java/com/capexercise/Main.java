@@ -2,7 +2,8 @@ package com.capexercise;
 
 import com.capexercise.filezipunzip.FileZipper;
 import com.capexercise.general.Path;
-import com.capexercise.huffman.compression.GeneralMethods;
+import com.capexercise.huffman.character.CharZipperUnZipper;
+import com.capexercise.huffman.general.GeneralMethods;
 import com.capexercise.huffman.word.WordZipperUnZipper;
 
 import java.io.IOException;
@@ -10,8 +11,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException
-    {
+    public static void main(String[] args) throws IOException {
         Scanner scr = new Scanner(System.in);
         int choice = 0;
 
@@ -19,7 +19,7 @@ public class Main {
         boolean flag = true;
 
 
-      // FileZipper zipper = new CharZipperUnZipper();
+//        FileZipper zipper = new CharZipperUnZipper();
        FileZipper zipper=new WordZipperUnZipper();
 
       /*
@@ -37,13 +37,12 @@ public class Main {
         while (flag) {
             System.out.println("Enter the option\n1.Compression\n2.Decompression\n3.Check validity of the decompressed file\n4.Exit");
             choice = scr.nextInt();
-            int startTime= (int)System.currentTimeMillis();
-            switch (choice)
-            {
+            int startTime = (int) System.currentTimeMillis();
+            switch (choice) {
                 case 1:
                     atleastOnce = 1;
                     zipper.compress();
-                    System.out.println("Time for compression:"+((int)System.currentTimeMillis()-startTime));
+                    System.out.println("Time for compression:" + ((int) System.currentTimeMillis() - startTime));
                     break;
 
                 case 2:
@@ -53,21 +52,19 @@ public class Main {
                         break;
                     }
                     zipper.decompress();
-                    System.out.println("Time for De-compression:"+((int)System.currentTimeMillis()-startTime));
+                    System.out.println("Time for De-compression:" + ((int) System.currentTimeMillis() - startTime));
                     break;
 
                 case 3:
-                    if (new GeneralMethods().check(Path.inputFilePath, Path.decompressedFilePath) == true)
-                    {
+                    if (new GeneralMethods().check(Path.inputFilePath, Path.decompressedFilePath)) {
                         System.out.println("Files match!");
-                    }
-                    else
-                    {
+                    } else {
                         System.out.println("Files don't match!");
                     }
                     break;
 
-                case 4:flag = false;
+                case 4:
+                    flag = false;
                     break;
 
                 default:

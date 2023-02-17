@@ -6,7 +6,7 @@ import com.capexercise.general.helpers.nodes.TreeNode;
 public interface FileZipper {
     void compress();
 
-   void decompress();
+    void decompress();
 
-   TreeNode constructTree(IMap imap);
+    TreeNode constructTree(IMap imap);
 }

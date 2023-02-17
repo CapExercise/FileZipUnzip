@@ -1,5 +1,6 @@
 package decompressionPackage;
 
+import com.capexercise.general.helpers.nodes.TreeNode;
 import com.capexercise.huffman.character.decompressor.CharDecompress;
 import com.capexercise.general.Path;
 import org.junit.Before;
@@ -127,13 +128,13 @@ public class ImplemenatationClassForDecompressionTest
         leftNode.setLeft(null);
         leftNode.setRight(null);
 
-        Node rightNode=new Node();
+        TreeNode rightNode=new TreeNode();
         rightNode.setVar('b');
         rightNode.setFrequency(5);
         rightNode.setLeft(null);
         rightNode.setRight(null);
 
-        Node parentNode=new Node();
+        TreeNode parentNode=new Node();
         parentNode.setVar('-');
         parentNode.setFrequency(leftNode.getFrequency()+rightNode.getFrequency());
         parentNode.setLeft(leftNode);

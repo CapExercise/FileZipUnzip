@@ -2,31 +2,27 @@ package com.capexercise.huffman.word.decompressor;
 
 import com.capexercise.general.Path;
 import com.capexercise.general.helpers.nodes.TreeNode;
-import com.capexercise.huffman.decompression.Decompress;
+import com.capexercise.huffman.decompression.IDecompress;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class WordDecompress implements Decompress {
+public class WordDecompress implements IDecompress {
     @Override
     public ArrayList<Integer> get8bitcode(int val) throws RuntimeException {
-        if(val<0)
-        {
+        if (val < 0) {
             throw new RuntimeException();
         }
         //this method will do the decimal to binary conversion( 8 bit code)
-        ArrayList<Integer> ans=new ArrayList<>();
-        while(val!=0)
-        {
-            ans.add(val%2);
-            val=val/2;
+        ArrayList<Integer> ans = new ArrayList<>();
+        while (val != 0) {
+            ans.add(val % 2);
+            val = val / 2;
         }
-        if(ans.size()<8)
-        {
-            while(ans.size()<8)
-            {
+        if (ans.size() < 8) {
+            while (ans.size() < 8) {
                 ans.add(0);
             }
         }
@@ -37,14 +33,11 @@ public class WordDecompress implements Decompress {
 
     @Override
     public TreeNode goLeftorRightAndReturnNode(TreeNode root, char val) {
-        if(val=='0')
-        {
-            root=root.getLeft();
+        if (val == '0') {
+            root = root.getLeft();
             return root;
-        }
-        else
-        {
-            root=root.getRight();
+        } else {
+            root = root.getRight();
             return root;
         }
 
@@ -68,26 +61,28 @@ public class WordDecompress implements Decompress {
     }
 
     @Override
-    public void writeIntoDecompressedFile(TreeNode root, StringBuilder decoded, int no_of_zeros) throws IOException {
-        TreeNode head=root;
+    public void writeIntoDecompressedFile(TreeNode root, StringBuilder decoded, int no_of_zeros) {
+        TreeNode head = root;
 
-        StringBuilder finalAns=new StringBuilder();
+        StringBuilder finalAns = new StringBuilder();
         for (int i = 0; i < decoded.length() - no_of_zeros; i++) {
             char cc = (decoded.charAt(i));
             TreeNode newNode = goLeftorRightAndReturnNode(root, cc);
-            if (newNode.getLeft() == null && newNode.getRight() == null)
-            {
+            if (newNode.getLeft() == null && newNode.getRight() == null) {
                 finalAns.append((String) newNode.getVar());
                 //fileWriter.write((char)newNode.getVar());
                 root = head;
-            }
-            else
-            {
+            } else {
                 root = newNode;
             }
         }
-        FileWriter fileWriter = new FileWriter(Path.decompressedFilePath);
-        fileWriter.write(finalAns.toString());
-        fileWriter.close();
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(Path.decompressedFilePath);
+            fileWriter.write(finalAns.toString());
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

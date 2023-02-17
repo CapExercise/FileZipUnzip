@@ -2,9 +2,9 @@ package com.capexercise.general.helpers.input;
 
 public interface IDataHandle {
 
-    public String readContent();
+    String readContent();
 
-    public String[] readContentAsArray();
+    String[] readContentAsArray();
 
 
 }

@@ -2,16 +2,13 @@ package com.capexercise.general.helpers.maps;
 
 public interface IMap {
 
-    void putFrequency(String val,int x);
+    void putFrequency(Object val, int x);
 
-    int getFrequency(String val);
+    int getFrequency(Object val);
 
+    void putHuffManCode(Object val, String code);
 
-
-
-    void putHuffManCode(String val,String code);
-
-    String getHUffmanCode(String val);
+    String getHuffmanCode(Object val);
 
     Object returnMap();
 

@@ -2,12 +2,11 @@ package com.capexercise.general;
 
 import java.io.Serializable;
 
-public class Node implements Serializable
-{
-   public char var;
-    public int frequency=0;
-    public Node left=null;
-    public Node right=null;
+public class Node implements Serializable {
+    public char var;
+    public int frequency = 0;
+    public Node left = null;
+    public Node right = null;
 
     public char getVar() {
         return var;

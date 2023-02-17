@@ -3,40 +3,39 @@ package com.capexercise.general.helpers.maps;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapImplementationForWord implements IMap{
+public class WordMaps implements IMap {
 
-    Map<String,Integer> frequecyMap;
-    Map<String,String> huffmanMap;
-    public MapImplementationForWord()
-    {
-        frequecyMap=new HashMap<>();
-        huffmanMap =new HashMap<>();
+    Map<Object, Integer> frequecyMap;
+    Map<Object, String> huffmanMap;
+
+    public WordMaps() {
+        frequecyMap = new HashMap<>();
+        huffmanMap = new HashMap<>();
     }
 
-    public MapImplementationForWord(Map<String,Integer> fMap,Map<String,String> hMap)
-    {
-        this.frequecyMap=fMap;
-        this.huffmanMap=hMap;
-    }
-
-    @Override
-    public void putFrequency(String val,int x) {
-        frequecyMap.put(val,x+1);
+    public WordMaps(Map<Object, Integer> fMap, Map<Object, String> hMap) {
+        this.frequecyMap = fMap;
+        this.huffmanMap = hMap;
     }
 
     @Override
-    public int getFrequency(String val) {
-        return frequecyMap.getOrDefault(val,0);
+    public void putFrequency(Object val, int x) {
+        frequecyMap.put(val, x + 1);
     }
 
     @Override
-    public void putHuffManCode(String val, String code) {
-        huffmanMap.put(val,code);
+    public int getFrequency(Object val) {
+        return frequecyMap.getOrDefault(val, 0);
     }
 
     @Override
-    public String getHUffmanCode(String val) {
-        return huffmanMap.getOrDefault(val,"");
+    public void putHuffManCode(Object val, String code) {
+        huffmanMap.put(val, code);
+    }
+
+    @Override
+    public String getHuffmanCode(Object val) {
+        return huffmanMap.getOrDefault(val, "");
     }
 
     @Override
@@ -60,7 +59,7 @@ public class MapImplementationForWord implements IMap{
 
     @Override
     public void clearHuffMap() {
-       this.huffmanMap.clear();
+        this.huffmanMap.clear();
     }
 
     @Override
