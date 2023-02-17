@@ -51,24 +51,6 @@ public class WordCompress implements Compress{
         StringBuilder finalAns=new StringBuilder();
         String ans=fobj.readFile();
         String sub="";
-//        for(int i=0;i<ans.length();i++)
-//        {
-//            char currentCharacter = ans.charAt(i);
-//
-//            while(Character.isAlphabetic(currentCharacter) || Character.isDigit(currentCharacter)){
-//                sub+=currentCharacter;
-//                if(i<ans.length()-1)
-//                    currentCharacter =ans.charAt(++i);
-//            }
-//
-//            if(huffmanMap.containsHuffKey(sub)) {
-//
-//                finalAns.append(huffmanMap.getHUffmanCode(sub));
-//            }
-//            if(huffmanMap.containsHuffKey(""+currentCharacter))
-//                finalAns.append(huffmanMap.getHUffmanCode(""+currentCharacter));
-//            sub = "";
-//        }
         for(int i=0;i<ans.length();i++)
         {
             while(i<ans.length() && (Character.isAlphabetic(ans.charAt(i)) || Character.isDigit(ans.charAt(i))))
