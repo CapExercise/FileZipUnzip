@@ -87,6 +87,7 @@ public class GeneralClassImplementation implements GeneralInterface{
         long decompressedFilesize=decompressedFiled.length();
 
         final String BYTES= "bytes ";
+        System.out.println("\n");
         System.out.println("Input File size is "+ipFilesize+" "+BYTES);
 
         System.out.println("Compressed File size is "+compressedFilesize+" "+BYTES);
@@ -95,8 +96,7 @@ public class GeneralClassImplementation implements GeneralInterface{
 
         double ans= (ipFilesize-compressedFilesize);
         ans=((ans)/(ipFilesize));
-        System.out.println("       ");
-        System.out.println("        ");
+        System.out.println("\n");
         System.out.println("Compression Percentage "+ans*100+" %");
     }
 }

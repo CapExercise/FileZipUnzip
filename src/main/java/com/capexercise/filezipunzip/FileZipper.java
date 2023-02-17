@@ -9,5 +9,4 @@ public interface FileZipper {
    void decompress();
 
    TreeNode constructTree(IMap imap);
-
 }

@@ -10,8 +10,6 @@ b
 2src/test/java/generalPackage/GeneralClassTest.java,9/3/93a1ac924eeda94dcb7317d2ac2579ab73341bf6
 Ä
 Psrc/test/java/decompressionPackage/ImplemenatationClassForDecompressionTest.java,6/6/66378aca7dbff07d7aadaa41a5b7437753ad0f72
-{
-Ksrc/test/java/compressionPackage/ImplementationClassForCompressionTest.java,3/0/30a2254d8424db6213778c8fabfeda0ab4375225
 Å
 Qsrc/main/java/com/capexercise/general/ImplemenationClassForFileDuringTesting.java,f/5/f56a9fffa92c5001f2ee88681c7f1c31a3655856
 _
@@ -22,11 +20,5 @@ i
 9src/main/java/com/capexercise/general/StringTreeNode.java,2/1/21afad1452b83e8a08271715429d32b32a97ab96
 w
 Gsrc/main/java/com/capexercise/huffman/decompression/WordDecompress.java,3/b/3bdf7d4ff6bd00be745e9b495888df5d5a4ef3ed
-m
-=src/main/java/com/capexercise/huffman/CharZipperUnZipper.java,3/1/3163665e4b4d6ea5500f4297ee02eaa0e474e267
-o
-?src/main/java/com/capexercise/huffman/compression/Compress.java,2/c/2c3de8cf3c9dd2cdd7cf15893b175fc93eaedcb4
 w
 Gsrc/main/java/com/capexercise/huffman/decompression/CharDecompress.java,5/4/5422276d62eb75b57834dd6efb6adccbab379f0a
-s
-Csrc/main/java/com/capexercise/huffman/compression/CharCompress.java,3/f/3f3d9f79b9fe558b04d2e76473fbab409f3bd333

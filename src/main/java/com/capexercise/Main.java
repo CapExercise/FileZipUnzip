@@ -23,6 +23,7 @@ public class Main {
 
       // FileZipper zipper = new CharZipperUnZipper();
        FileZipper zipper=new WordZipperUnZipper();
+
       /*
 
       if I want some new Zipping Algorithm to be implemented
