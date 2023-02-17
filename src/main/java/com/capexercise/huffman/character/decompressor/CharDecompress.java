@@ -1,7 +1,8 @@
-package com.capexercise.huffman.decompression;
+package com.capexercise.huffman.character.decompressor;
 
 import com.capexercise.general.Path;
-import com.capexercise.general.TreeNode;
+import com.capexercise.general.helpers.nodes.TreeNode;
+import com.capexercise.huffman.decompression.Decompress;
 
 import java.io.*;
 import java.util.ArrayList;

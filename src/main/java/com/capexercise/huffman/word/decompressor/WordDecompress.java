@@ -1,14 +1,15 @@
-package com.capexercise.huffman.decompression;
+package com.capexercise.huffman.word.decompressor;
 
 import com.capexercise.general.Path;
-import com.capexercise.general.TreeNode;
+import com.capexercise.general.helpers.nodes.TreeNode;
+import com.capexercise.huffman.decompression.Decompress;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class WordDecompress implements Decompress{
+public class WordDecompress implements Decompress {
     @Override
     public ArrayList<Integer> get8bitcode(int val) throws RuntimeException {
         if(val<0)

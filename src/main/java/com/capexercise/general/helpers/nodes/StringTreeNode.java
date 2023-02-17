@@ -1,4 +1,4 @@
-package com.capexercise.general;
+package com.capexercise.general.helpers.nodes;
 
 public class StringTreeNode implements TreeNode{
     private String stringVal;

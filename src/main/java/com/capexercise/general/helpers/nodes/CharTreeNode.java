@@ -1,6 +1,8 @@
-package com.capexercise.general;
+package com.capexercise.general.helpers.nodes;
 
-public class CharTreeNode implements TreeNode{
+import com.capexercise.general.helpers.nodes.TreeNode;
+
+public class CharTreeNode implements TreeNode {
 
     private Character character;
     private Integer frequency;

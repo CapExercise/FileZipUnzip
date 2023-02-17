@@ -1,4 +1,4 @@
-package com.capexercise.general;
+package com.capexercise.general.helpers.maps;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,32 +1,20 @@
-package com.capexercise.huffman.compression;
+package com.capexercise.huffman.word.compressor;
 
-import com.capexercise.general.*;
+import com.capexercise.general.helpers.input.IDataHandle;
+import com.capexercise.general.helpers.nodes.TreeNode;
+import com.capexercise.general.helpers.maps.IMap;
+import com.capexercise.general.helpers.maps.MapImplementationForWord;
+import com.capexercise.huffman.compression.Compress;
 
-import java.util.Map;
-
-public class WordCompress implements Compress{
+public class WordCompress implements Compress {
     @Override
-    public IMap calculateFreq(IFileReader fileReader) {
+    public IMap calculateFreq(IDataHandle dataObj) {
         IMap imap=new MapImplementationForWord();
 
-        String ans=fileReader.readFile();
+      String[] strData = dataObj.readContentAsArray();
 
-        String sub="";
-
-        for(int i=0;i<ans.length();i++)
-        {
-            while(i<ans.length() && (Character.isAlphabetic(ans.charAt(i)) || Character.isDigit(ans.charAt(i))))
-                sub += ans.charAt(i++);
-
-
-            if(sub.length()!=0)
-                imap.putFrequency(sub,imap.getFrequency(sub));
-
-            if(i<ans.length())
-                imap.putFrequency(""+ans.charAt(i),imap.getFrequency(""+ans.charAt(i)));
-
-            sub = "";
-
+        for(String str:strData){
+            imap.putFrequency(str, imap.getFrequency(str));
         }
 
         return imap;
@@ -47,9 +35,9 @@ public class WordCompress implements Compress{
     }
 
     @Override
-    public StringBuilder getCodes(IMap huffmanMap, IFileReader fobj) {
+    public StringBuilder getCodes(IMap huffmanMap, IDataHandle fobj) {
         StringBuilder finalAns=new StringBuilder();
-        String ans=fobj.readFile();
+        String ans=fobj.readContent();
         String sub="";
         for(int i=0;i<ans.length();i++)
         {

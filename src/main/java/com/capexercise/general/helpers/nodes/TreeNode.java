@@ -1,4 +1,4 @@
-package com.capexercise.general;
+package com.capexercise.general.helpers.nodes;
 
 
 import java.io.Serializable;

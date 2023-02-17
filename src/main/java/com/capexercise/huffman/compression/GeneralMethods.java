@@ -1,10 +1,10 @@
-package com.capexercise.huffman;
+package com.capexercise.huffman.compression;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class GeneralClassImplementation implements GeneralInterface{
+public class GeneralMethods implements IGeneral {
     @Override
     public StringBuilder appendRemainingZeros(StringBuilder coded) {
         int rem = coded.length() % 8;

@@ -1,20 +1,22 @@
-package com.capexercise.huffman.compression;
+package com.capexercise.huffman.character.compressor;
 
-import com.capexercise.general.*;
-
-import java.util.*;
+import com.capexercise.general.helpers.input.IDataHandle;
+import com.capexercise.general.helpers.nodes.TreeNode;
+import com.capexercise.general.helpers.maps.IMap;
+import com.capexercise.general.helpers.maps.MapImplemenationForChar;
+import com.capexercise.huffman.compression.Compress;
 
 public class CharCompress implements Compress
 {
     @Override
-    public IMap calculateFreq(IFileReader fileReader)
+    public IMap calculateFreq(IDataHandle fileReader)
     {
        // Map<Character, Integer> frequencyMap = new HashMap<>();
         IMap imap=new MapImplemenationForChar();
 
         int c =0;
 
-        String ans=fileReader.readFile();
+        String ans=fileReader.readContent();
 
         for(char x:ans.toCharArray())
         {
@@ -26,7 +28,7 @@ public class CharCompress implements Compress
     }
 
     @Override
-    public void iterateTreeAndCalculateHuffManCode(TreeNode newNode, String s,IMap huffmanMap)
+    public void iterateTreeAndCalculateHuffManCode(TreeNode newNode, String s, IMap huffmanMap)
     {
         if(newNode==null) {
             return;
@@ -41,10 +43,10 @@ public class CharCompress implements Compress
     }
 
     @Override
-    public StringBuilder getCodes(IMap huffmanMap, IFileReader fobj)
+    public StringBuilder getCodes(IMap huffmanMap, IDataHandle fobj)
     {
         StringBuilder ans=new StringBuilder();
-        String curr=fobj.readFile();
+        String curr=fobj.readContent();
         for(char x:curr.toCharArray())
         {
             ans.append(huffmanMap.getHUffmanCode(x+""));

@@ -1,31 +1,39 @@
-package com.capexercise.huffman;
+package com.capexercise.huffman.character;
 
 import com.capexercise.filezipunzip.FileZipper;
-import com.capexercise.general.*;
+import com.capexercise.general.helpers.input.FileHandler;
+import com.capexercise.general.helpers.input.IDataHandle;
+import com.capexercise.general.helpers.nodes.CharTreeNode;
+import com.capexercise.general.helpers.nodes.TreeNode;
+import com.capexercise.general.helpers.maps.IMap;
+import com.capexercise.general.helpers.maps.MapImplemenationForChar;
+import com.capexercise.huffman.compression.GeneralMethods;
+import com.capexercise.huffman.compression.IGeneral;
 import com.capexercise.huffman.compression.Compress;
-import com.capexercise.huffman.compression.WordCompress;
-import com.capexercise.huffman.decompression.CharDecompress;
+import com.capexercise.huffman.character.compressor.CharCompress;
 import com.capexercise.huffman.decompression.Decompress;
-import com.capexercise.huffman.decompression.WordDecompress;
+import com.capexercise.huffman.character.decompressor.CharDecompress;
+import com.capexercise.general.*;
 
 import java.io.*;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-public class WordZipperUnZipper implements FileZipper {
+public class CharZipperUnZipper implements FileZipper
+{
+
     @Override
     public void compress()
     {
-        
-      Compress c=new WordCompress();
-
-      GeneralInterface generalInterface=new GeneralClassImplementation();
-
-        IFileReader fop=new ImplementationForFileOpearations(Path.inputFilePath);
+        Compress c = new CharCompress();
+        IGeneral generalInterface=new GeneralMethods();
+        IDataHandle fop=new FileHandler(Path.inputFilePath);
         try
         {
-            IMap compressionMaps = c.calculateFreq(fop);
+          IMap compressionMaps = c.calculateFreq(fop);
+          //  TreeNode root = c.addElementIntoQueueAndReturnRoot(frequencyMap);
             TreeNode root=this.constructTree(compressionMaps);
+         //   IMap HuffMan_Map=new MapImplemenationForChar();
             c.iterateTreeAndCalculateHuffManCode(root, "",compressionMaps);
             StringBuilder coded=c.getCodes(compressionMaps,fop);
             int noOfZerosAppended =generalInterface.noofZerosToBeAppended(coded);
@@ -34,7 +42,6 @@ public class WordZipperUnZipper implements FileZipper {
                 coded = generalInterface.appendRemainingZeros(coded);
             }
             byte[] byteArray=generalInterface.compress(coded);
-
             compressionMaps.clearHuffMap();
             ObjectOutputStream outStream=new ObjectOutputStream(new FileOutputStream(Path.compressedFilePath));
             outStream.writeObject(compressionMaps.returnMap());
@@ -46,22 +53,22 @@ public class WordZipperUnZipper implements FileZipper {
         {
             throw new RuntimeException(e);
         }
-
         System.out.println("Compression done Successfully");
     }
 
     @Override
-    public void decompress() {
-        Decompress d = new WordDecompress();
-
-        GeneralInterface generalInterface=new GeneralClassImplementation();
+    public void decompress()
+    {
+        Decompress d = new CharDecompress();
+        IGeneral generalInterface=new GeneralMethods();
         try
         {
             //
             ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(Path.compressedFilePath));
-            Map<String,Integer> freq=(Map<String, Integer>) inStream.readObject();
-            IMap decompressionMap=new MapImplementationForWord(freq,null);
+            Map<Character,Integer> freq=(Map<Character, Integer>) inStream.readObject();
+            IMap decompressionMap=new MapImplemenationForChar(freq,null);
             TreeNode  root=this.constructTree(decompressionMap);
+            //TreeNode root=(TreeNode)  inStream.readObject();
             int noOfZeros=inStream.readInt();
             byte[] byteArray= (byte[])inStream.readObject();
             StringBuilder decoded=d.getDecodedString(byteArray);
@@ -77,16 +84,17 @@ public class WordZipperUnZipper implements FileZipper {
 
 
         generalInterface.displayStats(Path.inputFilePath,Path.compressedFilePath,Path.decompressedFilePath);
+
     }
 
     @Override
-    public TreeNode constructTree(IMap imap) {
-        PriorityQueue<TreeNode> pq = new PriorityQueue<>(imap.freqSize(), new FrequencyComparator());
-        Map<String,Integer> freq= (Map<String, Integer>) imap.returnMap();
+    public TreeNode constructTree(IMap frequencyMap) {
+        PriorityQueue<TreeNode> pq = new PriorityQueue<>(frequencyMap.freqSize(), new FrequencyComparator());
+        Map<Character,Integer> freq= (Map<Character, Integer>) frequencyMap.returnMap();
 
-        for (Map.Entry<String, Integer> entry : freq.entrySet())
+        for (Map.Entry<Character, Integer> entry : freq.entrySet())
         {
-            TreeNode nd = new StringTreeNode(entry.getKey(),entry.getValue());
+            TreeNode nd = new CharTreeNode(entry.getKey(),entry.getValue());
             pq.add(nd);
         }
         TreeNode root = null;
@@ -94,7 +102,7 @@ public class WordZipperUnZipper implements FileZipper {
         {
             TreeNode leftSideNode=pq.peek();
             pq.poll();
-            TreeNode newNode = new StringTreeNode("-", leftSideNode.getFrequency());
+            TreeNode newNode = new CharTreeNode('-', leftSideNode.getFrequency());
             newNode.setLeft(leftSideNode);
             newNode.setRight(null);
             root=newNode;
@@ -104,7 +112,7 @@ public class WordZipperUnZipper implements FileZipper {
             TreeNode leftSideNode= pq.poll();
 
             TreeNode rightSideNode = pq.poll();
-            TreeNode newNode = new StringTreeNode("-",leftSideNode.getFrequency() + rightSideNode.getFrequency());
+            TreeNode newNode = new CharTreeNode('-',leftSideNode.getFrequency() + rightSideNode.getFrequency());
             newNode.setLeft(leftSideNode);
             newNode.setRight(rightSideNode);
             root = newNode;
@@ -112,5 +120,4 @@ public class WordZipperUnZipper implements FileZipper {
         }
         return root;
     }
-
 }

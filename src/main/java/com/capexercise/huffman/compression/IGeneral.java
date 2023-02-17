@@ -1,8 +1,8 @@
-package com.capexercise.huffman;
+package com.capexercise.huffman.compression;
 
 import java.io.IOException;
 
-public interface GeneralInterface {
+public interface IGeneral {
     StringBuilder appendRemainingZeros(StringBuilder coded);
     int noofZerosToBeAppended(StringBuilder coded);
     byte[] compress(StringBuilder coded);
