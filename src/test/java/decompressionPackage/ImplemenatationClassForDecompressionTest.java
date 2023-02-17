@@ -1,6 +1,6 @@
 package decompressionPackage;
 
-import com.capexercise.huffman.decompression.CharDecompress;
+import com.capexercise.huffman.character.decompressor.CharDecompress;
 import com.capexercise.general.Path;
 import org.junit.Before;
 import org.junit.Test;

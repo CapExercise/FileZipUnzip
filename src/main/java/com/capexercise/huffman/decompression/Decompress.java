@@ -1,7 +1,6 @@
 package com.capexercise.huffman.decompression;
 
-import com.capexercise.general.Node;
-import com.capexercise.general.TreeNode;
+import com.capexercise.general.helpers.nodes.TreeNode;
 
 import java.io.IOException;
 import java.util.ArrayList;

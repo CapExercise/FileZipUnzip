@@ -1,7 +1,7 @@
 package compressionPackage;
-import com.capexercise.huffman.compression.CharCompress;
-import com.capexercise.general.IFileReader;
-import com.capexercise.general.ImplemenationClassForFileDuringTesting;
+import com.capexercise.huffman.character.compressor.CharCompress;
+import com.capexercise.general.helpers.input.IDataHandle;
+import com.capexercise.general.helpers.input.StringHandler;
 import com.capexercise.general.Node;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +43,7 @@ public class ImplementationClassForCompressionTest
     @Test
     public void testFrequencyMapForPosistiveCondition()
     {
-        IFileReader iFile=new ImplemenationClassForFileDuringTesting("zzaaabbcd");
+        IDataHandle iFile=new StringHandler("zzaaabbcd");
         Map<Character,Integer> returnedFrequencyMap=c.calculateFreq(iFile);
         Map<Character,Integer> expectedMap=new HashMap<>();
         expectedMap.put('a',3);
@@ -57,7 +57,7 @@ public class ImplementationClassForCompressionTest
     @Test
     public void testFrequencyMapForEmptyCondition()
     {
-        IFileReader iFile=new ImplemenationClassForFileDuringTesting("");
+        IDataHandle iFile=new StringHandler("");
         Map<Character,Integer> returnedFrequencyMap=c.calculateFreq(iFile);
         assertTrue(returnedFrequencyMap.isEmpty());
     }
@@ -65,7 +65,7 @@ public class ImplementationClassForCompressionTest
     @Test
     public void testFrequencyMapForSpecialCharacters()
     {
-        IFileReader iFile=new ImplemenationClassForFileDuringTesting("eerg™");
+        IDataHandle iFile=new StringHandler("eerg™");
         Map<Character,Integer> returnedFrequencyMap=c.calculateFreq(iFile);
         Map<Character,Integer> expectedMap=c.calculateFreq(iFile);
         expectedMap.put('™',1);
@@ -236,7 +236,7 @@ public class ImplementationClassForCompressionTest
         huffManMap.put('m',"01");
         huffManMap.put('i',"00");
         huffManMap.put('e',"110");
-        IFileReader ifile=new ImplemenationClassForFileDuringTesting("homie");
+        IDataHandle ifile=new StringHandler("homie");
         StringBuilder returnedStringBuilder=c.getCodes(huffManMap,ifile);
         StringBuilder expectedStringBuilder=new StringBuilder("101110100110");
         assertEquals(returnedStringBuilder.toString(),expectedStringBuilder.toString());
@@ -248,7 +248,7 @@ public class ImplementationClassForCompressionTest
         Map<Character,String> huffManMap=new HashMap<>();
         StringBuilder expected = new StringBuilder("null");
         huffManMap.put('a',"0");
-        IFileReader iFile=new ImplemenationClassForFileDuringTesting("A");
+        IDataHandle iFile=new StringHandler("A");
        StringBuilder result= c.getCodes(huffManMap,iFile);
         assertTrue(expected.toString().equals(result.toString()));
     }

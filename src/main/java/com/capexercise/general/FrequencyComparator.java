@@ -1,5 +1,7 @@
 package com.capexercise.general;
 
+import com.capexercise.general.helpers.nodes.TreeNode;
+
 import java.util.Comparator;
 
 public class FrequencyComparator implements Comparator<TreeNode>
