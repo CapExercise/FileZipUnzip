@@ -15,6 +15,8 @@ import com.capexercise.huffman.compression.ICompress;
 import com.capexercise.huffman.decompression.IDecompress;
 import com.capexercise.huffman.general.GeneralMethods;
 import com.capexercise.huffman.general.IGeneral;
+import com.capexercise.huffman.topword.compressor.TopWordCompress;
+import com.capexercise.huffman.topword.decompressor.TopWordDecompress;
 import com.capexercise.huffman.word.compressor.WordCompress;
 import com.capexercise.huffman.word.decompressor.WordDecompress;
 
@@ -33,7 +35,7 @@ public class TopWordZipperUnZipper implements FileZipper {
 
     @Override
     public void compress() {
-        ICompress compressor = new WordCompress();
+        ICompress compressor = new TopWordCompress();
 
         IDataHandle dataObj = new FileHandler(Path.inputFilePath);
 
@@ -63,7 +65,7 @@ public class TopWordZipperUnZipper implements FileZipper {
 
     @Override
     public void decompress() {
-        IDecompress decompressor = new WordDecompress();
+        IDecompress decompressor = new TopWordDecompress();
         IFileContents fileContents = method.extractContents(new File(Path.compressedFilePath));
         Map<Object, Integer> freq = fileContents.getFrequencyMap();
         int noOfZeros = fileContents.getExtraBits();

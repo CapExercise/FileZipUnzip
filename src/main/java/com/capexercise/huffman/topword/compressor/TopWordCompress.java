@@ -6,6 +6,8 @@ import com.capexercise.general.helpers.maps.WordMaps;
 import com.capexercise.general.helpers.nodes.TreeNode;
 import com.capexercise.huffman.compression.ICompress;
 
+import java.util.*;
+
 public class TopWordCompress implements ICompress {
     @Override
     public IMap calculateFreq(IDataHandle dataObj) {
@@ -17,7 +19,53 @@ public class TopWordCompress implements ICompress {
             imap.putFrequency(str, imap.getFrequency(str));
         }
 
+
+        Map<Object,Integer> freqMap = imap.returnFreqMap();
+
+        List<Object> keys=new ArrayList<>(freqMap.keySet());
+
+        List<Object> secondList=new ArrayList<>();
+
+        int count=0;
+        Collections.sort(keys, (a, b) -> {
+            String str1 = (String) a;
+            String str2 = (String) b;
+            if(imap.getFrequency(a)==imap.getFrequency(b))
+                return str1.compareTo(str2);
+            return imap.getFrequency(b) - imap.getFrequency(a);
+        });
+
+        for(int i=0;i<(keys.size()/5);i++)
+        {
+            secondList.add(keys.get(i));
+            count++;
+        }
+
+        Map<Object,Integer> newMap = new HashMap<>();
+
+        for(String str:strData)
+        {
+
+            if(str.length()!=0)
+            {
+                if(!secondList.contains(str))
+                {
+                    for(int idx=0;idx<str.length();idx++)
+                    {
+                        newMap.put(String.valueOf(str.charAt(idx)),newMap.getOrDefault(String.valueOf(str.charAt(idx)),0)+1);
+                    }
+                }
+                else
+                    newMap.put(str,newMap.getOrDefault(str,0)+1);
+
+            }
+
+        }
+
+        imap.setFreqMap(newMap);
+
         return imap;
+
     }
 
     @Override

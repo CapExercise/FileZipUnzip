@@ -69,7 +69,7 @@ public class TopWordDecompress implements IDecompress {
             char cc = (decoded.charAt(i));
             TreeNode newNode = goLeftorRightAndReturnNode(root, cc);
             if (newNode.getLeft() == null && newNode.getRight() == null) {
-                finalAns.append((String) newNode.getVar());
+                finalAns.append(newNode.getVar());
                 //fileWriter.write((char)newNode.getVar());
                 root = head;
             } else {

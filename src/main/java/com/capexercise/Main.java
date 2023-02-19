@@ -4,6 +4,8 @@ import com.capexercise.filezipunzip.FileZipper;
 import com.capexercise.general.Path;
 import com.capexercise.huffman.character.CharZipperUnZipper;
 import com.capexercise.huffman.general.GeneralMethods;
+import com.capexercise.huffman.topword.TopWordZipperUnZipper;
+import com.capexercise.huffman.topword.decompressor.TopWordDecompress;
 import com.capexercise.huffman.word.WordZipperUnZipper;
 
 import java.io.IOException;
@@ -20,7 +22,8 @@ public class Main {
 
 
 //        FileZipper zipper = new CharZipperUnZipper();
-       FileZipper zipper=new WordZipperUnZipper();
+//       FileZipper zipper=new WordZipperUnZipper();
+        FileZipper zipper=new TopWordZipperUnZipper();
 
       /*
 
