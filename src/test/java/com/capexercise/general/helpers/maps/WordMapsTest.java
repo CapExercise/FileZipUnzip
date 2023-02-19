@@ -35,7 +35,7 @@ public class WordMapsTest {
         for(int i=0;i<1;i++)
             testRef.putFrequency('c', testRef.getFrequency('c'));
 
-        Map<Object,Integer> myMap = (Map<Object, Integer>) testRef.returnMap();
+        Map<Object,Integer> myMap = (Map<Object, Integer>) testRef.returnFreqMap();
         for(Map.Entry<Object,Integer> mapEle:myMap.entrySet()){
             System.out.println(mapEle.getKey()+"\t"+mapEle.getValue());
         }

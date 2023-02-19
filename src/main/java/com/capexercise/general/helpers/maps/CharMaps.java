@@ -41,9 +41,15 @@ public class CharMaps implements IMap {
     }
 
     @Override
-    public Object returnMap() {
-        return frequecyMap;
+    public Map<Object,Integer> returnFreqMap() {
+        return this.frequecyMap;
     }
+
+    @Override
+    public Map<Object, String> returnHuffMap() {
+        return this.huffmanMap;
+    }
+
 
     @Override
     public int freqSize() {
@@ -74,5 +80,17 @@ public class CharMaps implements IMap {
     public boolean containsHuffKey(Object key) {
         return this.huffmanMap.containsKey(key);
     }
+
+    @Override
+    public void setFreqMap(Map<Object, Integer> map) {
+        this.frequecyMap = map;
+    }
+
+    @Override
+    public void setHuffMap(Map<Object, String> map) {
+        this.huffmanMap = map;
+    }
+
+
 
 }

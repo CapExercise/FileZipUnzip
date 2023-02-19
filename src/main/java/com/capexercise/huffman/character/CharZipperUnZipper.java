@@ -53,7 +53,7 @@ public class CharZipperUnZipper implements FileZipper {
 
         compressionMaps.clearHuffMap();
 
-        IFileContents fileContents = new FileContents((Map<Object, Integer>) compressionMaps.returnMap(), noOfZerosAppended, byteArray);
+        IFileContents fileContents = new FileContents((Map<Object, Integer>) compressionMaps.returnFreqMap(), noOfZerosAppended, byteArray);
         method.addCompressedContents(fileContents);
 
         System.out.println("Compression done Successfully");
@@ -90,7 +90,7 @@ public class CharZipperUnZipper implements FileZipper {
     @Override
     public TreeNode constructTree(IMap frequencyMap) {
         PriorityQueue<TreeNode> pq = new PriorityQueue<>(frequencyMap.freqSize(), new FrequencyComparator());
-        Map<Object, Integer> freq = (Map<Object, Integer>) frequencyMap.returnMap();
+        Map<Object, Integer> freq = (Map<Object, Integer>) frequencyMap.returnFreqMap();
 
         for (Map.Entry<Object, Integer> entry : freq.entrySet()) {
             TreeNode node = new CharTreeNode((Character) entry.getKey(), entry.getValue());

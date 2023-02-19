@@ -1,5 +1,7 @@
 package com.capexercise.general.helpers.maps;
 
+import java.util.Map;
+
 public interface IMap {
 
     void putFrequency(Object val, int x);
@@ -10,7 +12,9 @@ public interface IMap {
 
     String getHuffmanCode(Object val);
 
-    Object returnMap();
+    Map<Object,Integer> returnFreqMap();
+
+    Map<Object,String> returnHuffMap();
 
     int freqSize();
 
@@ -23,6 +27,10 @@ public interface IMap {
     boolean containsFreqKey(Object key);
 
     boolean containsHuffKey(Object key);
+
+    void setFreqMap(Map<Object,Integer> map);
+
+    void setHuffMap(Map<Object,String> map);
 
 
 }

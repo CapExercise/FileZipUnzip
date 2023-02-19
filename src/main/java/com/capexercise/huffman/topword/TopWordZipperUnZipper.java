@@ -54,7 +54,7 @@ public class TopWordZipperUnZipper implements FileZipper {
 
         compressionMaps.clearHuffMap();
 
-        IFileContents fileContents = new FileContents((Map<Object, Integer>) compressionMaps.returnMap(), noOfZerosAppended, byteArray);
+        IFileContents fileContents = new FileContents((Map<Object, Integer>) compressionMaps.returnFreqMap(), noOfZerosAppended, byteArray);
         method.addCompressedContents(fileContents);
 
 
@@ -84,7 +84,7 @@ public class TopWordZipperUnZipper implements FileZipper {
     @Override
     public TreeNode constructTree(IMap imap) {
         PriorityQueue<TreeNode> pq = new PriorityQueue<>(imap.freqSize(), new FrequencyComparator());
-        Map<Object, Integer> freq = (Map<Object, Integer>) imap.returnMap();
+        Map<Object, Integer> freq = (Map<Object, Integer>) imap.returnFreqMap();
 
         for (Map.Entry<Object, Integer> entry : freq.entrySet()) {
             TreeNode node = new StringTreeNode((String) entry.getKey(), entry.getValue());
