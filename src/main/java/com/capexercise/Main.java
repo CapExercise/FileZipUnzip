@@ -22,8 +22,8 @@ public class Main {
 
 
 //        FileZipper zipper = new CharZipperUnZipper();
-//       FileZipper zipper=new WordZipperUnZipper();
-        FileZipper zipper=new TopWordZipperUnZipper();
+       FileZipper zipper=new WordZipperUnZipper();
+//        FileZipper zipper=new TopWordZipperUnZipper();
 
       /*
 

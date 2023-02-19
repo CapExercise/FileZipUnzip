@@ -19,7 +19,6 @@ public class TopWordCompress implements ICompress {
             imap.putFrequency(str, imap.getFrequency(str));
         }
 
-
         Map<Object,Integer> freqMap = imap.returnFreqMap();
 
         List<Object> keys=new ArrayList<>(freqMap.keySet());
@@ -40,9 +39,7 @@ public class TopWordCompress implements ICompress {
             secondList.add(keys.get(i));
             count++;
         }
-
         Map<Object,Integer> newMap = new HashMap<>();
-
         for(String str:strData)
         {
 
@@ -61,11 +58,8 @@ public class TopWordCompress implements ICompress {
             }
 
         }
-
         imap.setFreqMap(newMap);
-
         return imap;
-
     }
 
     @Override
@@ -114,6 +108,7 @@ public class TopWordCompress implements ICompress {
             return;
         }
         if (newNode.getLeft() == null && newNode.getRight() == null) {
+//            System.out.println(newNode.getVar()+"\t"+s);
             huffmanMap.putHuffManCode(newNode.getVar(), s);
         }
         iterateTreeAndCalculateHuffManCode(newNode.getLeft(), s + "0", huffmanMap);
@@ -123,20 +118,14 @@ public class TopWordCompress implements ICompress {
     @Override
     public StringBuilder getCodes(IMap huffmanMap, IDataHandle fobj) {
         StringBuilder finalAns = new StringBuilder();
-        String ans = fobj.readContent();
-        String sub = "";
-        for (int i = 0; i < ans.length(); i++) {
-            while (i < ans.length() && (Character.isAlphabetic(ans.charAt(i)) || Character.isDigit(ans.charAt(i))))
-                sub += ans.charAt(i++);
-
-
-            if (huffmanMap.containsHuffKey(sub))
-                finalAns.append(huffmanMap.getHuffmanCode(sub));
-            if (huffmanMap.containsHuffKey(String.valueOf(ans.charAt(i))))
-                finalAns.append(huffmanMap.getHuffmanCode(String.valueOf(ans.charAt(i))));
-
-            sub = "";
-
+        String[] strData = fobj.readContentAsArray();
+        for(String str:strData){
+            if(huffmanMap.containsHuffKey(str))
+                finalAns.append(huffmanMap.getHuffmanCode(str));
+            else{
+                for(char character:str.toCharArray())
+                    finalAns.append(huffmanMap.getHuffmanCode(String.valueOf(character)));
+            }
         }
         return finalAns;
     }
