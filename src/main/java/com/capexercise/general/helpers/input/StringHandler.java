@@ -12,6 +12,10 @@ public class StringHandler implements IDataHandle {
         strData = new StringBuilder(source);
     }
 
+    public StringHandler(byte[] byteArray){
+        strData = new StringBuilder(byteArray.toString());
+    }
+
     @Override
     public String readContent() {
 
