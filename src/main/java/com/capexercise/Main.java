@@ -21,9 +21,29 @@ public class Main {
         boolean flag = true;
 
 
-//        FileZipper zipper = new CharZipperUnZipper();
-       FileZipper zipper=new WordZipperUnZipper();
-//        FileZipper zipper=new TopWordZipperUnZipper();
+
+       FileZipper zipper=null;
+        System.out.println("Enter 1 for Using Character based compression\nEnter 2 for Word based Compression\nEnter 3 for Combination of Word and Character based Compression\n");
+        choice=scr.nextInt();
+
+
+            switch (choice)
+            {
+                case 1:
+                    zipper = new CharZipperUnZipper();
+                    break;
+                case 2:
+                    zipper = new WordZipperUnZipper();
+                    break;
+                case 3:
+                    zipper = new TopWordZipperUnZipper();
+                    break;
+
+            }
+
+    //   FileZipper zipper = new CharZipperUnZipper();
+  //  FileZipper zipper=new WordZipperUnZipper();
+  //    FileZipper zipper=new TopWordZipperUnZipper();
 
       /*
 
@@ -38,6 +58,7 @@ public class Main {
 
 
         while (flag) {
+
             System.out.println("Enter the option\n1.Compression\n2.Decompression\n3.Check validity of the decompressed file\n4.Exit");
             choice = scr.nextInt();
             int startTime = (int) System.currentTimeMillis();

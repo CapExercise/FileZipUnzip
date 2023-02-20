@@ -15,6 +15,7 @@ public class TopWordCompress implements ICompress {
 
         String[] strData = dataObj.readContentAsArray();
 
+
         for (String str : strData) {
             imap.putFrequency(str, imap.getFrequency(str));
         }

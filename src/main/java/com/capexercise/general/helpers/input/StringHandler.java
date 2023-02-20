@@ -1,5 +1,7 @@
 package com.capexercise.general.helpers.input;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,26 +14,43 @@ public class StringHandler implements IDataHandle {
 
     @Override
     public String readContent() {
+
         return strData.toString();
     }
 
     @Override
     public String[] readContentAsArray() {
+
         List<String> stringList = new ArrayList<>();
-        String sub = "";
-        for (int i = 0; i < strData.length(); i++) {
-            while (i < strData.length() && (Character.isAlphabetic(strData.charAt(i)) || Character.isDigit(strData.charAt(i))))
-                sub += strData.charAt(i);
 
-            if (sub.length() != 0)
-                stringList.add(sub);
 
-            if (i < strData.length())
-                stringList.add("" + strData.charAt(i));
 
-            sub = "";
-        }
+            int i=0;
+           while(i<strData.length()) {
+               String sub="";
+               int j=i;
 
-        return (String[]) stringList.toArray();
+
+               while (j<strData.length() && (Character.isAlphabetic(strData.charAt(j)) || Character.isDigit(strData.charAt(j)))) {
+                   sub += strData.charAt(j++);
+//
+               }
+
+               if (sub.length() != 0)
+                   stringList.add(sub);
+
+               if (j != strData.length())
+                   stringList.add("" + strData.charAt(j));
+
+               i=j+1;
+
+           }
+
+        String[] result = new String[(int) stringList.size()];
+        for (int k = 0; k < result.length; k++)
+            result[k] = stringList.get(k);
+
+        return result;
+
     }
 }

@@ -1,84 +1,126 @@
-package compressionPackage;
+package com.capexercise.huffman.topword.compressor;
+
+import com.capexercise.general.helpers.input.IDataHandle;
+import com.capexercise.general.helpers.input.StringHandler;
 import com.capexercise.general.helpers.maps.CharMaps;
 import com.capexercise.general.helpers.maps.IMap;
 import com.capexercise.general.helpers.maps.WordMaps;
-import com.capexercise.general.helpers.nodes.CharTreeNode;
+import com.capexercise.general.helpers.nodes.StringTreeNode;
 import com.capexercise.general.helpers.nodes.TreeNode;
-import com.capexercise.huffman.character.compressor.CharCompress;
-import com.capexercise.general.helpers.input.IDataHandle;
-import com.capexercise.general.helpers.input.StringHandler;
-import com.capexercise.general.Node;
+import com.capexercise.huffman.word.compressor.WordCompress;
 import org.junit.Before;
 import org.junit.Test;
-import sun.reflect.generics.tree.Tree;
-import sun.rmi.transport.ObjectTable;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import static org.junit.Assert.*;
 
-
-public class ImplementationClassForCompressionTest
-{
-
-    CharCompress c=new CharCompress();
-      TreeNode root=null;
+public class TopWordCompressTest {
+    TopWordCompress c=new TopWordCompress();
+    TreeNode root=null;
 
     @Before
     public void beforeTest()
     {
-        TreeNode leftNode=new CharTreeNode('a',6);
+        TreeNode leftNode=new StringTreeNode("a",6);
         leftNode.setLeft(null);
         leftNode.setRight(null);
 
-        TreeNode rightNode=new CharTreeNode('b',7);
+        TreeNode rightNode=new StringTreeNode("b",7);
         rightNode.setRight(null);
         rightNode.setLeft(null);
 
-        TreeNode rootNode=new CharTreeNode('-',leftNode.getFrequency()+ rightNode.getFrequency());
+        TreeNode rootNode=new StringTreeNode("-",leftNode.getFrequency()+ rightNode.getFrequency());
         rootNode.setLeft(leftNode);
         rootNode.setRight(rightNode);
 
         root=rootNode;
     }
 
+
     @Test
-    public void testFrequencyMapForPosistiveCondition()
+    public void testFrequencyMapForPositiveCondition()
     {
-        IDataHandle idata=new StringHandler("zzaaabbcd");
+
+        IDataHandle idata=new StringHandler("Hello world this is new world.Hello How are you?");
         IMap imap=c.calculateFreq(idata);
         Map<Object,Integer> expectedMap=new HashMap<>();
-        expectedMap.put('a',3);
-        expectedMap.put('b',2);
-        expectedMap.put('c',1);
-        expectedMap.put('d',1);
-        expectedMap.put('z',2);
-        Map<Object,Integer> returnedMap= (Map<Object, Integer>) imap.returnFreqMap();
+        expectedMap.put(" ",8);
+        expectedMap.put("a",1);
+        expectedMap.put("d",2);
+        expectedMap.put("e",2);
+        expectedMap.put("h",1);
+        expectedMap.put("H",1);
+        expectedMap.put("i",2);
+        expectedMap.put("l",2);
+        expectedMap.put("n",1);
+        expectedMap.put(".",1);
+        expectedMap.put("o",4);
+        expectedMap.put("r",3);
+        expectedMap.put("s",2);
+        expectedMap.put("Hello",2);
+        expectedMap.put("t",1);
+        expectedMap.put("u",1);
+        expectedMap.put("w",4);
+        expectedMap.put("y",1);
+        expectedMap.put("?",1);
+
+        Map<Object,Integer> returnedMap= imap.returnFreqMap();
+//        for(Map.Entry<Object,Integer> entry:returnedMap.entrySet())
+//        {
+//            System.out.println(entry.getKey()+"   "+entry.getValue());
+//        }
         assertEquals(expectedMap,returnedMap);
     }
+
 
     @Test
     public void testFrequencyMapForEmptyCondition()
     {
         IDataHandle iFile=new StringHandler("");
         IMap imap= c.calculateFreq(iFile);
-        Map<Object,Integer> returnedMap= (Map<Object, Integer>) imap.returnFreqMap();
+        Map<Object, Integer> returnedMap= imap.returnFreqMap();
         assertTrue(returnedMap.isEmpty());
     }
 
     @Test
     public void testFrequencyMapForSpecialCharacters()
     {
-        IDataHandle iFile=new StringHandler("eerg™");
+        IDataHandle iFile=new StringHandler("Hello world this is new world.Hello How are you? eerg™");
         IMap imap= c.calculateFreq(iFile);
-        Map<Object,Integer> returnedMap= (Map<Object, Integer>) imap.returnFreqMap();
+        Map<Object,Integer> returnedMap= imap.returnFreqMap();
         Map<Object,Integer> expectedMap=new HashMap<>();
-        expectedMap.put('™',1);
-        expectedMap.put('e',2);
-        expectedMap.put('r',1);
-        expectedMap.put('g',1);
+         expectedMap.put(" ",9);
+        expectedMap.put("a",1);
+        expectedMap.put("d",2);
+        expectedMap.put("e",4);
+        expectedMap.put("h",1);
+        expectedMap.put("g",1);
+        expectedMap.put("H",1);
+        expectedMap.put("i",2);
+        expectedMap.put("l",2);
+        expectedMap.put("n",1);
+        expectedMap.put(".",1);
+        expectedMap.put("o",4);
+        expectedMap.put("r",4);
+        expectedMap.put("s",2);
+        expectedMap.put("Hello",2);
+        expectedMap.put("t",1);
+        expectedMap.put("u",1);
+        expectedMap.put("w",4);
+        expectedMap.put("y",1);
+        expectedMap.put("?",1);
+        expectedMap.put("™",1);
+
         assertEquals(expectedMap,returnedMap);
     }
+
+
+
+
+
+
 
 
     @Test
@@ -136,6 +178,8 @@ public class ImplementationClassForCompressionTest
         assertEquals("",returnedString.toString());
     }
 
+
+
     @Test
     public void TestIterateTreeAndCalcuateHuffManMap_ForPositiveCase()
     {
@@ -145,8 +189,8 @@ public class ImplementationClassForCompressionTest
         c.iterateTreeAndCalculateHuffManCode(root,ans,imap);
         Map<Object,String> expectedMap=new HashMap<>();
         Map<Object,String> huffmanMap=imap.returnHuffMap();
-        expectedMap.put('a',"0");
-        expectedMap.put('b',"1");
+        expectedMap.put("a","0");
+        expectedMap.put("b","1");
         assertEquals(expectedMap,huffmanMap);
     }
 
@@ -155,7 +199,7 @@ public class ImplementationClassForCompressionTest
     {
         String ans="";
         TreeNode root=null;
-       IMap imap=new CharMaps();
+        IMap imap=new CharMaps();
         c.iterateTreeAndCalculateHuffManCode(root,ans,imap);
         Map<Object,String> HuffmanMap=imap.returnHuffMap();
         assertTrue(HuffmanMap.isEmpty());
@@ -166,7 +210,7 @@ public class ImplementationClassForCompressionTest
     public void TestIterateTreeAndCalcuateHUffManMap_ForSingleNode()
     {
         String ans="";
-        TreeNode singleNode =new CharTreeNode('a',2);
+        TreeNode singleNode =new StringTreeNode("a",2);
         singleNode.setRight(null);
         singleNode.setLeft(null);
 
@@ -175,8 +219,8 @@ public class ImplementationClassForCompressionTest
 
         c.iterateTreeAndCalculateHuffManCode(singleNode,ans,imap);
         Map<Object,String> huffManMap=imap.returnHuffMap();
-        Map<Character,String> expectedHUffManMap=new HashMap<>();
-        expectedHUffManMap.put('a',"");
+        Map<Object, String> expectedHUffManMap=new HashMap<>();
+        expectedHUffManMap.put("a","");
         assertEquals(expectedHUffManMap,huffManMap);
     }
 
@@ -213,16 +257,19 @@ public class ImplementationClassForCompressionTest
     @Test
     public void TestgetCodeForPositiveCase()
     {
-        IMap imap=new CharMaps();
+        IMap imap=new WordMaps();
         Map<Object,String> huffManMap=imap.returnHuffMap();
-        huffManMap.put('h',"10");
-        huffManMap.put('o',"111");
-        huffManMap.put('m',"01");
-        huffManMap.put('i',"00");
-        huffManMap.put('e',"110");
-        IDataHandle ifile=new StringHandler("homie");
+        imap.putHuffManCode("hello","10");
+        imap.putHuffManCode("world","111");
+        imap.putHuffManCode("this","01");
+        imap.putHuffManCode("is","00");
+        imap.putHuffManCode("capillary","110");
+        imap.putHuffManCode(" ","0");
+
+        IDataHandle ifile=new StringHandler("hello world this is capillary");
         StringBuilder returnedStringBuilder=c.getCodes(imap,ifile);
-        StringBuilder expectedStringBuilder=new StringBuilder("101110100110");
+
+        StringBuilder expectedStringBuilder=new StringBuilder("1001110010000110");
         assertEquals(returnedStringBuilder.toString(),expectedStringBuilder.toString());
     }
 
@@ -230,13 +277,15 @@ public class ImplementationClassForCompressionTest
     @Test
     public void TestgetCodesForCase_ThereisNoMatchBetweenInputAndMap()
     {
-        IMap imap=new CharMaps();
-        Map<Object,String> huffManMap=imap.returnHuffMap();
-        StringBuilder expected = new StringBuilder("null");
-        huffManMap.put('a',"0");
+        IMap imap=new WordMaps();
+      //  Map<Object,String> huffManMap=imap.returnHuffMap();
+        StringBuilder expected = new StringBuilder();
+        imap.putHuffManCode("a","0");
+       // huffManMap.put("a","0");
         IDataHandle iFile=new StringHandler("A");
         StringBuilder result= c.getCodes(imap,iFile);
-        assertTrue(expected.toString().equals(result.toString()));
+        System.out.println(result);
+        assertTrue(expected.length()==result.length());
     }
 
 

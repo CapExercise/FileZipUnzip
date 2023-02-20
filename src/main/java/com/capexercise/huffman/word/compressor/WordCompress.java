@@ -13,6 +13,7 @@ public class WordCompress implements ICompress {
 
         String[] strData = dataObj.readContentAsArray();
 
+
         for (String str : strData) {
             imap.putFrequency(str, imap.getFrequency(str));
         }
@@ -84,7 +85,7 @@ public class WordCompress implements ICompress {
 
             if (huffmanMap.containsHuffKey(sub))
                 finalAns.append(huffmanMap.getHuffmanCode(sub));
-            if (huffmanMap.containsHuffKey(String.valueOf(ans.charAt(i))))
+            if (i!=ans.length() && huffmanMap.containsHuffKey(String.valueOf(ans.charAt(i))))
                 finalAns.append(huffmanMap.getHuffmanCode(String.valueOf(ans.charAt(i))));
 
             sub = "";

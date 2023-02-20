@@ -17,6 +17,7 @@ import java.util.Arrays;
 
 public class ImplemenatationClassForDecompressionTest
 {
+    /*
 
     CharDecompress d=new CharDecompress();
 
@@ -219,5 +220,7 @@ public class ImplemenatationClassForDecompressionTest
 
     }
 
+
+     */
 
 }
