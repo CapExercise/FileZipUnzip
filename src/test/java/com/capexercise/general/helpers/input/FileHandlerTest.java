@@ -15,7 +15,7 @@ public class FileHandlerTest {
 
     @Test
     public void testReadContentForEmpty(){
-        String actual = testRef.readContent().toString();
+        String actual = testRef.readContent();
         String expected = "";
         assertEquals(expected,actual);
     }
@@ -23,7 +23,7 @@ public class FileHandlerTest {
     @Test
     public void testReadContent() {
         testRef = new FileHandler("src/main/java/com/capexercise/Files/testFile.txt");
-        String actual = testRef.readContent().toString();
+        String actual = testRef.readContent();
         String expected = "Hello world.This is it.";
         assertEquals(expected,actual);
     }
