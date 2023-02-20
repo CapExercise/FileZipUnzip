@@ -32,16 +32,7 @@ public class CharDecompress implements IDecompress {
         return ans;
     }
 
-    @Override
-    public TreeNode goLeftorRightAndReturnNode(TreeNode root, char val) {
-        if (val == '0') {
-            root = root.getLeft();
-            return root;
-        } else {
-            root = root.getRight();
-            return root;
-        }
-    }
+
 
     @Override
     public StringBuilder getDecodedString(byte[] byteArray) {
@@ -61,15 +52,13 @@ public class CharDecompress implements IDecompress {
     }
 
     @Override
-    public void writeIntoDecompressedFile(TreeNode root, StringBuilder decoded, int no_of_zeros) {
-        //01101000
-//        TreeNode head = root;
+    public void writeIntoDecompressedFile(TreeNode root, StringBuilder decoded, int noOfZeros) {
+
         TreeNode node = root;
         try {
             FileWriter fileWriter = new FileWriter(Path.decompressedFilePath);
-            for (int i = 0; i < decoded.length() - no_of_zeros; i++) {
+            for (int i = 0; i < decoded.length() - noOfZeros; i++) {
                 char cc = (decoded.charAt(i));
-//                TreeNode newNode=null;
                 if (cc == '0')
                 {
                     node= node.getLeft();

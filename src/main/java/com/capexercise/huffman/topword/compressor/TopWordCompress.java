@@ -26,7 +26,6 @@ public class TopWordCompress implements ICompress {
 
         List<Object> secondList=new ArrayList<>();
 
-        int count=0;
         Collections.sort(keys, (a, b) -> {
             String str1 = (String) a;
             String str2 = (String) b;
@@ -36,10 +35,8 @@ public class TopWordCompress implements ICompress {
         });
 
         for(int i=0;i<(keys.size()/5);i++)
-        {
             secondList.add(keys.get(i));
-            count++;
-        }
+
         Map<Object,Integer> newMap = new HashMap<>();
         for(String str:strData)
         {
@@ -78,7 +75,7 @@ public class TopWordCompress implements ICompress {
 
     @Override
     public int noofZerosToBeAppended(StringBuilder coded) {
-        if (coded.length() == 0 | coded.length() % 8 == 0) {
+        if (coded.length() == 0 || coded.length() % 8 == 0) {
             return 0;
         }
         return 8 - (coded.length() % 8);

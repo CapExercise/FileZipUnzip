@@ -36,7 +36,7 @@ public class WordCompress implements ICompress {
 
     @Override
     public int noofZerosToBeAppended(StringBuilder coded) {
-        if (coded.length() == 0 | coded.length() % 8 == 0) {
+        if (coded.length() == 0 || coded.length() % 8 == 0) {
             return 0;
         }
         return 8 - (coded.length() % 8);

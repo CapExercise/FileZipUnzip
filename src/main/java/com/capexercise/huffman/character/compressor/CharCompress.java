@@ -9,17 +9,13 @@ import com.capexercise.huffman.compression.ICompress;
 public class CharCompress implements ICompress {
     @Override
     public IMap calculateFreq(IDataHandle fileReader) {
-        // Map<Character, Integer> frequencyMap = new HashMap<>();
         IMap imap = new CharMaps();
-
-        int c = 0;
 
         String ans = fileReader.readContent();
 
         for (char x : ans.toCharArray()) {
             int val = imap.getFrequency(x);
             imap.putFrequency(x, val);
-            //frequencyMap.put(x,frequencyMap.getOrDefault(x,0)+1);
         }
         return imap;
     }
@@ -39,7 +35,7 @@ public class CharCompress implements ICompress {
 
     @Override
     public int noofZerosToBeAppended(StringBuilder coded) {
-        if (coded.length() == 0 | coded.length() % 8 == 0) {
+        if (coded.length() == 0 || coded.length() % 8 == 0) {
             return 0;
         }
         return 8 - (coded.length() % 8);
@@ -70,7 +66,6 @@ public class CharCompress implements ICompress {
             return;
         }
         if (newNode.getLeft() == null && newNode.getRight() == null) {
-            //  huffmanMap.putHuffManCode((String) newNode.getVar(),s);
             huffmanMap.putHuffManCode(newNode.getVar(), s);
         }
         iterateTreeAndCalculateHuffManCode(newNode.getLeft(), s + "0", huffmanMap);

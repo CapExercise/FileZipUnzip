@@ -31,17 +31,6 @@ public class WordDecompress implements IDecompress {
         return ans;
     }
 
-    @Override
-    public TreeNode goLeftorRightAndReturnNode(TreeNode root, char val) {
-        if (val == '0') {
-            root = root.getLeft();
-            return root;
-        } else {
-            root = root.getRight();
-            return root;
-        }
-
-    }
 
     @Override
     public StringBuilder getDecodedString(byte[] byteArray) {
@@ -61,24 +50,19 @@ public class WordDecompress implements IDecompress {
     }
 
     @Override
-    public void writeIntoDecompressedFile(TreeNode root, StringBuilder decoded, int no_of_zeros) {
-       // TreeNode head = root;
-TreeNode node=root;
+    public void writeIntoDecompressedFile(TreeNode root, StringBuilder decoded, int noOfZeros) {
+        TreeNode node=root;
         StringBuilder finalAns = new StringBuilder();
-        for (int i = 0; i < decoded.length() - no_of_zeros; i++) {
+        for (int i = 0; i < decoded.length() - noOfZeros; i++) {
             char cc = (decoded.charAt(i));
-           // TreeNode newNode = goLeftorRightAndReturnNode(root, cc);
-            if (cc == '0')
-            {
-                node= node.getLeft();
 
-            } else {
+            if (cc == '0')
+                node= node.getLeft();
+            else
                 node = node.getRight();
 
-            }
             if (node.getLeft() == null && node.getRight() == null) {
                 finalAns.append((String) node.getVar());
-                //fileWriter.write((char)newNode.getVar());
                 node=root;
             }
 
