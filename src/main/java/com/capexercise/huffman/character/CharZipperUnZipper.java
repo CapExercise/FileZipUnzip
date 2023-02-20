@@ -18,7 +18,7 @@ import com.capexercise.huffman.decompression.IDecompress;
 import com.capexercise.huffman.general.GeneralMethods;
 import com.capexercise.huffman.general.IGeneral;
 
-import java.io.File;
+import java.io.*;
 import java.util.Map;
 import java.util.PriorityQueue;
 
@@ -53,8 +53,25 @@ public class CharZipperUnZipper implements FileZipper {
 
         compressionMaps.clearHuffMap();
 
+
         IFileContents fileContents = new FileContents((Map<Object, Integer>) compressionMaps.returnFreqMap(), noOfZerosAppended, byteArray);
         method.addCompressedContents(fileContents);
+        File f=new File("src/main/java/com/capexercise/Files/mapSize.txt");
+        try
+        {
+            ObjectOutputStream out=new ObjectOutputStream(new FileOutputStream(f));
+            out.writeObject(compressionMaps.returnFreqMap());
+            out.close();
+            System.out.println("top Size of map is "+f.length());
+            System.out.println("Average bit for Char is "+(new File("src/main/java/com/capexercise/Files/compressed.txt").length()*8.0)/(new File("src/main/java/com/capexercise/Files/input.txt").length()));
+        }
+        catch (FileNotFoundException e)
+        {
+            throw new RuntimeException(e);
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         System.out.println("Compression done Successfully");
     }

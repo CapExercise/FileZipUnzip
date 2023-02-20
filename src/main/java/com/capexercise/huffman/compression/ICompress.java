@@ -7,7 +7,6 @@ import com.capexercise.general.helpers.nodes.TreeNode;
 public interface ICompress {
     IMap calculateFreq(IDataHandle fileReader);
 
-
     StringBuilder appendRemainingZeros(StringBuilder coded);
 
     int noofZerosToBeAppended(StringBuilder coded);

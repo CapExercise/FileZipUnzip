@@ -20,7 +20,7 @@ import com.capexercise.huffman.topword.decompressor.TopWordDecompress;
 import com.capexercise.huffman.word.compressor.WordCompress;
 import com.capexercise.huffman.word.decompressor.WordDecompress;
 
-import java.io.File;
+import java.io.*;
 import java.util.Map;
 import java.util.PriorityQueue;
 
@@ -58,7 +58,22 @@ public class TopWordZipperUnZipper implements FileZipper {
 
         IFileContents fileContents = new FileContents(compressionMaps.returnFreqMap(), noOfZerosAppended, byteArray);
         method.addCompressedContents(fileContents);
-
+        File f=new File("src/main/java/com/capexercise/Files/mapSize.txt");
+        try
+        {
+            ObjectOutputStream out=new ObjectOutputStream(new FileOutputStream(f));
+            out.writeObject(compressionMaps.returnFreqMap());
+            out.close();
+            System.out.println("top Size of map is "+f.length());
+            System.out.println("Average bit for top word is "+(new File("src/main/java/com/capexercise/Files/compressed.txt").length()*8.0)/(new File("src/main/java/com/capexercise/Files/input.txt").length()));
+        }
+        catch (FileNotFoundException e)
+        {
+            throw new RuntimeException(e);
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         System.out.println("Compression done Successfully");
     }
