@@ -13,7 +13,8 @@ public class StringHandler implements IDataHandle {
     }
 
     public StringHandler(byte[] byteArray){
-        strData = new StringBuilder(byteArray.toString());
+        String temp = new String(byteArray);
+        strData = new StringBuilder(temp);
     }
 
     @Override
