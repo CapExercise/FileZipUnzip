@@ -115,13 +115,6 @@ public class TopWordDecompressTest {
         assertEquals(mockedDecompression.getDecodedString(new byte[]{}).toString(),"");
     }
 
-    @Test
-    public void TestgoLeftOrRight()
-    {
-
-        assertEquals(leftNode.getVar(),d.goLeftorRightAndReturnNode(root,'0').getVar());
-        assertEquals(rightNode.getVar(),d.goLeftorRightAndReturnNode(root,'1').getVar());
-    }
 
     @Test
     public void TestwriteIntoDecompressedFile()

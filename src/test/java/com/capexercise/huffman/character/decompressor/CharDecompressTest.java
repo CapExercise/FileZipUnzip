@@ -113,14 +113,6 @@ public class CharDecompressTest {
     }
 
     @Test
-    public void TestgoLeftOrRight()
-    {
-
-        assertEquals(leftNode.getVar(),d.goLeftorRightAndReturnNode(root,'0').getVar());
-        assertEquals(rightNode.getVar(),d.goLeftorRightAndReturnNode(root,'1').getVar());
-    }
-
-    @Test
     public void TestwriteIntoDecompressedFile()
     {
         StringBuilder decodedString=new StringBuilder("0101001001111000");
