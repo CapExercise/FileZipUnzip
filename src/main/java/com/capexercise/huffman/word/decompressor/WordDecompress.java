@@ -62,19 +62,26 @@ public class WordDecompress implements IDecompress {
 
     @Override
     public void writeIntoDecompressedFile(TreeNode root, StringBuilder decoded, int no_of_zeros) {
-        TreeNode head = root;
-
+       // TreeNode head = root;
+TreeNode node=root;
         StringBuilder finalAns = new StringBuilder();
         for (int i = 0; i < decoded.length() - no_of_zeros; i++) {
             char cc = (decoded.charAt(i));
-            TreeNode newNode = goLeftorRightAndReturnNode(root, cc);
-            if (newNode.getLeft() == null && newNode.getRight() == null) {
-                finalAns.append((String) newNode.getVar());
-                //fileWriter.write((char)newNode.getVar());
-                root = head;
+           // TreeNode newNode = goLeftorRightAndReturnNode(root, cc);
+            if (cc == '0')
+            {
+                node= node.getLeft();
+
             } else {
-                root = newNode;
+                node = node.getRight();
+
             }
+            if (node.getLeft() == null && node.getRight() == null) {
+                finalAns.append((String) node.getVar());
+                //fileWriter.write((char)newNode.getVar());
+                node=root;
+            }
+
         }
         FileWriter fileWriter = null;
         try {

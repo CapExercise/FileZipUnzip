@@ -63,21 +63,31 @@ public class CharDecompress implements IDecompress {
     @Override
     public void writeIntoDecompressedFile(TreeNode root, StringBuilder decoded, int no_of_zeros) {
         //01101000
-        TreeNode head = root;
+//        TreeNode head = root;
+        TreeNode node = root;
         try {
             FileWriter fileWriter = new FileWriter(Path.decompressedFilePath);
             for (int i = 0; i < decoded.length() - no_of_zeros; i++) {
                 char cc = (decoded.charAt(i));
-                TreeNode newNode = goLeftorRightAndReturnNode(root, cc);
-                if (newNode.getLeft() == null && newNode.getRight() == null) {
-                    fileWriter.write((char) newNode.getVar());
-                    root = head;
+//                TreeNode newNode=null;
+                if (cc == '0')
+                {
+                    node= node.getLeft();
+
                 } else {
-                    root = newNode;
+                    node = node.getRight();
+
+                }
+
+                if (node.getLeft() == null && node.getRight() == null) {
+                    fileWriter.write((char) node.getVar());
+                    node = root;
                 }
             }
             fileWriter.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             throw new RuntimeException();
         }
     }
