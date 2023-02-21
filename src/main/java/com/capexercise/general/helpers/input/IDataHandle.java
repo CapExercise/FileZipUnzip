@@ -6,5 +6,8 @@ public interface IDataHandle {
 
     String[] readContentAsArray();
 
+    void set(int per);
+
+    int get();
 
 }

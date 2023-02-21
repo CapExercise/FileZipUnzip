@@ -4,6 +4,7 @@ import com.capexercise.filezipunzip.FileZipper;
 import com.capexercise.general.Path;
 import com.capexercise.huffman.character.CharZipperUnZipper;
 import com.capexercise.huffman.general.GeneralMethods;
+import com.capexercise.huffman.modifiedTopMan.compressor.NewTopWordImplementation;
 import com.capexercise.huffman.topword.TopWordZipperUnZipper;
 import com.capexercise.huffman.topword.decompressor.TopWordDecompress;
 import com.capexercise.huffman.word.WordZipperUnZipper;
@@ -14,6 +15,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+
         Scanner scr = new Scanner(System.in);
         int choice = 0;
 
@@ -23,7 +25,7 @@ public class Main {
 
 
        FileZipper zipper=null;
-        System.out.println("Enter 1 for Using Character based compression\nEnter 2 for Word based Compression\nEnter 3 for Combination of Word and Character based Compression\n");
+        System.out.println("Enter 1 for Using Character based compression\nEnter 2 for Word based Compression\nEnter 3 for Combination of Word and Character based Compression\nEnter 4 for modified Top Word");
         choice=scr.nextInt();
 
 
@@ -38,6 +40,9 @@ public class Main {
                 case 3:
                     zipper = new TopWordZipperUnZipper();
                     break;
+                case 4:
+                     zipper=new NewTopWordImplementation();
+                     break;
 
             }
 
@@ -45,8 +50,8 @@ public class Main {
   //  FileZipper zipper=new WordZipperUnZipper();
   //    FileZipper zipper=new TopWordZipperUnZipper();
 
-      /*
 
+/*
       if I want some new Zipping Algorithm to be implemented
 
         General_Package.FileZipper zipper=new SomeNewAlgorithm();
@@ -82,7 +87,9 @@ public class Main {
                 case 3:
                     if (new GeneralMethods().check(Path.inputFilePath, Path.decompressedFilePath)) {
                         System.out.println("Files match!");
-                    } else {
+                    }
+                    else
+                    {
                         System.out.println("Files don't match!");
                     }
                     break;
@@ -95,5 +102,8 @@ public class Main {
                     System.out.println("Enter a valid choice");
             }
         }
+
+
+
     }
 }

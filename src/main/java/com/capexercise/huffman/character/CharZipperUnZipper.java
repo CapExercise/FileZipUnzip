@@ -63,7 +63,7 @@ public class CharZipperUnZipper implements FileZipper {
             out.writeObject(compressionMaps.returnFreqMap());
             out.close();
             System.out.println("top Size of map is "+f.length());
-            System.out.println("Average bit for top word is "+((float)coded.length()/(new File("src/main/java/com/capexercise/Files/input.txt").length())));
+            System.out.println("Average bit for Char is "+(coded.length())/(new File("src/main/java/com/capexercise/Files/input.txt").length()));
         }
         catch (FileNotFoundException e)
         {
@@ -74,7 +74,6 @@ public class CharZipperUnZipper implements FileZipper {
         }
 
         System.out.println("Compression done Successfully");
-
     }
 
     @Override

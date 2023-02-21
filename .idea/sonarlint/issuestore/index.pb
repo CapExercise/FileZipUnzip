@@ -11,11 +11,7 @@ u
 Esrc/main/java/com/capexercise/general/helpers/nodes/CharTreeNode.java,a/7/a7d95b670b764264d8c0ea26011819199e508df5
 q
 Asrc/main/java/com/capexercise/general/helpers/nodes/TreeNode.java,d/5/d5f7253a0a6b75efe0e31b5c0632c0154a1e260b
-t
-Dsrc/main/java/com/capexercise/general/helpers/input/IDataHandle.java,5/7/578c74e2881e69e3f25e4cd61ffa2e8737841f81
 n
 >src/main/java/com/capexercise/general/FrequencyComparator.java,f/6/f6f5e4a751868692c3fe7aed71456c7f762cfc98
 t
 Dsrc/test/java/com/capexercise/general/helpers/maps/WordMapsTest.java,3/b/3b43f6dcd9ce0de41666894501240456d1ed7043
-p
-@src/main/java/com/capexercise/general/helpers/maps/CharMaps.java,2/4/2405314d77621ed3712085921797597dd30e2aa0

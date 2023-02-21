@@ -1,4 +1,4 @@
-package com.capexercise.huffman.topword.compressor;
+package com.capexercise.huffman.modifiedTopMan.compressor;
 
 import com.capexercise.general.helpers.input.IDataHandle;
 import com.capexercise.general.helpers.maps.IMap;
@@ -8,8 +8,8 @@ import com.capexercise.huffman.compression.ICompress;
 
 import java.util.*;
 
-public class TopWordCompress implements ICompress {
-    @Override
+public class modifiedTopWordCompress implements ICompress {
+
     public IMap calculateFreq(IDataHandle dataObj) {
         IMap imap = new WordMaps();
 
@@ -34,14 +34,16 @@ public class TopWordCompress implements ICompress {
             return imap.getFrequency(b) - imap.getFrequency(a);
         });
 
-        float size= (float) (41/100.00);
-        for(int i=0;i<(keys.size()*size);i++)
+        int per=dataObj.get();
+        int size = (keys.size()*per)/100;
+        for(int i=0;i<size;i++)
             secondList.add(keys.get(i));
+
+
 
         Map<Object,Integer> newMap = new HashMap<>();
         for(String str:strData)
         {
-
             if(str.length()!=0)
             {
                 if(!secondList.contains(str))
@@ -53,15 +55,13 @@ public class TopWordCompress implements ICompress {
                 }
                 else
                     newMap.put(str,newMap.getOrDefault(str,0)+1);
-
             }
-
         }
         imap.setFreqMap(newMap);
         return imap;
     }
 
-    @Override
+
     public StringBuilder appendRemainingZeros(StringBuilder coded) {
         int rem = coded.length() % 8;
         if (rem != 0) {
@@ -74,7 +74,7 @@ public class TopWordCompress implements ICompress {
         return coded;
     }
 
-    @Override
+
     public int noofZerosToBeAppended(StringBuilder coded) {
         if (coded.length() == 0 || coded.length() % 8 == 0) {
             return 0;
@@ -82,7 +82,7 @@ public class TopWordCompress implements ICompress {
         return 8 - (coded.length() % 8);
     }
 
-    @Override
+
     public byte[] compress(StringBuilder coded) {
         byte[] bytearray = new byte[coded.length() / 8];
         StringBuilder sub = new StringBuilder();
@@ -101,7 +101,7 @@ public class TopWordCompress implements ICompress {
     }
 
 
-    @Override
+
     public void iterateTreeAndCalculateHuffManCode(TreeNode newNode, String s, IMap huffmanMap) {
         if (newNode == null) {
             return;
@@ -114,7 +114,7 @@ public class TopWordCompress implements ICompress {
         iterateTreeAndCalculateHuffManCode(newNode.getRight(), s + "1", huffmanMap);
     }
 
-    @Override
+
     public StringBuilder getCodes(IMap huffmanMap, IDataHandle fobj) {
         StringBuilder finalAns = new StringBuilder();
         String[] strData = fobj.readContentAsArray();
