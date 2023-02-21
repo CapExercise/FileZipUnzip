@@ -1,4 +1,4 @@
-package com.capexercise.huffman.character.decompressor;
+package com.capexercise.huffman.variations.modifiedTopMan.decompressor;
 
 import com.capexercise.general.Path;
 import com.capexercise.general.helpers.nodes.TreeNode;
@@ -9,10 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
-public class CharDecompress implements IDecompress {
+public class modifiedTopWordDecompress implements IDecompress {
     @Override
-    public ArrayList<Integer> get8bitcode(int val) {
+    public ArrayList<Integer> get8bitcode(int val) throws RuntimeException {
         if (val < 0) {
             throw new RuntimeException();
         }
@@ -31,7 +30,6 @@ public class CharDecompress implements IDecompress {
 
         return ans;
     }
-
 
 
     @Override
@@ -53,31 +51,29 @@ public class CharDecompress implements IDecompress {
 
     @Override
     public void writeIntoDecompressedFile(TreeNode root, StringBuilder decoded, int noOfZeros) {
-
         TreeNode node = root;
-        try {
-            FileWriter fileWriter = new FileWriter(Path.decompressedFilePath);
-            for (int i = 0; i < decoded.length() - noOfZeros; i++) {
-                char cc = (decoded.charAt(i));
-                if (cc == '0')
-                {
-                    node= node.getLeft();
+        StringBuilder finalAns = new StringBuilder();
+        for (int i = 0; i < decoded.length() - noOfZeros; i++) {
+            char cc = (decoded.charAt(i));
 
-                } else {
-                    node = node.getRight();
+            if (cc == '0')
+                node= node.getLeft();
+             else
+                node = node.getRight();
 
-                }
 
-                if (node.getLeft() == null && node.getRight() == null) {
-                    fileWriter.write((char) node.getVar());
-                    node = root;
-                }
+            if (node.getLeft() == null && node.getRight() == null) {
+                finalAns.append((String) node.getVar());
+                node=root;
             }
-            fileWriter.close();
         }
-        catch (IOException e)
-        {
-            throw new RuntimeException();
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(Path.decompressedFilePath);
+            fileWriter.write(finalAns.toString());
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

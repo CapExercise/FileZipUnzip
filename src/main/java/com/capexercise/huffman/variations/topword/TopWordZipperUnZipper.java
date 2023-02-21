@@ -1,4 +1,4 @@
-package com.capexercise.huffman.modifiedTopMan.compressor;
+package com.capexercise.huffman.variations.topword;
 
 import com.capexercise.filezipunzip.FileZipper;
 import com.capexercise.general.FileContents;
@@ -11,95 +11,39 @@ import com.capexercise.general.helpers.maps.IMap;
 import com.capexercise.general.helpers.maps.WordMaps;
 import com.capexercise.general.helpers.nodes.StringTreeNode;
 import com.capexercise.general.helpers.nodes.TreeNode;
+import com.capexercise.huffman.compression.ICompress;
 import com.capexercise.huffman.decompression.IDecompress;
 import com.capexercise.huffman.general.GeneralMethods;
 import com.capexercise.huffman.general.IGeneral;
-import com.capexercise.huffman.topword.decompressor.TopWordDecompress;
-
+import com.capexercise.huffman.variations.topword.compressor.TopWordCompress;
+import com.capexercise.huffman.variations.topword.decompressor.TopWordDecompress;
 
 import java.io.*;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-public class NewTopWordImplementation implements FileZipper
-{
+public class TopWordZipperUnZipper implements FileZipper {
+
     IGeneral method;
 
-    int cur_min=Integer.MAX_VALUE;
-    int prec=0;
-    public NewTopWordImplementation(){
+    public TopWordZipperUnZipper(){
         method = new GeneralMethods();
     }
 
 
     @Override
-    public void compress()
-    {
-        int len1= (int) new File("src/main/java/com/capexercise/Files/input.txt").length();
-      modifiedTopWordCompress compressor = new modifiedTopWordCompress();
+    public void compress() {
+        ICompress compressor = new TopWordCompress();
 
         IDataHandle dataObj = new FileHandler(Path.inputFilePath);
 
-     IMap ref=null;
-          for(int i=10;i<70;i=i+10)
-          {
-              IMap compressionMaps =new WordMaps();
-              dataObj.set(i);
-           compressionMaps= compressor.calculateFreq(dataObj);
+        IMap compressionMaps = compressor.calculateFreq(dataObj);
 
-          TreeNode root = this.constructTree(compressionMaps);
+        TreeNode root = this.constructTree(compressionMaps);
 
-          compressor.iterateTreeAndCalculateHuffManCode(root, "", compressionMaps);
+        compressor.iterateTreeAndCalculateHuffManCode(root, "", compressionMaps);
 
-              StringBuilder coded = compressor.getCodes(compressionMaps, dataObj);
-
-        int sum=0;
-//          for(Map.Entry<Object,String> entry:compressionMaps.returnHuffMap().entrySet())
-//          {
-//              int len=entry.getValue().length();
-//
-//              int freq=compressionMaps.getFrequency(entry.getKey());
-//              sum+=len*freq;
-//          }
-              File f=new File("src/main/java/com/capexercise/Files/mapSize.txt");
-              try {
-                  ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(f));
-                  out.writeObject(compressionMaps.returnFreqMap());
-                  out.close();
-                  sum += f.length();
-                  sum+=coded.length()/8;
-                  f.delete();
-              } catch (FileNotFoundException e) {
-                  throw new RuntimeException(e);
-              } catch (IOException e) {
-                  throw new RuntimeException(e);
-              }
-
-              if(sum<cur_min)
-          {
-
-              cur_min=sum;
-              prec=i;
-              ref=compressionMaps;
-              System.out.println("For percentage "+i+" total sum "+(float)sum);
-
-          }
-              compressionMaps.setFreqMap(new HashMap<>());
-              compressionMaps.setHuffMap(new HashMap<>());
-       }
-
-        System.out.println("percentage used for compression is "+prec);
-
-          IMap cd=new WordMaps();
-          dataObj.set(prec);
-        cd= compressor.calculateFreq(dataObj);
-
-        TreeNode root = this.constructTree(cd);
-
-        compressor.iterateTreeAndCalculateHuffManCode(root, "", cd);
-
-        StringBuilder coded = compressor.getCodes(cd, dataObj);
+        StringBuilder coded = compressor.getCodes(compressionMaps, dataObj);
 
         int noOfZerosAppended = compressor.noofZerosToBeAppended(coded);
 
@@ -108,18 +52,18 @@ public class NewTopWordImplementation implements FileZipper
 
         byte[] byteArray = compressor.compress(coded);
 
-        cd.clearHuffMap();
+        compressionMaps.clearHuffMap();
 
-        IFileContents fileContents = new FileContents(cd.returnFreqMap(), noOfZerosAppended, byteArray);
+        IFileContents fileContents = new FileContents(compressionMaps.returnFreqMap(), noOfZerosAppended, byteArray);
         method.addCompressedContents(fileContents);
         File f=new File("src/main/java/com/capexercise/Files/mapSize.txt");
         try
         {
             ObjectOutputStream out=new ObjectOutputStream(new FileOutputStream(f));
-            out.writeObject(cd.returnFreqMap());
+            out.writeObject(compressionMaps.returnFreqMap());
             out.close();
             System.out.println("top Size of map is "+f.length());
-            System.out.println("Average bit for top word is "+(float)(coded.length())/(new File("src/main/java/com/capexercise/Files/input.txt").length()));
+            System.out.println("Average bit for top word is "+((float)coded.length()/(new File("src/main/java/com/capexercise/Files/input.txt").length())));
         }
         catch (FileNotFoundException e)
         {
@@ -134,8 +78,7 @@ public class NewTopWordImplementation implements FileZipper
 
     @Override
     public void decompress() {
-//        IDecompress decompressor = new TopWordDecompress();
-        modifiedTopWordDecompress decompressor=new modifiedTopWordDecompress();
+        IDecompress decompressor = new TopWordDecompress();
         IFileContents fileContents = method.extractContents(new File(Path.compressedFilePath));
         Map<Object, Integer> freq = fileContents.getFrequencyMap();
         int noOfZeros = fileContents.getExtraBits();
@@ -146,22 +89,23 @@ public class NewTopWordImplementation implements FileZipper
         StringBuilder decoded = decompressor.getDecodedString(byteArray);
         decompressor.writeIntoDecompressedFile(root, decoded, noOfZeros);
 
+
         System.out.println("De-Compression done Successfully");
 
-        method.displayStats(Path.inputFilePath, Path.compressedFilePath, Path.decompressedFilePath);
 
+        method.displayStats(Path.inputFilePath, Path.compressedFilePath, Path.decompressedFilePath);
     }
 
     @Override
-    public TreeNode constructTree(IMap imap)
-    {
+    public TreeNode constructTree(IMap imap) {
         PriorityQueue<TreeNode> pq = new PriorityQueue<>(imap.freqSize(), new FrequencyComparator());
-        Map<Object, Integer> freq = (Map<Object, Integer>) imap.returnFreqMap();
+        Map<Object, Integer> freq = imap.returnFreqMap();
 
         for (Map.Entry<Object, Integer> entry : freq.entrySet()) {
-            TreeNode node = new StringTreeNode((String) entry.getKey(), entry.getValue());
+            TreeNode node = new StringTreeNode(entry.getKey(), entry.getValue());
             pq.add(node);
         }
+
         TreeNode root = null;
         if (pq.size() == 1) {
             TreeNode leftSideNode = pq.peek();
@@ -184,6 +128,5 @@ public class NewTopWordImplementation implements FileZipper
         }
         return root;
     }
-
 
 }

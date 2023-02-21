@@ -5,8 +5,6 @@
 FileZipUnzip.iml,8/5/85f21d89825a7f448a614c7954501195859a16fa
 b
 2src/test/java/generalPackage/GeneralClassTest.java,9/3/93a1ac924eeda94dcb7317d2ac2579ab73341bf6
-_
-/src/main/java/com/capexercise/general/Node.java,9/8/9827bb4644fc029ca0012aec94085bcaecf4c8fc
 u
 Esrc/main/java/com/capexercise/general/helpers/nodes/CharTreeNode.java,a/7/a7d95b670b764264d8c0ea26011819199e508df5
 q
@@ -15,3 +13,7 @@ n
 >src/main/java/com/capexercise/general/FrequencyComparator.java,f/6/f6f5e4a751868692c3fe7aed71456c7f762cfc98
 t
 Dsrc/test/java/com/capexercise/general/helpers/maps/WordMapsTest.java,3/b/3b43f6dcd9ce0de41666894501240456d1ed7043
+u
+Esrc/test/java/com/capexercise/huffman/general/GeneralMethodsTest.java,d/e/de50e35c77a356e00e447e8ff1fb1fe1086912d7
+l
+<src/main/java/com/capexercise/general/helpers/maps/IMap.java,3/c/3ce1927fd942fd73c897c6d526fda9bd1a920dcd

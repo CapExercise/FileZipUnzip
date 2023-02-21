@@ -1,19 +1,6 @@
 package decompressionPackage;
 
-import com.capexercise.general.helpers.nodes.TreeNode;
-import com.capexercise.huffman.character.decompressor.CharDecompress;
-import com.capexercise.general.Path;
-import org.junit.Before;
-import org.junit.Test;
 import static org.mockito.Mockito.spy;
-import static org.junit.Assert.*;
-
-import com.capexercise.general.Node;
-import org.mockito.Mockito;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ImplemenatationClassForDecompressionTest
 {

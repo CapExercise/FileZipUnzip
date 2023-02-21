@@ -1,4 +1,4 @@
-package com.capexercise.huffman.word.compressor;
+package com.capexercise.huffman.variations.topword.compressor;
 
 import com.capexercise.general.helpers.input.IDataHandle;
 import com.capexercise.general.helpers.maps.IMap;
@@ -6,7 +6,9 @@ import com.capexercise.general.helpers.maps.WordMaps;
 import com.capexercise.general.helpers.nodes.TreeNode;
 import com.capexercise.huffman.compression.ICompress;
 
-public class WordCompress implements ICompress {
+import java.util.*;
+
+public class TopWordCompress implements ICompress {
     @Override
     public IMap calculateFreq(IDataHandle dataObj) {
         IMap imap = new WordMaps();
@@ -18,6 +20,44 @@ public class WordCompress implements ICompress {
             imap.putFrequency(str, imap.getFrequency(str));
         }
 
+        Map<Object,Integer> freqMap = imap.returnFreqMap();
+
+        List<Object> keys=new ArrayList<>(freqMap.keySet());
+
+        List<Object> secondList=new ArrayList<>();
+
+        Collections.sort(keys, (a, b) -> {
+            String str1 = (String) a;
+            String str2 = (String) b;
+            if(imap.getFrequency(a)==imap.getFrequency(b))
+                return str1.compareTo(str2);
+            return imap.getFrequency(b) - imap.getFrequency(a);
+        });
+
+        float size= (float) (41/100.00);
+        for(int i=0;i<(keys.size()*size);i++)
+            secondList.add(keys.get(i));
+
+        Map<Object,Integer> newMap = new HashMap<>();
+        for(String str:strData)
+        {
+
+            if(str.length()!=0)
+            {
+                if(!secondList.contains(str))
+                {
+                    for(int idx=0;idx<str.length();idx++)
+                    {
+                        newMap.put(String.valueOf(str.charAt(idx)),newMap.getOrDefault(String.valueOf(str.charAt(idx)),0)+1);
+                    }
+                }
+                else
+                    newMap.put(str,newMap.getOrDefault(str,0)+1);
+
+            }
+
+        }
+        imap.setFreqMap(newMap);
         return imap;
     }
 
@@ -67,6 +107,7 @@ public class WordCompress implements ICompress {
             return;
         }
         if (newNode.getLeft() == null && newNode.getRight() == null) {
+//            System.out.println(newNode.getVar()+"\t"+s);
             huffmanMap.putHuffManCode(newNode.getVar(), s);
         }
         iterateTreeAndCalculateHuffManCode(newNode.getLeft(), s + "0", huffmanMap);
@@ -76,20 +117,14 @@ public class WordCompress implements ICompress {
     @Override
     public StringBuilder getCodes(IMap huffmanMap, IDataHandle fobj) {
         StringBuilder finalAns = new StringBuilder();
-        String ans = fobj.readContent();
-        String sub = "";
-        for (int i = 0; i < ans.length(); i++) {
-            while (i < ans.length() && (Character.isAlphabetic(ans.charAt(i)) || Character.isDigit(ans.charAt(i))))
-                sub += ans.charAt(i++);
-
-
-            if (huffmanMap.containsHuffKey(sub))
-                finalAns.append(huffmanMap.getHuffmanCode(sub));
-            if (i!=ans.length() && huffmanMap.containsHuffKey(String.valueOf(ans.charAt(i))))
-                finalAns.append(huffmanMap.getHuffmanCode(String.valueOf(ans.charAt(i))));
-
-            sub = "";
-
+        String[] strData = fobj.readContentAsArray();
+        for(String str:strData){
+            if(huffmanMap.containsHuffKey(str))
+                finalAns.append(huffmanMap.getHuffmanCode(str));
+            else{
+                for(char character:str.toCharArray())
+                    finalAns.append(huffmanMap.getHuffmanCode(String.valueOf(character)));
+            }
         }
         return finalAns;
     }

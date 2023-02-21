@@ -1,4 +1,4 @@
-package com.capexercise.huffman.word.decompressor;
+package com.capexercise.huffman.variations.character.decompressor;
 
 import com.capexercise.general.Path;
 import com.capexercise.general.helpers.nodes.TreeNode;
@@ -9,9 +9,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class WordDecompress implements IDecompress {
+
+public class CharDecompress implements IDecompress {
     @Override
-    public ArrayList<Integer> get8bitcode(int val) throws RuntimeException {
+    public ArrayList<Integer> get8bitcode(int val) {
         if (val < 0) {
             throw new RuntimeException();
         }
@@ -30,6 +31,7 @@ public class WordDecompress implements IDecompress {
 
         return ans;
     }
+
 
 
     @Override
@@ -51,29 +53,31 @@ public class WordDecompress implements IDecompress {
 
     @Override
     public void writeIntoDecompressedFile(TreeNode root, StringBuilder decoded, int noOfZeros) {
-        TreeNode node=root;
-        StringBuilder finalAns = new StringBuilder();
-        for (int i = 0; i < decoded.length() - noOfZeros; i++) {
-            char cc = (decoded.charAt(i));
 
-            if (cc == '0')
-                node= node.getLeft();
-            else
-                node = node.getRight();
-
-            if (node.getLeft() == null && node.getRight() == null) {
-                finalAns.append((String) node.getVar());
-                node=root;
-            }
-
-        }
-        FileWriter fileWriter = null;
+        TreeNode node = root;
         try {
-            fileWriter = new FileWriter(Path.decompressedFilePath);
-            fileWriter.write(finalAns.toString());
+            FileWriter fileWriter = new FileWriter(Path.decompressedFilePath);
+            for (int i = 0; i < decoded.length() - noOfZeros; i++) {
+                char cc = (decoded.charAt(i));
+                if (cc == '0')
+                {
+                    node= node.getLeft();
+
+                } else {
+                    node = node.getRight();
+
+                }
+
+                if (node.getLeft() == null && node.getRight() == null) {
+                    fileWriter.write((char) node.getVar());
+                    node = root;
+                }
+            }
             fileWriter.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException();
         }
     }
 }

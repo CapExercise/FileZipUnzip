@@ -1,4 +1,4 @@
-package com.capexercise.huffman.modifiedTopMan.compressor;
+package com.capexercise.huffman.variations.modifiedTopMan.compressor;
 
 import com.capexercise.general.helpers.input.IDataHandle;
 import com.capexercise.general.helpers.maps.IMap;
@@ -34,7 +34,7 @@ public class modifiedTopWordCompress implements ICompress {
             return imap.getFrequency(b) - imap.getFrequency(a);
         });
 
-        int per=dataObj.get();
+        int per=dataObj.getPercentage();
         int size = (keys.size()*per)/100;
         for(int i=0;i<size;i++)
             secondList.add(keys.get(i));

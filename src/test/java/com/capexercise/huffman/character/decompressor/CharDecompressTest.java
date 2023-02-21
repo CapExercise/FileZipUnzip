@@ -3,6 +3,7 @@ package com.capexercise.huffman.character.decompressor;
 import com.capexercise.general.Path;
 import com.capexercise.general.helpers.nodes.CharTreeNode;
 import com.capexercise.general.helpers.nodes.TreeNode;
+import com.capexercise.huffman.variations.character.decompressor.CharDecompress;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

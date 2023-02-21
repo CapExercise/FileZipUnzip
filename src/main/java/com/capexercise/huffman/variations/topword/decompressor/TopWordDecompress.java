@@ -1,4 +1,4 @@
-package com.capexercise.huffman.topword.decompressor;
+package com.capexercise.huffman.variations.topword.decompressor;
 
 import com.capexercise.general.Path;
 import com.capexercise.general.helpers.nodes.TreeNode;

@@ -1,4 +1,4 @@
-package com.capexercise.huffman.character;
+package com.capexercise.huffman.variations.word;
 
 import com.capexercise.filezipunzip.FileZipper;
 import com.capexercise.general.FileContents;
@@ -9,30 +9,32 @@ import com.capexercise.general.helpers.input.FileHandler;
 import com.capexercise.general.helpers.input.IDataHandle;
 import com.capexercise.general.helpers.maps.IMap;
 import com.capexercise.general.helpers.maps.WordMaps;
-import com.capexercise.general.helpers.nodes.CharTreeNode;
+import com.capexercise.general.helpers.nodes.StringTreeNode;
 import com.capexercise.general.helpers.nodes.TreeNode;
-import com.capexercise.huffman.character.compressor.CharCompress;
-import com.capexercise.huffman.character.decompressor.CharDecompress;
 import com.capexercise.huffman.compression.ICompress;
 import com.capexercise.huffman.decompression.IDecompress;
 import com.capexercise.huffman.general.GeneralMethods;
 import com.capexercise.huffman.general.IGeneral;
+import com.capexercise.huffman.variations.word.compressor.WordCompress;
+import com.capexercise.huffman.variations.word.decompressor.WordDecompress;
 
 import java.io.*;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-public class CharZipperUnZipper implements FileZipper {
+public class WordZipperUnZipper implements FileZipper {
 
     IGeneral method;
 
-    public CharZipperUnZipper() {
+    public WordZipperUnZipper(){
         method = new GeneralMethods();
     }
 
+
     @Override
     public void compress() {
-        ICompress compressor = new CharCompress();
+
+        ICompress compressor = new WordCompress();
 
         IDataHandle dataObj = new FileHandler(Path.inputFilePath);
 
@@ -53,7 +55,6 @@ public class CharZipperUnZipper implements FileZipper {
 
         compressionMaps.clearHuffMap();
 
-
         IFileContents fileContents = new FileContents((Map<Object, Integer>) compressionMaps.returnFreqMap(), noOfZerosAppended, byteArray);
         method.addCompressedContents(fileContents);
         File f=new File("src/main/java/com/capexercise/Files/mapSize.txt");
@@ -63,7 +64,8 @@ public class CharZipperUnZipper implements FileZipper {
             out.writeObject(compressionMaps.returnFreqMap());
             out.close();
             System.out.println("top Size of map is "+f.length());
-            System.out.println("Average bit for Char is "+(coded.length())/(new File("src/main/java/com/capexercise/Files/input.txt").length()));
+            System.out.println("Average bit for top word is "+((float)coded.length()/(new File("src/main/java/com/capexercise/Files/input.txt").length())));
+
         }
         catch (FileNotFoundException e)
         {
@@ -78,22 +80,15 @@ public class CharZipperUnZipper implements FileZipper {
 
     @Override
     public void decompress() {
-        IDecompress decompressor = new CharDecompress();
-
+        IDecompress decompressor = new WordDecompress();
         IFileContents fileContents = method.extractContents(new File(Path.compressedFilePath));
-
         Map<Object, Integer> freq = fileContents.getFrequencyMap();
-
         int noOfZeros = fileContents.getExtraBits();
-
         byte[] byteArray = fileContents.getByteArray();
 
         IMap decompressionMap = new WordMaps(freq, null);
-
         TreeNode root = this.constructTree(decompressionMap);
-
         StringBuilder decoded = decompressor.getDecodedString(byteArray);
-
         decompressor.writeIntoDecompressedFile(root, decoded, noOfZeros);
 
 
@@ -101,23 +96,22 @@ public class CharZipperUnZipper implements FileZipper {
 
 
         method.displayStats(Path.inputFilePath, Path.compressedFilePath, Path.decompressedFilePath);
-
     }
 
     @Override
-    public TreeNode constructTree(IMap frequencyMap) {
-        PriorityQueue<TreeNode> pq = new PriorityQueue<>(frequencyMap.freqSize(), new FrequencyComparator());
-        Map<Object, Integer> freq = (Map<Object, Integer>) frequencyMap.returnFreqMap();
+    public TreeNode constructTree(IMap imap) {
+        PriorityQueue<TreeNode> pq = new PriorityQueue<>(imap.freqSize(), new FrequencyComparator());
+        Map<Object, Integer> freq = (Map<Object, Integer>) imap.returnFreqMap();
 
         for (Map.Entry<Object, Integer> entry : freq.entrySet()) {
-            TreeNode node = new CharTreeNode((Character) entry.getKey(), entry.getValue());
+            TreeNode node = new StringTreeNode((String) entry.getKey(), entry.getValue());
             pq.add(node);
         }
         TreeNode root = null;
         if (pq.size() == 1) {
             TreeNode leftSideNode = pq.peek();
             pq.poll();
-            TreeNode newNode = new CharTreeNode('-', leftSideNode.getFrequency());
+            TreeNode newNode = new StringTreeNode("-", leftSideNode.getFrequency());
             newNode.setLeft(leftSideNode);
             newNode.setRight(null);
             root = newNode;
@@ -125,8 +119,9 @@ public class CharZipperUnZipper implements FileZipper {
         }
         while (pq.size() > 1) {
             TreeNode leftSideNode = pq.poll();
+
             TreeNode rightSideNode = pq.poll();
-            TreeNode newNode = new CharTreeNode('-', leftSideNode.getFrequency() + rightSideNode.getFrequency());
+            TreeNode newNode = new StringTreeNode("-", leftSideNode.getFrequency() + rightSideNode.getFrequency());
             newNode.setLeft(leftSideNode);
             newNode.setRight(rightSideNode);
             root = newNode;
@@ -134,4 +129,5 @@ public class CharZipperUnZipper implements FileZipper {
         }
         return root;
     }
+
 }

@@ -2,12 +2,11 @@ package com.capexercise;
 
 import com.capexercise.filezipunzip.FileZipper;
 import com.capexercise.general.Path;
-import com.capexercise.huffman.character.CharZipperUnZipper;
+import com.capexercise.huffman.variations.character.CharZipperUnZipper;
 import com.capexercise.huffman.general.GeneralMethods;
-import com.capexercise.huffman.modifiedTopMan.compressor.NewTopWordImplementation;
-import com.capexercise.huffman.topword.TopWordZipperUnZipper;
-import com.capexercise.huffman.topword.decompressor.TopWordDecompress;
-import com.capexercise.huffman.word.WordZipperUnZipper;
+import com.capexercise.huffman.variations.modifiedTopMan.NewTopWordImplementation;
+import com.capexercise.huffman.variations.topword.TopWordZipperUnZipper;
+import com.capexercise.huffman.variations.word.WordZipperUnZipper;
 
 import java.io.IOException;
 import java.util.Scanner;

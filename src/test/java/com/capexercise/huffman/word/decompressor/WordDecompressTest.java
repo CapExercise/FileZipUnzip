@@ -4,7 +4,7 @@ import com.capexercise.general.Path;
 import com.capexercise.general.helpers.nodes.CharTreeNode;
 import com.capexercise.general.helpers.nodes.StringTreeNode;
 import com.capexercise.general.helpers.nodes.TreeNode;
-import com.capexercise.huffman.character.decompressor.CharDecompress;
+import com.capexercise.huffman.variations.word.decompressor.WordDecompress;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

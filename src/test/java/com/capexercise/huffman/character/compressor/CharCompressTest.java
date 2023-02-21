@@ -6,10 +6,9 @@ import com.capexercise.general.helpers.maps.CharMaps;
 import com.capexercise.general.helpers.maps.IMap;
 import com.capexercise.general.helpers.nodes.CharTreeNode;
 import com.capexercise.general.helpers.nodes.TreeNode;
-import javafx.beans.binding.ObjectExpression;
+import com.capexercise.huffman.variations.character.compressor.CharCompress;
 import org.junit.Before;
 import org.junit.Test;
-import sun.reflect.generics.tree.Tree;
 
 import java.util.HashMap;
 import java.util.Map;

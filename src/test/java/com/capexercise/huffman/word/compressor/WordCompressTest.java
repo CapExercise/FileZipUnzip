@@ -7,6 +7,7 @@ import com.capexercise.general.helpers.maps.IMap;
 import com.capexercise.general.helpers.maps.WordMaps;
 import com.capexercise.general.helpers.nodes.StringTreeNode;
 import com.capexercise.general.helpers.nodes.TreeNode;
+import com.capexercise.huffman.variations.word.compressor.WordCompress;
 import org.junit.Before;
 import org.junit.Test;
 

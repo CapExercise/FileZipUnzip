@@ -1,17 +1,13 @@
 package compressionPackage;
 import com.capexercise.general.helpers.maps.CharMaps;
 import com.capexercise.general.helpers.maps.IMap;
-import com.capexercise.general.helpers.maps.WordMaps;
 import com.capexercise.general.helpers.nodes.CharTreeNode;
 import com.capexercise.general.helpers.nodes.TreeNode;
-import com.capexercise.huffman.character.compressor.CharCompress;
+import com.capexercise.huffman.variations.character.compressor.CharCompress;
 import com.capexercise.general.helpers.input.IDataHandle;
 import com.capexercise.general.helpers.input.StringHandler;
-import com.capexercise.general.Node;
 import org.junit.Before;
 import org.junit.Test;
-import sun.reflect.generics.tree.Tree;
-import sun.rmi.transport.ObjectTable;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -6,8 +6,8 @@ public interface IDataHandle {
 
     String[] readContentAsArray();
 
-    void set(int per);
+    void setPercentage(int per);
 
-    int get();
+    int getPercentage();
 
 }

@@ -76,13 +76,13 @@ public class FileHandler implements IDataHandle {
     }
 
     @Override
-    public void set(int per) {
+    public void setPercentage(int per) {
         this.per=per;
     }
 
 
 
-    public int get()
+    public int getPercentage()
     {
         return this.per;
     }

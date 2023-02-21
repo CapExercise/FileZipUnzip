@@ -60,12 +60,12 @@ public class StringHandler implements IDataHandle {
     }
 
     @Override
-    public void set(int per) {
+    public void setPercentage(int per) {
 
     }
 
     @Override
-    public int get() {
+    public int getPercentage() {
         return 0;
     }
 }

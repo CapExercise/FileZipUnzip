@@ -1,4 +1,4 @@
-package com.capexercise.huffman.modifiedTopMan.compressor;
+package com.capexercise.huffman.variations.word.decompressor;
 
 import com.capexercise.general.Path;
 import com.capexercise.general.helpers.nodes.TreeNode;
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class modifiedTopWordDecompress implements IDecompress {
+public class WordDecompress implements IDecompress {
     @Override
     public ArrayList<Integer> get8bitcode(int val) throws RuntimeException {
         if (val < 0) {
@@ -51,21 +51,21 @@ public class modifiedTopWordDecompress implements IDecompress {
 
     @Override
     public void writeIntoDecompressedFile(TreeNode root, StringBuilder decoded, int noOfZeros) {
-        TreeNode node = root;
+        TreeNode node=root;
         StringBuilder finalAns = new StringBuilder();
         for (int i = 0; i < decoded.length() - noOfZeros; i++) {
             char cc = (decoded.charAt(i));
 
             if (cc == '0')
                 node= node.getLeft();
-             else
+            else
                 node = node.getRight();
-
 
             if (node.getLeft() == null && node.getRight() == null) {
                 finalAns.append((String) node.getVar());
                 node=root;
             }
+
         }
         FileWriter fileWriter = null;
         try {
