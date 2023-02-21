@@ -11,9 +11,12 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 public class GeneralMethodsTest {
+
+    IGeneral testRef;
     @Before
     public void beforeTest()
     {
+        testRef = new GeneralMethods();
         FileWriter f1=null;
         try {
             f1 =new FileWriter("src/test/java/generalPackage/test.txt");
@@ -64,7 +67,7 @@ public class GeneralMethodsTest {
     {
         try
         {
-            assertTrue(GeneralClass.check("src/test/java/generalPackage/test.txt","src/test/java/generalPackage/test1.txt"));
+            assertTrue(testRef.check("src/test/java/generalPackage/test.txt","src/test/java/generalPackage/test1.txt"));
         } catch (IOException e)
         {
             throw new RuntimeException(e);
@@ -76,7 +79,7 @@ public class GeneralMethodsTest {
     {
         try
         {
-            assertFalse(GeneralClass.check("src/test/java/generalPackage/test2.txt","src/test/java/generalPackage/test3.txt"));
+            assertFalse(testRef.check("src/test/java/generalPackage/test2.txt","src/test/java/generalPackage/test3.txt"));
         }
         catch (IOException e)
         {
