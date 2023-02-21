@@ -63,7 +63,8 @@ public class WordZipperUnZipper implements FileZipper {
             out.writeObject(compressionMaps.returnFreqMap());
             out.close();
             System.out.println("top Size of map is "+f.length());
-            System.out.println("Average bit for word is "+(new File("src/main/java/com/capexercise/Files/compressed.txt").length()*8.0)/(new File("src/main/java/com/capexercise/Files/input.txt").length()));
+            System.out.println("Average bit for top word is "+((float)coded.length()/(new File("src/main/java/com/capexercise/Files/input.txt").length())));
+
         }
         catch (FileNotFoundException e)
         {
