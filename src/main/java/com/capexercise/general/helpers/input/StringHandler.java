@@ -58,4 +58,14 @@ public class StringHandler implements IDataHandle {
         return result;
 
     }
+
+    @Override
+    public void set(int per) {
+
+    }
+
+    @Override
+    public int get() {
+        return 0;
+    }
 }

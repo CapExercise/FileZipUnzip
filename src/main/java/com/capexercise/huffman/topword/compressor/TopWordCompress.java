@@ -34,7 +34,8 @@ public class TopWordCompress implements ICompress {
             return imap.getFrequency(b) - imap.getFrequency(a);
         });
 
-        for(int i=0;i<(keys.size()/5);i++)
+        float size= (float) (41/100.00);
+        for(int i=0;i<(keys.size()*size);i++)
             secondList.add(keys.get(i));
 
         Map<Object,Integer> newMap = new HashMap<>();

@@ -33,6 +33,7 @@ public class WordZipperUnZipper implements FileZipper {
 
     @Override
     public void compress() {
+
         ICompress compressor = new WordCompress();
 
         IDataHandle dataObj = new FileHandler(Path.inputFilePath);

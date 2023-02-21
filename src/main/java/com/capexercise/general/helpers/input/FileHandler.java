@@ -9,6 +9,8 @@ import java.util.List;
 public class FileHandler implements IDataHandle {
     File filObj;
 
+    int per;
+
     public FileHandler(String path) {
         filObj = new File(path);
     }
@@ -71,5 +73,17 @@ public class FileHandler implements IDataHandle {
             result[i] = stringList.get(i);
 
         return result;
+    }
+
+    @Override
+    public void set(int per) {
+        this.per=per;
+    }
+
+
+
+    public int get()
+    {
+        return this.per;
     }
 }
