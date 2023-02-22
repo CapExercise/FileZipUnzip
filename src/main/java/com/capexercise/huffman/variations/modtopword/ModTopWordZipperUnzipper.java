@@ -1,4 +1,4 @@
-package com.capexercise.huffman.variations.modifiedTopMan;
+package com.capexercise.huffman.variations.modtopword;
 
 import com.capexercise.filezipunzip.FileZipper;
 import com.capexercise.general.FileContents;
@@ -13,21 +13,20 @@ import com.capexercise.general.helpers.nodes.StringTreeNode;
 import com.capexercise.general.helpers.nodes.TreeNode;
 import com.capexercise.huffman.general.GeneralMethods;
 import com.capexercise.huffman.general.IGeneral;
-import com.capexercise.huffman.variations.modifiedTopMan.compressor.modifiedTopWordCompress;
-import com.capexercise.huffman.variations.modifiedTopMan.decompressor.modifiedTopWordDecompress;
+import com.capexercise.huffman.variations.modtopword.compressor.ModTopWordCompress;
+import com.capexercise.huffman.variations.modtopword.decompressor.ModTopWordDecompress;
 
 import java.io.*;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-public class NewTopWordImplementation implements FileZipper {
+public class ModTopWordZipperUnzipper implements FileZipper {
     IGeneral method;
 
     int cur_min = Integer.MAX_VALUE;
     int prec = 0;
 
-    public NewTopWordImplementation() {
+    public ModTopWordZipperUnzipper() {
         method = new GeneralMethods();
     }
 
@@ -35,7 +34,7 @@ public class NewTopWordImplementation implements FileZipper {
     @Override
     public void compress() {
         int len1 = (int) new File("src/main/java/com/capexercise/Files/input.txt").length();
-        modifiedTopWordCompress compressor = new modifiedTopWordCompress();
+        ModTopWordCompress compressor = new ModTopWordCompress();
 
         IDataHandle dataObj = new FileHandler(Path.inputFilePath);
 
@@ -70,7 +69,7 @@ public class NewTopWordImplementation implements FileZipper {
 
                 cur_min = sum;
                 prec = i;
-//                System.out.println("For percentage " + i + " total sum " + (float) sum);
+                System.out.println("For percentage " + i + " total sum " + (float) sum);
 
             }
             compressionMaps.clearFreqMap();
@@ -119,7 +118,7 @@ public class NewTopWordImplementation implements FileZipper {
     @Override
     public void decompress() {
 //        IDecompress decompressor = new TopWordDecompress();
-        modifiedTopWordDecompress decompressor = new modifiedTopWordDecompress();
+        ModTopWordDecompress decompressor = new ModTopWordDecompress();
         IFileContents fileContents = method.extractContents(new File(Path.compressedFilePath));
         Map<Object, Integer> freq = fileContents.getFrequencyMap();
         int noOfZeros = fileContents.getExtraBits();

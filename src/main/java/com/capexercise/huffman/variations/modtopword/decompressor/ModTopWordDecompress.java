@@ -1,4 +1,4 @@
-package com.capexercise.huffman.variations.modifiedTopMan.decompressor;
+package com.capexercise.huffman.variations.modtopword.decompressor;
 
 import com.capexercise.general.Path;
 import com.capexercise.general.helpers.nodes.TreeNode;
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class modifiedTopWordDecompress implements IDecompress {
+public class ModTopWordDecompress implements IDecompress {
     @Override
     public ArrayList<Integer> get8bitcode(int val) throws RuntimeException {
         if (val < 0) {
