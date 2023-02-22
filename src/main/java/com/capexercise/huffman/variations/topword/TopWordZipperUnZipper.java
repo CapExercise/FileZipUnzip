@@ -17,10 +17,12 @@ import com.capexercise.huffman.general.GeneralMethods;
 import com.capexercise.huffman.general.IGeneral;
 import com.capexercise.huffman.variations.topword.compressor.TopWordCompress;
 import com.capexercise.huffman.variations.topword.decompressor.TopWordDecompress;
+import sun.rmi.runtime.Log;
 
 import java.io.*;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.logging.Logger;
 
 public class TopWordZipperUnZipper implements FileZipper {
 
@@ -30,30 +32,43 @@ public class TopWordZipperUnZipper implements FileZipper {
         method = new GeneralMethods();
     }
 
-
+    Logger logger = Logger.getLogger(TopWordZipperUnZipper.class.getName());
+    long startTime;
+    long freq,tree,huff,code,comp,write;
     @Override
     public void compress() {
         ICompress compressor = new TopWordCompress();
 
         IDataHandle dataObj = new FileHandler(Path.inputFilePath);
 
+        startTime = System.currentTimeMillis();
         IMap compressionMaps = compressor.calculateFreq(dataObj);
+//        freq = System.currentTimeMillis() - startTime;
 
+//        startTime = System.currentTimeMillis();
         TreeNode root = this.constructTree(compressionMaps);
+//        tree = System.currentTimeMillis() - startTime;
 
+//        startTime = System.currentTimeMillis();
         compressor.iterateTreeAndCalculateHuffManCode(root, "", compressionMaps);
+//        huff = System.currentTimeMillis() - startTime;
 
+//        startTime = System.currentTimeMillis();
         StringBuilder coded = compressor.getCodes(compressionMaps, dataObj);
+//        code = System.currentTimeMillis() - startTime;
 
         int noOfZerosAppended = compressor.noofZerosToBeAppended(coded);
 
         if (noOfZerosAppended != 0)
             coded = compressor.appendRemainingZeros(coded);
 
+//        startTime = System.currentTimeMillis();
         byte[] byteArray = compressor.compress(coded);
+//        comp = System.currentTimeMillis() - startTime;
 
         compressionMaps.clearHuffMap();
 
+//        startTime = System.currentTimeMillis();
         IFileContents fileContents = new FileContents(compressionMaps.returnFreqMap(), noOfZerosAppended, byteArray);
         method.addCompressedContents(fileContents);
         File f=new File("src/main/java/com/capexercise/Files/mapSize.txt");
@@ -72,6 +87,8 @@ public class TopWordZipperUnZipper implements FileZipper {
         catch (IOException e) {
             throw new RuntimeException(e);
         }
+//        write = System.currentTimeMillis();
+//        logger.info("Time to build frequency map:"+freq+"\nTime to build tree:"+tree+"\ntime to build huffman map:"+huff+"\ntime to get encoded string:"+code+"\nTime to get compressed data:"+comp+"\nTime to write:"+write);
 
         System.out.println("Compression done Successfully");
     }
