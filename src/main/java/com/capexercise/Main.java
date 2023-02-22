@@ -4,7 +4,7 @@ import com.capexercise.filezipunzip.FileZipper;
 import com.capexercise.general.Path;
 import com.capexercise.huffman.variations.character.CharZipperUnZipper;
 import com.capexercise.huffman.general.GeneralMethods;
-import com.capexercise.huffman.variations.modifiedTopMan.NewTopWordImplementation;
+import com.capexercise.huffman.variations.modtopword.ModTopWordZipperUnzipper;
 import com.capexercise.huffman.variations.topword.TopWordZipperUnZipper;
 import com.capexercise.huffman.variations.word.WordZipperUnZipper;
 
@@ -40,7 +40,7 @@ public class Main {
                     zipper = new TopWordZipperUnZipper();
                     break;
                 case 4:
-                     zipper=new NewTopWordImplementation();
+                     zipper=new ModTopWordZipperUnzipper();
                      break;
 
             }

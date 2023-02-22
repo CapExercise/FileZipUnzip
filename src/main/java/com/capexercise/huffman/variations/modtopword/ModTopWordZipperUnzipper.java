@@ -40,7 +40,7 @@ public class ModTopWordZipperUnzipper implements FileZipper {
 
         IMap compressionMaps;
 
-        for (int i = 10; i < 70; i = i + 10) {
+        for (int i = 1; i < 100; i++) {
             dataObj.setPercentage(i);
             compressionMaps = compressor.calculateFreq(dataObj);
 
@@ -48,22 +48,18 @@ public class ModTopWordZipperUnzipper implements FileZipper {
 
             compressor.iterateTreeAndCalculateHuffManCode(root, "", compressionMaps);
 
-            StringBuilder coded = compressor.getCodes(compressionMaps, dataObj);
+//            StringBuilder coded = compressor.getCodes(compressionMaps, dataObj);
 
             int sum = 0;
-            File f = new File("src/main/java/com/capexercise/Files/mapSize.txt");
-            try {
-                ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(f));
-                out.writeObject(compressionMaps.returnFreqMap());
-                out.close();
-                sum += f.length();
-                sum += coded.length() / 8;
-                f.delete();
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+                sum+=getFreqSize(compressionMaps);
+                sum += getSize(compressionMaps) / 8;
+//                f.delete();
+//            } catch (FileNotFoundException e) {
+//                throw new RuntimeException(e);
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//            System.out.println("For percentage " + i + " total sum " + (float) sum);
 
             if (sum < cur_min) {
 
@@ -71,6 +67,9 @@ public class ModTopWordZipperUnzipper implements FileZipper {
                 prec = i;
                 System.out.println("For percentage " + i + " total sum " + (float) sum);
 
+            }
+            else{
+                break;
             }
             compressionMaps.clearFreqMap();
             compressionMaps.clearHuffMap();
@@ -165,6 +164,31 @@ public class ModTopWordZipperUnzipper implements FileZipper {
             pq.add(newNode);
         }
         return root;
+    }
+
+    int getSize(IMap map){
+        Map<Object, Integer> freqMap = map.returnFreqMap();
+        int size = 0;
+        for(Map.Entry<Object,Integer> ele : freqMap.entrySet())
+
+            size += (ele.getValue() * map.getHuffmanCode(ele.getKey()).length());
+
+        return size;
+    }
+
+    int getFreqSize(IMap map) {
+        int size = 0;
+        try {
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            ObjectOutputStream writer = new ObjectOutputStream(output);
+            writer.writeObject(map.returnFreqMap());
+            writer.flush();
+            writer.close();
+            size = output.toByteArray().length;
+        }catch(IOException e){
+            System.out.println("I/O Error occurred!!!");
+        }
+        return size;
     }
 
 
