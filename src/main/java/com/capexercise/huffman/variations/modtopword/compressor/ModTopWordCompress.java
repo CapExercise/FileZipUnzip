@@ -1,4 +1,4 @@
-package com.capexercise.huffman.variations.modifiedTopMan.compressor;
+package com.capexercise.huffman.variations.modtopword.compressor;
 
 import com.capexercise.general.helpers.input.IDataHandle;
 import com.capexercise.general.helpers.maps.IMap;
@@ -8,7 +8,7 @@ import com.capexercise.huffman.compression.ICompress;
 
 import java.util.*;
 
-public class modifiedTopWordCompress implements ICompress {
+public class ModTopWordCompress implements ICompress {
 
     public IMap calculateFreq(IDataHandle dataObj) {
         IMap imap = new WordMaps();
@@ -24,7 +24,8 @@ public class modifiedTopWordCompress implements ICompress {
 
         List<Object> keys=new ArrayList<>(freqMap.keySet());
 
-        List<Object> secondList=new ArrayList<>();
+        Set<Object> topWordSet=new HashSet<>();
+//        List<Object> topWordSet=new ArrayList<>();
 
         Collections.sort(keys, (a, b) -> {
             String str1 = (String) a;
@@ -37,7 +38,7 @@ public class modifiedTopWordCompress implements ICompress {
         int per=dataObj.getPercentage();
         int size = (keys.size()*per)/100;
         for(int i=0;i<size;i++)
-            secondList.add(keys.get(i));
+            topWordSet.add(keys.get(i));
 
 
 
@@ -46,7 +47,7 @@ public class modifiedTopWordCompress implements ICompress {
         {
             if(str.length()!=0)
             {
-                if(!secondList.contains(str))
+                if(!topWordSet.contains(str))
                 {
                     for(int idx=0;idx<str.length();idx++)
                     {

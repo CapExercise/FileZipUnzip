@@ -11,20 +11,29 @@ import java.util.*;
 public class TopWordCompress implements ICompress {
     @Override
     public IMap calculateFreq(IDataHandle dataObj) {
+//        long startTIme = System.currentTimeMillis();
         IMap imap = new WordMaps();
 
         String[] strData = dataObj.readContentAsArray();
 
+        long end = System.currentTimeMillis();
+//        System.out.println("Time to read contents: "+(end-startTIme));
 
+//        startTIme = System.currentTimeMillis();
         for (String str : strData) {
             imap.putFrequency(str, imap.getFrequency(str));
         }
+
+//        end = System.currentTimeMillis();
+//        System.out.println("Time to generate initial map : "+(end-startTIme));
 
         Map<Object,Integer> freqMap = imap.returnFreqMap();
 
         List<Object> keys=new ArrayList<>(freqMap.keySet());
 
-        List<Object> secondList=new ArrayList<>();
+        Set<Object> topWordSet=new HashSet<>();
+
+//        startTIme = System.currentTimeMillis();
 
         Collections.sort(keys, (a, b) -> {
             String str1 = (String) a;
@@ -36,7 +45,12 @@ public class TopWordCompress implements ICompress {
 
         float size= (float) (41/100.00);
         for(int i=0;i<(keys.size()*size);i++)
-            secondList.add(keys.get(i));
+            topWordSet.add(keys.get(i));
+
+//        end = System.currentTimeMillis();
+//        System.out.println("Time to generate list of top words: "+(end-startTIme));
+
+//        startTIme = System.currentTimeMillis();
 
         Map<Object,Integer> newMap = new HashMap<>();
         for(String str:strData)
@@ -44,11 +58,11 @@ public class TopWordCompress implements ICompress {
 
             if(str.length()!=0)
             {
-                if(!secondList.contains(str))
+                if(!topWordSet.contains(str))
                 {
                     for(int idx=0;idx<str.length();idx++)
                     {
-                        newMap.put(String.valueOf(str.charAt(idx)),newMap.getOrDefault(String.valueOf(str.charAt(idx)),0)+1);
+                        newMap.put(str.charAt(idx)+"",newMap.getOrDefault(str.charAt(idx)+"",0)+1);
                     }
                 }
                 else
@@ -58,6 +72,10 @@ public class TopWordCompress implements ICompress {
 
         }
         imap.setFreqMap(newMap);
+
+//        end = System.currentTimeMillis();
+//        System.out.println("Time to generate final map : "+(end-startTIme));
+
         return imap;
     }
 
