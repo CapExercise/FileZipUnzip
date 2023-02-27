@@ -3,6 +3,7 @@ package com.capexercise.huffman.general;
 import com.capexercise.general.FileContents;
 import com.capexercise.general.IFileContents;
 import com.capexercise.general.Path;
+import com.capexercise.general.helpers.maps.IMap;
 
 import java.io.*;
 import java.util.Map;
@@ -111,5 +112,31 @@ public class GeneralMethods implements IGeneral {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    @Override
+    public int getCodeSize(IMap map) {
+        Map<Object, Integer> freqMap = map.returnFreqMap();
+        int size = 0;
+        for(Map.Entry<Object,Integer> ele : freqMap.entrySet())
+
+            size += (ele.getValue() * map.getHuffmanCode(ele.getKey()).length());
+
+        return size;
+    }
+
+    @Override
+    public int getFreqSize(IMap map) {
+        int size = 0;
+        try {
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            ObjectOutputStream writer = new ObjectOutputStream(output);
+            writer.writeObject(map.returnFreqMap());
+            writer.flush();
+            writer.close();
+            size = output.toByteArray().length;
+        }catch(IOException e){
+            System.out.println("I/O Error occurred!!!");
+        }
+        return size;
     }
 }

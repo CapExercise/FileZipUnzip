@@ -51,8 +51,6 @@ Vsrc/main/java/com/capexercise/huffman/variations/word/decompressor/WordDecompre
 Osrc/test/java/com/capexercise/huffman/word/decompressor/WordDecompressTest.java,b/2/b21d08aa00d8b2be61468635436fa35664ab2635
 }
 Msrc/main/java/com/capexercise/huffman/variations/word/WordZipperUnZipper.java,0/c/0c32c5dff659653fd057fc5f7e39878265192686
-k
-;src/main/java/com/capexercise/huffman/general/IGeneral.java,6/5/658db44b7cd7911fbaf70bc80be4034a26cc93bb
 ‚
 Rsrc/main/java/com/capexercise/huffman/variations/character/CharZipperUnZipper.java,2/f/2f8e6b6d8ae7d0d6bac39aa315aaf12329125110
 p
@@ -61,5 +59,3 @@ t
 Dsrc/main/java/com/capexercise/huffman/decompression/IDecompress.java,4/0/401bb3b38162d9c971e79b3c37f4370deeb133cd
 j
 :src/main/java/com/capexercise/filezipunzip/FileZipper.java,4/8/487bb6e521cb253b445d5d5e5be817b84f22e5d1
-’
-bsrc/main/java/com/capexercise/huffman/variations/modtopword/decompressor/ModTopWordDecompress.java,9/2/92d6a29ff4e6402254fbaf0e265c6f9625937ea5

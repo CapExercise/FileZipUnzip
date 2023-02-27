@@ -1,6 +1,7 @@
 package com.capexercise.huffman.general;
 
 import com.capexercise.general.IFileContents;
+import com.capexercise.general.helpers.maps.IMap;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,4 +14,8 @@ public interface IGeneral {
     IFileContents extractContents(File fileObj);
 
     void addCompressedContents(IFileContents fileContents);
+
+    int getFreqSize(IMap tempMap);
+
+    int getCodeSize(IMap tempMap);
 }

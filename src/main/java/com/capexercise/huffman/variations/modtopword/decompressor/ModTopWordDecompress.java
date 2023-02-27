@@ -58,7 +58,7 @@ public class ModTopWordDecompress implements IDecompress {
 
             if (cc == '0')
                 node= node.getLeft();
-             else
+            else
                 node = node.getRight();
 
 

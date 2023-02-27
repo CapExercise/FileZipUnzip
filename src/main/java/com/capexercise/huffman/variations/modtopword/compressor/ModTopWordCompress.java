@@ -11,6 +11,10 @@ import java.util.*;
 public class ModTopWordCompress implements ICompress {
 
     public IMap calculateFreq(IDataHandle dataObj) {
+//        long startTime;
+
+//        startTime = System.currentTimeMillis();
+
         IMap imap = new WordMaps();
 
         String[] strData = dataObj.readContentAsArray();
@@ -20,45 +24,8 @@ public class ModTopWordCompress implements ICompress {
             imap.putFrequency(str, imap.getFrequency(str));
         }
 
-        Map<Object,Integer> freqMap = imap.returnFreqMap();
 
-        List<Object> keys=new ArrayList<>(freqMap.keySet());
-
-        Set<Object> topWordSet=new HashSet<>();
-//        List<Object> topWordSet=new ArrayList<>();
-
-        Collections.sort(keys, (a, b) -> {
-            String str1 = (String) a;
-            String str2 = (String) b;
-            if(imap.getFrequency(a)==imap.getFrequency(b))
-                return str1.compareTo(str2);
-            return imap.getFrequency(b) - imap.getFrequency(a);
-        });
-
-        int per=dataObj.getPercentage();
-        int size = (keys.size()*per)/100;
-        for(int i=0;i<size;i++)
-            topWordSet.add(keys.get(i));
-
-
-
-        Map<Object,Integer> newMap = new HashMap<>();
-        for(String str:strData)
-        {
-            if(str.length()!=0)
-            {
-                if(!topWordSet.contains(str))
-                {
-                    for(int idx=0;idx<str.length();idx++)
-                    {
-                        newMap.put(String.valueOf(str.charAt(idx)),newMap.getOrDefault(String.valueOf(str.charAt(idx)),0)+1);
-                    }
-                }
-                else
-                    newMap.put(str,newMap.getOrDefault(str,0)+1);
-            }
-        }
-        imap.setFreqMap(newMap);
+//        System.out.println("Time to create inital map:"+(System.currentTimeMillis()-startTime));
         return imap;
     }
 
