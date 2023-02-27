@@ -5,6 +5,6 @@ public interface Path {
 
     String decompressedFilePath = "src/main/java/com/capexercise/Files/decompressed/decompressed.txt";
 
-    String inputFilePath = "src/main/java/com/capexercise/Files/input.txt";
+    String inputFilePath = "src/main/java/com/capexercise/Files/bigfile.txt";
 
 }

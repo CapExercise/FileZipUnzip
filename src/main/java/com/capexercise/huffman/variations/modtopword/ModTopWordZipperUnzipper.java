@@ -26,6 +26,8 @@ public class ModTopWordZipperUnzipper implements FileZipper{
     IGeneral method;
     IDataHandle dataObj;
 
+    ModTopWordCompress obj;
+
     int cur_min, prec;
 
     public ModTopWordZipperUnzipper() {
@@ -37,6 +39,7 @@ public class ModTopWordZipperUnzipper implements FileZipper{
     public void compress() {
         dataObj = new FileHandler(Path.inputFilePath);
         method = new GeneralMethods();
+        obj = new ModTopWordCompress();
         cur_min = Integer.MAX_VALUE;
         prec = 0;
 
@@ -45,35 +48,26 @@ public class ModTopWordZipperUnzipper implements FileZipper{
 
 //        IDataHandle dataObj = new FileHandler(Path.inputFilePath);
 
-        ExecutorService service = Executors.newFixedThreadPool(7);
+
+        long startTime = System.currentTimeMillis();
+
+        IMap compressionMaps = compressor.calculateFreq(dataObj);
+
+        List<Object> keys = this.getSortedList(compressionMaps);
+
+//        System.out.println("actual time for finding initial map and optimal list:"+(System.currentTimeMillis() - startTime));
+
+
+        ExecutorService service = Executors.newFixedThreadPool(8);
+
         Map<Integer,CompressionInfo> compressionHash = new HashMap<>();
 
 
-//        long startTime = System.currentTimeMillis();
-        IMap compressionMaps = compressor.calculateFreq(dataObj);
-
-//        System.out.println("actual time for finding initial map :"+(System.currentTimeMillis() - startTime));
-
-//        startTime = System.currentTimeMillis();
-
-        List<Object> keys=getSortedList(compressionMaps);
-
-        for (int i = 1; i <= 100; i+=3) {
-//            dataObj.setPercentage(i);
-//            tempMap = getOptimalMap(compressionMaps,data);
-//            root = this.constructTree(tempMap);
-//
-//            compressor.iterateTreeAndCalculateHuffManCode(root, "", tempMap);
-//
-//            int sum = 0;
-//            sum += method.getFreqSize(tempMap);
-//            sum += method.getCodeSize(tempMap) / 8;
-
-
+        for (int i = 1; i <= 25; i+=1) {
             Future<CompressionInfo> futureTask1 = service.submit(new CompressionThread(compressionMaps,i,keys));
-            Future<CompressionInfo> futureTask2 = service.submit(new CompressionThread(compressionMaps,i+1,keys));
-//            Future<CompressionInfo> futureTask3 = service.submit(new CompressionThread(compressionMaps,i+2,keys));
-//            Future<CompressionInfo> futureTask4 = service.submit(new CompressionThread(compressionMaps,i+3,keys));
+            Future<CompressionInfo> futureTask2 = service.submit(new CompressionThread(compressionMaps,i+25,keys));
+            Future<CompressionInfo> futureTask3 = service.submit(new CompressionThread(compressionMaps,i+50,keys));
+            Future<CompressionInfo> futureTask4 = service.submit(new CompressionThread(compressionMaps,i+75,keys));
 
 
             int sum1,sum2,sum3,sum4;
@@ -81,8 +75,8 @@ public class ModTopWordZipperUnzipper implements FileZipper{
             try {
                 obj1 = futureTask1.get();
                 obj2 = futureTask2.get();
-//                 obj3 = futureTask3.get();
-//                 obj4 = futureTask4.get();
+                 obj3 = futureTask3.get();
+                 obj4 = futureTask4.get();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             } catch (ExecutionException e) {
@@ -91,15 +85,13 @@ public class ModTopWordZipperUnzipper implements FileZipper{
 
             sum1 = obj1.getSize();
             sum2 = obj2.getSize();
-//            sum3 = obj3.getSize();
-//            sum4 = obj4.getSize();
-            sum3 = Integer.MAX_VALUE;
-            sum4 = Integer.MAX_VALUE;
-
+            sum3 = obj3.getSize();
+            sum4 = obj4.getSize();
+//            sum2  = sum3 = sum4 = Integer.MAX_VALUE;
             compressionHash.put(i,obj1);
             compressionHash.put(i+1,obj2);
-//            compressionHash.put(i+2,obj3);
-//            compressionHash.put(i+3,obj4);
+            compressionHash.put(i+2,obj3);
+            compressionHash.put(i+3,obj4);
 
             if (Math.min(Math.min(sum1, sum2),Math.min(sum3,sum4)) < cur_min) {
 
@@ -124,7 +116,7 @@ public class ModTopWordZipperUnzipper implements FileZipper{
 
         CompressionInfo myObject = compressionHash.get(prec);
         compressionHash.clear();
-        System.out.println("percentage used for compression is " + prec);
+//        System.out.println("percentage used for compression is " + prec);
 
 //        dataObj.setPercentage(prec);
 //        compressionMaps.setFreqMap(finalFreqMap);
@@ -137,22 +129,24 @@ public class ModTopWordZipperUnzipper implements FileZipper{
 //        compressor.iterateTreeAndCalculateHuffManCode(root, "", compressionMaps);
         compressionMaps.setFreqMap(myObject.getFreqMap());
         compressionMaps.setHuffMap(myObject.getHuffMap());
-        StringBuilder coded = compressor.getCodes(compressionMaps, dataObj);
+//        StringBuilder coded = compressor.getCodes(compressionMaps, dataObj);
+//
+//
+//
+//        int noOfZerosAppended = compressor.noofZerosToBeAppended(coded);
+//
+//        if (noOfZerosAppended != 0)
+//            coded = compressor.appendRemainingZeros(coded);
 
+//        byte[] byteArray = compressor.compress(coded);
 
+        System.out.println("actual time for compression :"+(System.currentTimeMillis() - startTime));
 
-        int noOfZerosAppended = compressor.noofZerosToBeAppended(coded);
+//        compressionMaps.clearHuffMap();
 
-        if (noOfZerosAppended != 0)
-            coded = compressor.appendRemainingZeros(coded);
+//        IFileContents fileContents = new FileContents(compressionMaps.returnFreqMap(), noOfZerosAppended, byteArray);
 
-        byte[] byteArray = compressor.compress(coded);
-
-//        System.out.println("actual time for compression :"+(System.currentTimeMillis() - startTime));
-
-        compressionMaps.clearHuffMap();
-
-        IFileContents fileContents = new FileContents(compressionMaps.returnFreqMap(), noOfZerosAppended, byteArray);
+        IFileContents fileContents = obj.compress(compressionMaps,dataObj);
         method.addCompressedContents(fileContents);
 
         System.out.println("Compression done Successfully");

@@ -52,36 +52,6 @@ public class TopWordCompress implements ICompress {
 //
 //        System.out.println("Time to create inital map:"+(System.currentTimeMillis()-startTime));
         IMap imap = new WordMaps();
-
-//        try{
-//            FileReader fin = new FileReader(Path.inputFilePath);
-//            int val = fin.read();
-//            String sub = "";
-//            while (val != -1) {
-//                char character = (char) val;
-//                while (Character.isAlphabetic(character) || Character.isDigit(character)) {
-//                    sub += character;
-//                    val = fin.read();
-//                    character = (char) val;
-//                }
-//
-//                if (sub.length() != 0)
-////                stringList.add(sub);
-//                    imap.putFrequency(sub, imap.getFrequency(sub));
-//                if (val != -1)
-////                stringList.add("" + character);
-//                    imap.putFrequency(String.valueOf(character), imap.getFrequency(String.valueOf(character)));
-//
-//
-//                sub = "";
-//                val = fin.read();
-//            }
-//            //System.out.println(ans.toString());
-//            fin.close();
-//        } catch (
-//                IOException e) {
-//            throw new RuntimeException(e);
-//        }
         dataObj.formMap();
         imap.setFreqMap(dataObj.returnMap());
         System.out.println("Time to create inital map:"+(System.currentTimeMillis()-startTime));
@@ -216,7 +186,6 @@ public class TopWordCompress implements ICompress {
 
     public IFileContents compress(IMap iMap, IDataHandle dataObj) {
 
-//        String fileContents = dataObj.readContent().toString();
         String[] fileContents = dataObj.readContentAsArray();
 
         System.out.println("read file contents");
@@ -231,12 +200,8 @@ public class TopWordCompress implements ICompress {
         byte[] byteArray = new byte[size];
         String curCode = "";
         int idx = 0;
-        int outerIndex = 0;
 
-//        System.out.println("forming byte array");
         for (String str:fileContents) {
-
-//            System.out.println(outerIndex++);
 
             if(iMap.containsHuffKey(str))
                 curCode += iMap.getHuffmanCode(str);
@@ -248,7 +213,6 @@ public class TopWordCompress implements ICompress {
                 while (curCode.length() > 8) {
                     byte curByte = (byte) Integer.parseInt(curCode.substring(0, 8), 2);
                     curCode = curCode.substring(8);
-//                    System.out.println(curByte);
                     byteArray[idx++] = curByte;
 
             }
@@ -269,13 +233,8 @@ public class TopWordCompress implements ICompress {
         System.out.println(extraBits);
         System.out.println(byteArray.length);
 
-//        String serializedTree = method.serialize(root);
 
         IFileContents compressedData = new FileContents();
-
-//        compressedData.setHuffTree(serializedTree);
-//        compressedData.setExtraBits(extraBits);
-//        compressedData.setByteArray(byteArray);
 
         compressedData.setFrequencyMap(iMap.returnFreqMap());
         compressedData.setExtraBits(extraBits);

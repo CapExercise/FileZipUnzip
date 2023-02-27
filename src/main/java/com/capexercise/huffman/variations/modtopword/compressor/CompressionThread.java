@@ -34,7 +34,7 @@ public class CompressionThread implements Callable<CompressionInfo> {
     @Override
     public CompressionInfo call() throws Exception {
 //        double[] result = new double[2];
-//        System.out.println("current thread running:"+Thread.currentThread().getName());
+        System.out.println("current thread running:"+Thread.currentThread().getName());
         IMap tempMap = getOptimalMap(this.compressionMap,this.perc,this.keys);
         TreeNode root = this.constructTree(tempMap);
 
@@ -45,63 +45,20 @@ public class CompressionThread implements Callable<CompressionInfo> {
 
         CompressionInfo compressionInfo = new CompressionInfo(this.perc,sum,tempMap.returnFreqMap(),tempMap.returnHuffMap());
 
-//
-//        return sum;
         return compressionInfo;
     }
 
 
-//    IMap getOptimalMap(String[] data,int perc,List<Object> keys){
-////        long startTime, end;
-//        IMap finalMap = new WordMaps();
-//
-//        Set<Object> topWordSet=new HashSet<>();
-//
-//        float size= (float) (perc/100.00);
-//        for(int i=0;i<(keys.size()*size);i++)
-//            topWordSet.add(keys.get(i));
-//
-////        end = System.currentTimeMillis();
-////        System.out.println("Time to generate list of top words: "+(end-startTime));
-//
-////        startTime = System.currentTimeMillis();
-//
-//        Map<Object,Integer> newMap = new HashMap<>();
-//        for(String str:data)
-//        {
-//
-//            if(str.length()!=0)
-//            {
-//                if(!topWordSet.contains(str))
-//                {
-//                    for(int idx=0;idx<str.length();idx++)
-//                    {
-//                        newMap.put(str.charAt(idx)+"",newMap.getOrDefault(str.charAt(idx)+"",0)+1);
-//                    }
-//                }
-//                else
-//                    newMap.put(str,newMap.getOrDefault(str,0)+1);
-//
-//            }
-//
-//        }
-//
-//        finalMap.setFreqMap(newMap);
-////        end = System.currentTimeMillis();
-////        System.out.println("Time to generate final map : "+(end-startTime));
-//
-//        return finalMap;
-//    }
-
     IMap getOptimalMap(IMap imap,int perc,List<Object> keys){
-//        long startTime, end;
+
         IMap finalMap = new WordMaps();
 
-        Set<Object> topWordSet=new HashSet<>();
-
         float size= (float) (perc/100.00);
-        for(int i=0;i<(keys.size()*size);i++)
-            topWordSet.add(keys.get(i));
+
+        Set<Object> topWordSet=new HashSet<>(keys.subList(0,(int)(keys.size()*size)));
+
+//        for(int i=0;i<(keys.size()*size);i++)
+//            topWordSet.add(keys.get(i));
 
 //        end = System.currentTimeMillis();
 //        System.out.println("Time to generate list of top words: "+(end-startTime));
@@ -129,8 +86,6 @@ public class CompressionThread implements Callable<CompressionInfo> {
         }
 
         finalMap.setFreqMap(newMap);
-//        end = System.currentTimeMillis();
-//        System.out.println("Time to generate final map : "+(end-startTime));
 
         return finalMap;
     }

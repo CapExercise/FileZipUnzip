@@ -1,11 +1,15 @@
 package com.capexercise.huffman.variations.modtopword.compressor;
 
+import com.capexercise.general.FileContents;
+import com.capexercise.general.IFileContents;
 import com.capexercise.general.Path;
 import com.capexercise.general.helpers.input.IDataHandle;
 import com.capexercise.general.helpers.maps.IMap;
 import com.capexercise.general.helpers.maps.WordMaps;
 import com.capexercise.general.helpers.nodes.TreeNode;
 import com.capexercise.huffman.compression.ICompress;
+import com.capexercise.huffman.general.GeneralMethods;
+import com.capexercise.huffman.general.IGeneral;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,57 +17,13 @@ import java.util.*;
 
 public class ModTopWordCompress implements ICompress {
 
+    IGeneral method;
+
     public IMap calculateFreq(IDataHandle dataObj) {
-        long startTime;
 
-        startTime = System.currentTimeMillis();
-//
-//        IMap imap = new WordMaps();
-//
-//        String[] strData = dataObj.readContentAsArray();
-//        System.out.println("Time to read file:"+(System.currentTimeMillis()-startTime));
-//
-//        startTime = System.currentTimeMillis();
-//        for (String str : strData) {
-//            imap.putFrequency(str, imap.getFrequency(str));
-//        }
-//
-//
-//        System.out.println("Time to create inital map:"+(System.currentTimeMillis()-startTime));
         IMap imap = new WordMaps();
-
-    try{
-        FileReader fin = new FileReader(Path.inputFilePath);
-        int val = fin.read();
-        String sub = "";
-        while (val != -1) {
-            char character = (char) val;
-            while (Character.isAlphabetic(character) || Character.isDigit(character)) {
-                sub += character;
-                val = fin.read();
-                character = (char) val;
-            }
-
-            if (sub.length() != 0)
-//                stringList.add(sub);
-                  imap.putFrequency(sub, imap.getFrequency(sub));
-            if (val != -1)
-//                stringList.add("" + character);
-                imap.putFrequency(String.valueOf(character), imap.getFrequency(String.valueOf(character)));
-
-
-            sub = "";
-            val = fin.read();
-        }
-        //System.out.println(ans.toString());
-        fin.close();
-    } catch (
-    IOException e) {
-        throw new RuntimeException(e);
-    }
-
-        System.out.println("Time to create inital map:"+(System.currentTimeMillis()-startTime));
-        System.out.println(imap.freqSize());
+        dataObj.formMap();
+        imap.setFreqMap(dataObj.returnMap());
         return imap;
     }
 
@@ -133,6 +93,68 @@ public class ModTopWordCompress implements ICompress {
             }
         }
         return finalAns;
+    }
+
+    public IFileContents compress(IMap iMap, IDataHandle dataObj) {
+
+        method = new GeneralMethods();
+
+        String[] fileContents = dataObj.readContentAsArray();
+//
+//        System.out.println("read file contents");
+//        System.out.println(fileContents.length);
+        int size = method.getCodeSize(iMap);
+
+        if(size%8 != 0)
+            size = (size/8) +1;
+        else
+            size /= 8;
+
+        byte[] byteArray = new byte[size];
+        String curCode = "";
+        int idx = 0;
+
+        for (String str:fileContents) {
+
+            if(iMap.containsHuffKey(str))
+                curCode += iMap.getHuffmanCode(str);
+            else{
+                for(char character:str.toCharArray())
+                    curCode += iMap.getHuffmanCode(String.valueOf(character));
+            }
+
+            while (curCode.length() > 8) {
+                byte curByte = (byte) Integer.parseInt(curCode.substring(0, 8), 2);
+                curCode = curCode.substring(8);
+                byteArray[idx++] = curByte;
+
+            }
+
+        }
+
+//        System.out.println("done");
+
+        int extraBits = 0;
+
+        if (!curCode.equals("")) {
+            extraBits = 8 - curCode.length();
+            for (int i = 0; i < extraBits; i++)
+                curCode += '0';
+            byteArray[idx] = (byte) Integer.parseInt(curCode.substring(0, 8), 2);
+        }
+//
+//        System.out.println(extraBits);
+//        System.out.println(byteArray.length);
+
+
+        IFileContents compressedData = new FileContents();
+
+        compressedData.setFrequencyMap(iMap.returnFreqMap());
+        compressedData.setExtraBits(extraBits);
+        compressedData.setByteArray(byteArray);
+
+        return compressedData;
+
     }
 
 }
