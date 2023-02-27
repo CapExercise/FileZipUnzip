@@ -1,12 +1,16 @@
 package com.capexercise.general.helpers.input;
 
+import javax.print.attribute.IntegerSyntax;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StringHandler implements IDataHandle {
     StringBuilder strData;
+    Map<Object, Integer> freqMap;
 
     public StringHandler(String source) {
         strData = new StringBuilder(source);
@@ -60,6 +64,40 @@ public class StringHandler implements IDataHandle {
     }
 
     @Override
+    public void formMap() {
+//        freqMap = new HashMap<>();
+//        try {
+//
+//            FileReader fin = new FileReader(filObj);
+//            int val = fin.read();
+//            String sub = "";
+//            while (val != -1) {
+//                char character = (char) val;
+//                while (Character.isAlphabetic(character) || Character.isDigit(character)) {
+//                    sub += character;
+//                    val = fin.read();
+//                    character = (char) val;
+//                }
+//
+//                if (sub.length() != 0)
+////                    stringList.add(sub);
+//                    freqMap.put(sub, freqMap.getOrDefault(sub, 0)+1);
+//                if (val != -1)
+////                    stringList.add("" + character);
+//                    freqMap.put(""+character, freqMap.getOrDefault(""+character, 0)+1);
+//
+//                sub = "";
+//                val = fin.read();
+//            }
+//            //System.out.println(ans.toString());
+//            fin.close();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+
+    }
+
+    @Override
     public void setPercentage(int per) {
 
     }
@@ -67,5 +105,9 @@ public class StringHandler implements IDataHandle {
     @Override
     public int getPercentage() {
         return 0;
+    }
+
+    public Map<Object, Integer> returnMap(){
+        return freqMap;
     }
 }

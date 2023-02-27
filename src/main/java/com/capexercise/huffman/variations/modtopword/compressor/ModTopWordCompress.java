@@ -1,31 +1,69 @@
 package com.capexercise.huffman.variations.modtopword.compressor;
 
+import com.capexercise.general.Path;
 import com.capexercise.general.helpers.input.IDataHandle;
 import com.capexercise.general.helpers.maps.IMap;
 import com.capexercise.general.helpers.maps.WordMaps;
 import com.capexercise.general.helpers.nodes.TreeNode;
 import com.capexercise.huffman.compression.ICompress;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 public class ModTopWordCompress implements ICompress {
 
     public IMap calculateFreq(IDataHandle dataObj) {
-//        long startTime;
+        long startTime;
 
+        startTime = System.currentTimeMillis();
+//
+//        IMap imap = new WordMaps();
+//
+//        String[] strData = dataObj.readContentAsArray();
+//        System.out.println("Time to read file:"+(System.currentTimeMillis()-startTime));
+//
 //        startTime = System.currentTimeMillis();
-
+//        for (String str : strData) {
+//            imap.putFrequency(str, imap.getFrequency(str));
+//        }
+//
+//
+//        System.out.println("Time to create inital map:"+(System.currentTimeMillis()-startTime));
         IMap imap = new WordMaps();
 
-        String[] strData = dataObj.readContentAsArray();
+    try{
+        FileReader fin = new FileReader(Path.inputFilePath);
+        int val = fin.read();
+        String sub = "";
+        while (val != -1) {
+            char character = (char) val;
+            while (Character.isAlphabetic(character) || Character.isDigit(character)) {
+                sub += character;
+                val = fin.read();
+                character = (char) val;
+            }
+
+            if (sub.length() != 0)
+//                stringList.add(sub);
+                  imap.putFrequency(sub, imap.getFrequency(sub));
+            if (val != -1)
+//                stringList.add("" + character);
+                imap.putFrequency(String.valueOf(character), imap.getFrequency(String.valueOf(character)));
 
 
-        for (String str : strData) {
-            imap.putFrequency(str, imap.getFrequency(str));
+            sub = "";
+            val = fin.read();
         }
+        //System.out.println(ans.toString());
+        fin.close();
+    } catch (
+    IOException e) {
+        throw new RuntimeException(e);
+    }
 
-
-//        System.out.println("Time to create inital map:"+(System.currentTimeMillis()-startTime));
+        System.out.println("Time to create inital map:"+(System.currentTimeMillis()-startTime));
+        System.out.println(imap.freqSize());
         return imap;
     }
 

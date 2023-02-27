@@ -27,6 +27,7 @@ import java.util.logging.Logger;
 public class TopWordZipperUnZipper implements FileZipper {
 
     IGeneral method;
+    TopWordCompress myObj = new TopWordCompress();
 
     public TopWordZipperUnZipper(){
         method = new GeneralMethods();
@@ -53,23 +54,25 @@ public class TopWordZipperUnZipper implements FileZipper {
         compressor.iterateTreeAndCalculateHuffManCode(root, "", compressionMaps);
 //        huff = System.currentTimeMillis() - startTime;
 
+        System.out.println("huffman map size:"+compressionMaps.huffmanSize());
 //        startTime = System.currentTimeMillis();
-        StringBuilder coded = compressor.getCodes(compressionMaps, dataObj);
+//        StringBuilder coded = compressor.getCodes(compressionMaps, dataObj);
 //        code = System.currentTimeMillis() - startTime;
 
-        int noOfZerosAppended = compressor.noofZerosToBeAppended(coded);
+//        int noOfZerosAppended = compressor.noofZerosToBeAppended(coded);
 
-        if (noOfZerosAppended != 0)
-            coded = compressor.appendRemainingZeros(coded);
+//        if (noOfZerosAppended != 0)
+//            coded = compressor.appendRemainingZeros(coded);
 
 //        startTime = System.currentTimeMillis();
-        byte[] byteArray = compressor.compress(coded);
+//        byte[] byteArray = compressor.compress(coded);
 //        comp = System.currentTimeMillis() - startTime;
 
-        compressionMaps.clearHuffMap();
+//        compressionMaps.clearHuffMap();
 
 //        startTime = System.currentTimeMillis();
-        IFileContents fileContents = new FileContents(compressionMaps.returnFreqMap(), noOfZerosAppended, byteArray);
+//        IFileContents fileContents = new FileContents(compressionMaps.returnFreqMap(), noOfZerosAppended, byteArray);
+        IFileContents fileContents = myObj.compress(compressionMaps,dataObj);
         method.addCompressedContents(fileContents);
         File f=new File("src/main/java/com/capexercise/Files/mapSize.txt");
         try
@@ -78,7 +81,7 @@ public class TopWordZipperUnZipper implements FileZipper {
             out.writeObject(compressionMaps.returnFreqMap());
             out.close();
             System.out.println("top Size of map is "+f.length());
-            System.out.println("Average bit for top word is "+((float)coded.length()/(new File("src/main/java/com/capexercise/Files/input.txt").length())));
+//            System.out.println("Average bit for top word is "+((float)coded.length()/(new File("src/main/java/com/capexercise/Files/input.txt").length())));
         }
         catch (FileNotFoundException e)
         {

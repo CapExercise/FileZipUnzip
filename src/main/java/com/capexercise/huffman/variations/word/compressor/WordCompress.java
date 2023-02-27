@@ -11,12 +11,15 @@ public class WordCompress implements ICompress {
     public IMap calculateFreq(IDataHandle dataObj) {
         IMap imap = new WordMaps();
 
-        String[] strData = dataObj.readContentAsArray();
+//        String[] strData = dataObj.readContentAsArray();
+//
+//
+//        for (String str : strData) {
+//            imap.putFrequency(str, imap.getFrequency(str));
+//        }
 
-
-        for (String str : strData) {
-            imap.putFrequency(str, imap.getFrequency(str));
-        }
+        dataObj.formMap();
+        imap.setFreqMap(dataObj.returnMap());
 
         return imap;
     }

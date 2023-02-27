@@ -40,7 +40,7 @@ public class ModTopWordZipperUnzipper implements FileZipper{
         cur_min = Integer.MAX_VALUE;
         prec = 0;
 
-        int len1 = (int) new File("src/main/java/com/capexercise/Files/input.txt").length();
+//        int len1 = (int) new File("src/main/java/com/capexercise/Files/input.txt").length();
         ModTopWordCompress compressor = new ModTopWordCompress();
 
 //        IDataHandle dataObj = new FileHandler(Path.inputFilePath);
@@ -49,7 +49,7 @@ public class ModTopWordZipperUnzipper implements FileZipper{
         Map<Integer,CompressionInfo> compressionHash = new HashMap<>();
 
 
-        long startTime = System.currentTimeMillis();
+//        long startTime = System.currentTimeMillis();
         IMap compressionMaps = compressor.calculateFreq(dataObj);
 
 //        System.out.println("actual time for finding initial map :"+(System.currentTimeMillis() - startTime));
@@ -148,7 +148,7 @@ public class ModTopWordZipperUnzipper implements FileZipper{
 
         byte[] byteArray = compressor.compress(coded);
 
-        System.out.println("actual time for compression :"+(System.currentTimeMillis() - startTime));
+//        System.out.println("actual time for compression :"+(System.currentTimeMillis() - startTime));
 
         compressionMaps.clearHuffMap();
 
