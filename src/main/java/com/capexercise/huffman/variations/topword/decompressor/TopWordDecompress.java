@@ -10,70 +10,56 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class TopWordDecompress implements IDecompress {
-    @Override
-    public ArrayList<Integer> get8bitcode(int val) throws RuntimeException {
-        if (val < 0) {
-            throw new RuntimeException();
-        }
-        //this method will do the decimal to binary conversion( 8 bit code)
-        ArrayList<Integer> ans = new ArrayList<>();
-        while (val != 0) {
-            ans.add(val % 2);
-            val = val / 2;
-        }
-        if (ans.size() < 8) {
-            while (ans.size() < 8) {
-                ans.add(0);
-            }
-        }
-        Collections.reverse(ans);
-
-        return ans;
-    }
-
 
     @Override
-    public StringBuilder getDecodedString(byte[] byteArray) {
-        StringBuilder decoded = new StringBuilder();
-
-        for (byte x : byteArray) {
-
-            int val = x;
-            ArrayList<Integer> newip = null;
-            newip = this.get8bitcode(val < 0 ? val + 256 : val);
-            for (int m = 0; m < 8; m++) {
-                decoded.append(newip.get(m));
-            }
-        }
-
-        return decoded;
-    }
-
-    @Override
-    public void writeIntoDecompressedFile(TreeNode root, StringBuilder decoded, int noOfZeros) {
+    public void decompress(byte[] byteArray, int noOfZeroes, TreeNode root){
+        System.out.println("decompression side byte array size:"+byteArray.length);
         TreeNode node = root;
-        StringBuilder finalAns = new StringBuilder();
-        for (int i = 0; i < decoded.length() - noOfZeros; i++) {
-            char cc = (decoded.charAt(i));
-
-            if (cc == '0')
-                node= node.getLeft();
-             else
-                node = node.getRight();
-
-
-            if (node.getLeft() == null && node.getRight() == null) {
-                finalAns.append((String) node.getVar());
-                node=root;
-            }
-        }
-        FileWriter fileWriter = null;
+        String curCode = "";
         try {
-            fileWriter = new FileWriter(Path.decompressedFilePath);
-            fileWriter.write(finalAns.toString());
-            fileWriter.close();
+            FileWriter fw = new FileWriter(Path.decompressedFilePath);
+            for(int i=0;i< byteArray.length;i++){
+
+                int val = byteArray[i];
+                curCode = getCode((val<0)?val+256:val);
+
+                if(i == byteArray.length-1)
+                    curCode = curCode.substring(0,8-noOfZeroes);
+
+                for(char character:curCode.toCharArray()){
+                    if (character == '0')
+                        node = node.getLeft();
+                    else
+                        node = node.getRight();
+
+
+                    if (node.getLeft() == null && node.getRight() == null) {
+                        fw.write((String) node.getVar());
+                        node=root;
+                    }
+//                char cc = (decoded.charAt(i));
+
+                }
+            }
+            fw.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+    }
+    @Override
+    public String getCode(int val){
+        String result = "";
+        while (val != 0) {
+            result = (val%2) + result;
+            val = val / 2;
+        }
+        if (result.length() < 8) {
+            while (result.length() < 8) {
+                result = '0' + result;
+            }
+        }
+
+        return result;
     }
 }

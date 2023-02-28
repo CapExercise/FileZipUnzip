@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 public class CharZipperUnZipper implements FileZipper {
-
+    CharCompress obj;
     IGeneral method;
 
     public CharZipperUnZipper() {
@@ -32,6 +32,7 @@ public class CharZipperUnZipper implements FileZipper {
 
     @Override
     public void compress() {
+        obj = new CharCompress();
         ICompress compressor = new CharCompress();
 
         IDataHandle dataObj = new FileHandler(Path.inputFilePath);
@@ -42,37 +43,12 @@ public class CharZipperUnZipper implements FileZipper {
 
         compressor.iterateTreeAndCalculateHuffManCode(root, "", compressionMaps);
 
-        StringBuilder coded = compressor.getCodes(compressionMaps, dataObj);
+        IFileContents fileContents = compressor.compress(compressionMaps,dataObj);
 
-        int noOfZerosAppended = compressor.noofZerosToBeAppended(coded);
-
-        if (noOfZerosAppended != 0)
-            coded = compressor.appendRemainingZeros(coded);
-
-        byte[] byteArray = compressor.compress(coded);
-
-        compressionMaps.clearHuffMap();
-
-
-        IFileContents fileContents = new FileContents((Map<Object, Integer>) compressionMaps.returnFreqMap(), noOfZerosAppended, byteArray);
         method.addCompressedContents(fileContents);
-        File f=new File("src/main/java/com/capexercise/Files/mapSize.txt");
-        try
-        {
-            ObjectOutputStream out=new ObjectOutputStream(new FileOutputStream(f));
-            out.writeObject(compressionMaps.returnFreqMap());
-            out.close();
-            System.out.println("top Size of map is "+f.length());
-            System.out.println("Average bit for Char is "+(coded.length())/(new File("src/main/java/com/capexercise/Files/input.txt").length()));
-        }
-        catch (FileNotFoundException e)
-        {
-            throw new RuntimeException(e);
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
+        float size = (float) method.getCodeSize(compressionMaps);
+        System.out.println("Average bit for Char is "+(size/(new File(Path.inputFilePath).length())));
         System.out.println("Compression done Successfully");
     }
 
@@ -82,20 +58,19 @@ public class CharZipperUnZipper implements FileZipper {
 
         IFileContents fileContents = method.extractContents(new File(Path.compressedFilePath));
 
-        Map<Object, Integer> freq = fileContents.getFrequencyMap();
+        Map<Object, Integer> freqMap = fileContents.getFrequencyMap();
 
         int noOfZeros = fileContents.getExtraBits();
 
         byte[] byteArray = fileContents.getByteArray();
 
-        IMap decompressionMap = new WordMaps(freq, null);
+        IMap decompressionMap = new WordMaps();
+
+        decompressionMap.setFreqMap(freqMap);
 
         TreeNode root = this.constructTree(decompressionMap);
 
-        StringBuilder decoded = decompressor.getDecodedString(byteArray);
-
-        decompressor.writeIntoDecompressedFile(root, decoded, noOfZeros);
-
+        decompressor.decompress(byteArray,noOfZeros, root);
 
         System.out.println("De-Compression done Successfully");
 
@@ -107,7 +82,7 @@ public class CharZipperUnZipper implements FileZipper {
     @Override
     public TreeNode constructTree(IMap frequencyMap) {
         PriorityQueue<TreeNode> pq = new PriorityQueue<>(frequencyMap.freqSize(), new FrequencyComparator());
-        Map<Object, Integer> freq = (Map<Object, Integer>) frequencyMap.returnFreqMap();
+        Map<Object, Integer> freq = frequencyMap.returnFreqMap();
 
         for (Map.Entry<Object, Integer> entry : freq.entrySet()) {
             TreeNode node = new CharTreeNode((Character) entry.getKey(), entry.getValue());

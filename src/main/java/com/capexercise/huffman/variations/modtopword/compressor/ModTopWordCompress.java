@@ -27,53 +27,11 @@ public class ModTopWordCompress implements ICompress {
         return imap;
     }
 
-
-    public StringBuilder appendRemainingZeros(StringBuilder coded) {
-        int rem = coded.length() % 8;
-        if (rem != 0) {
-            rem = 8 - rem;
-            while (rem != 0) {
-                coded = coded.append("0");
-                rem--;
-            }
-        }
-        return coded;
-    }
-
-
-    public int noofZerosToBeAppended(StringBuilder coded) {
-        if (coded.length() == 0 || coded.length() % 8 == 0) {
-            return 0;
-        }
-        return 8 - (coded.length() % 8);
-    }
-
-
-    public byte[] compress(StringBuilder coded) {
-        byte[] bytearray = new byte[coded.length() / 8];
-        StringBuilder sub = new StringBuilder();
-        int bytearrayIndex = 0;
-        for (int i = 0; i < coded.length(); i = i + 8) {
-            int j = 0;
-            while (j < 8) {
-                sub = sub.append(coded.charAt(i + j));
-                j++;
-            }
-            bytearray[bytearrayIndex] = (byte) Integer.parseInt(sub.toString(), 2);
-            bytearrayIndex++;
-            sub.setLength(0);
-        }
-        return bytearray;
-    }
-
-
-
     public void iterateTreeAndCalculateHuffManCode(TreeNode newNode, String s, IMap huffmanMap) {
         if (newNode == null) {
             return;
         }
         if (newNode.getLeft() == null && newNode.getRight() == null) {
-//            System.out.println(newNode.getVar()+"\t"+s);
             huffmanMap.putHuffManCode(newNode.getVar(), s);
         }
         iterateTreeAndCalculateHuffManCode(newNode.getLeft(), s + "0", huffmanMap);
@@ -81,28 +39,13 @@ public class ModTopWordCompress implements ICompress {
     }
 
 
-    public StringBuilder getCodes(IMap huffmanMap, IDataHandle fobj) {
-        StringBuilder finalAns = new StringBuilder();
-        String[] strData = fobj.readContentAsArray();
-        for(String str:strData){
-            if(huffmanMap.containsHuffKey(str))
-                finalAns.append(huffmanMap.getHuffmanCode(str));
-            else{
-                for(char character:str.toCharArray())
-                    finalAns.append(huffmanMap.getHuffmanCode(String.valueOf(character)));
-            }
-        }
-        return finalAns;
-    }
 
     public IFileContents compress(IMap iMap, IDataHandle dataObj) {
 
         method = new GeneralMethods();
 
         String[] fileContents = dataObj.readContentAsArray();
-//
-//        System.out.println("read file contents");
-//        System.out.println(fileContents.length);
+
         int size = method.getCodeSize(iMap);
 
         if(size%8 != 0)
@@ -132,7 +75,6 @@ public class ModTopWordCompress implements ICompress {
 
         }
 
-//        System.out.println("done");
 
         int extraBits = 0;
 
@@ -142,9 +84,6 @@ public class ModTopWordCompress implements ICompress {
                 curCode += '0';
             byteArray[idx] = (byte) Integer.parseInt(curCode.substring(0, 8), 2);
         }
-//
-//        System.out.println(extraBits);
-//        System.out.println(byteArray.length);
 
 
         IFileContents compressedData = new FileContents();

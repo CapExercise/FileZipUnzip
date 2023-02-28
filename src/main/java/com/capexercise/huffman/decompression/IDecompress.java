@@ -5,10 +5,8 @@ import com.capexercise.general.helpers.nodes.TreeNode;
 import java.util.ArrayList;
 
 public interface IDecompress {
-    ArrayList<Integer> get8bitcode(int val) throws RuntimeException;
 
-    StringBuilder getDecodedString(byte[] byteArray);
+    void decompress(byte[] byteArray, int noOfZeroes, TreeNode root);
 
-    void writeIntoDecompressedFile(TreeNode root, StringBuilder decoded, int noOfZeros);
-
+    String getCode(int val);
 }

@@ -26,28 +26,14 @@ public class ModTopWordZipperUnzipper implements FileZipper{
     IGeneral method;
     IDataHandle dataObj;
 
-    ModTopWordCompress obj;
-
-    int cur_min, prec;
-
-    public ModTopWordZipperUnzipper() {
-//        dataObj = new FileHandler(Path.inputFilePath);
-//        method = new GeneralMethods();
-    }
-
     @Override
     public void compress() {
+
         dataObj = new FileHandler(Path.inputFilePath);
         method = new GeneralMethods();
-        obj = new ModTopWordCompress();
-        cur_min = Integer.MAX_VALUE;
-        prec = 0;
+        int cur_min = Integer.MAX_VALUE,prec = 0;
 
-//        int len1 = (int) new File("src/main/java/com/capexercise/Files/input.txt").length();
         ModTopWordCompress compressor = new ModTopWordCompress();
-
-//        IDataHandle dataObj = new FileHandler(Path.inputFilePath);
-
 
         long startTime = System.currentTimeMillis();
 
@@ -55,19 +41,14 @@ public class ModTopWordZipperUnzipper implements FileZipper{
 
         List<Object> keys = this.getSortedList(compressionMaps);
 
-//        System.out.println("actual time for finding initial map and optimal list:"+(System.currentTimeMillis() - startTime));
-
-
-        ExecutorService service = Executors.newFixedThreadPool(8);
-
+        ExecutorService service = Executors.newFixedThreadPool(7);
         Map<Integer,CompressionInfo> compressionHash = new HashMap<>();
 
-
-        for (int i = 1; i <= 25; i+=1) {
+        for (int i = 1; i <= 100; i+=4) {
             Future<CompressionInfo> futureTask1 = service.submit(new CompressionThread(compressionMaps,i,keys));
-            Future<CompressionInfo> futureTask2 = service.submit(new CompressionThread(compressionMaps,i+25,keys));
-            Future<CompressionInfo> futureTask3 = service.submit(new CompressionThread(compressionMaps,i+50,keys));
-            Future<CompressionInfo> futureTask4 = service.submit(new CompressionThread(compressionMaps,i+75,keys));
+            Future<CompressionInfo> futureTask2 = service.submit(new CompressionThread(compressionMaps,i+1,keys));
+            Future<CompressionInfo> futureTask3 = service.submit(new CompressionThread(compressionMaps,i+2,keys));
+            Future<CompressionInfo> futureTask4 = service.submit(new CompressionThread(compressionMaps,i+3,keys));
 
 
             int sum1,sum2,sum3,sum4;
@@ -83,11 +64,18 @@ public class ModTopWordZipperUnzipper implements FileZipper{
                 throw new RuntimeException(e);
             }
 
+            if((System.currentTimeMillis()-startTime)/1000>100)
+                break;
+
+
             sum1 = obj1.getSize();
             sum2 = obj2.getSize();
             sum3 = obj3.getSize();
             sum4 = obj4.getSize();
-//            sum2  = sum3 = sum4 = Integer.MAX_VALUE;
+
+//            sum2  = sum3 =  Integer.MAX_VALUE;
+//            sum4 = Integer.MAX_VALUE;
+
             compressionHash.put(i,obj1);
             compressionHash.put(i+1,obj2);
             compressionHash.put(i+2,obj3);
@@ -106,47 +94,26 @@ public class ModTopWordZipperUnzipper implements FileZipper{
                     prec = i+3;
             }
             else{
+
                 break;
             }
         }
         service.shutdown();
-//        System.out.println("actual time for finding percentage :"+(System.currentTimeMillis() - startTime));
-
-//        startTime = System.currentTimeMillis();
+        System.out.println("actual time for finding percentage :"+(System.currentTimeMillis() - startTime));
+        System.out.println("percentage used for compression is " + prec);
 
         CompressionInfo myObject = compressionHash.get(prec);
+
         compressionHash.clear();
-//        System.out.println("percentage used for compression is " + prec);
 
-//        dataObj.setPercentage(prec);
-//        compressionMaps.setFreqMap(finalFreqMap);
-//        compressionMaps = compressor.calculateFreq(dataObj);
-//
-//        compressionMaps = getOptimalMap(compressionMaps,data,prec,keys);
-
-//        root = this.constructTree(compressionMaps);
-
-//        compressor.iterateTreeAndCalculateHuffManCode(root, "", compressionMaps);
         compressionMaps.setFreqMap(myObject.getFreqMap());
-        compressionMaps.setHuffMap(myObject.getHuffMap());
-//        StringBuilder coded = compressor.getCodes(compressionMaps, dataObj);
-//
-//
-//
-//        int noOfZerosAppended = compressor.noofZerosToBeAppended(coded);
-//
-//        if (noOfZerosAppended != 0)
-//            coded = compressor.appendRemainingZeros(coded);
 
-//        byte[] byteArray = compressor.compress(coded);
+        compressionMaps.setHuffMap(myObject.getHuffMap());
 
         System.out.println("actual time for compression :"+(System.currentTimeMillis() - startTime));
 
-//        compressionMaps.clearHuffMap();
+        IFileContents fileContents = compressor.compress(compressionMaps,dataObj);
 
-//        IFileContents fileContents = new FileContents(compressionMaps.returnFreqMap(), noOfZerosAppended, byteArray);
-
-        IFileContents fileContents = obj.compress(compressionMaps,dataObj);
         method.addCompressedContents(fileContents);
 
         System.out.println("Compression done Successfully");
@@ -155,15 +122,20 @@ public class ModTopWordZipperUnzipper implements FileZipper{
     @Override
     public void decompress() {
         ModTopWordDecompress decompressor = new ModTopWordDecompress();
+
         IFileContents fileContents = method.extractContents(new File(Path.compressedFilePath));
+
         Map<Object, Integer> freq = fileContents.getFrequencyMap();
         int noOfZeros = fileContents.getExtraBits();
         byte[] byteArray = fileContents.getByteArray();
 
-        IMap decompressionMap = new WordMaps(freq, null);
+        IMap decompressionMap = new WordMaps();
+
+        decompressionMap.setFreqMap(freq);
+
         TreeNode root = this.constructTree(decompressionMap);
-        StringBuilder decoded = decompressor.getDecodedString(byteArray);
-        decompressor.writeIntoDecompressedFile(root, decoded, noOfZeros);
+
+        decompressor.decompress(byteArray,noOfZeros, root);
 
         System.out.println("De-Compression done Successfully");
 
@@ -203,61 +175,6 @@ public class ModTopWordZipperUnzipper implements FileZipper{
         return root;
     }
 
-    IMap getOptimalMap(IMap imap,String[] data,int prec,List<Object> keys){
-//        System.out.println("called in modzipper!");
-//        long startTime, end;
-        IMap finalMap = new WordMaps();
-//        Map<Object,Integer> freqMap = imap.returnFreqMap();
-//
-//        List<Object> keys=new ArrayList<>(freqMap.keySet());
-
-        Set<Object> topWordSet=new HashSet<>();
-
-//        startTime = System.currentTimeMillis();
-
-        Collections.sort(keys, (a, b) -> {
-            String str1 = (String) a;
-            String str2 = (String) b;
-            if(imap.getFrequency(a)==imap.getFrequency(b))
-                return str1.compareTo(str2);
-            return imap.getFrequency(b) - imap.getFrequency(a);
-        });
-
-        float size= (float) (prec/100.00);
-        for(int i=0;i<(keys.size()*size);i++)
-            topWordSet.add(keys.get(i));
-
-//        end = System.currentTimeMillis();
-//        System.out.println("Time to generate list of top words: "+(end-startTime));
-//
-//        startTime = System.currentTimeMillis();
-
-        Map<Object,Integer> newMap = new HashMap<>();
-        for(String str:data)
-        {
-
-            if(str.length()!=0)
-            {
-                if(!topWordSet.contains(str))
-                {
-                    for(int idx=0;idx<str.length();idx++)
-                    {
-                        newMap.put(str.charAt(idx)+"",newMap.getOrDefault(str.charAt(idx)+"",0)+1);
-                    }
-                }
-                else
-                    newMap.put(str,newMap.getOrDefault(str,0)+1);
-
-            }
-
-        }
-
-        finalMap.setFreqMap(newMap);
-//        end = System.currentTimeMillis();
-//        System.out.println("Time to generate final map : "+(end-startTime));
-
-        return finalMap;
-    }
 
     public List<Object> getSortedList(IMap imap){
         Map<Object,Integer> freqMap = imap.returnFreqMap();

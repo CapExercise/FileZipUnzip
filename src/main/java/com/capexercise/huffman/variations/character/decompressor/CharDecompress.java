@@ -11,73 +11,55 @@ import java.util.Collections;
 
 
 public class CharDecompress implements IDecompress {
+
     @Override
-    public ArrayList<Integer> get8bitcode(int val) {
-        if (val < 0) {
-            throw new RuntimeException();
+    public void decompress(byte[] byteArray, int noOfZeroes, TreeNode root){
+        System.out.println("decompression side byte array size:"+byteArray.length);
+        TreeNode node = root;
+        String curCode = "";
+        try {
+            FileWriter fw = new FileWriter(Path.decompressedFilePath);
+            for(int i=0;i< byteArray.length;i++){
+
+                int val = byteArray[i];
+                curCode = getCode((val<0)?val+256:val);
+
+                if(i == byteArray.length-1)
+                    curCode = curCode.substring(0,8-noOfZeroes);
+
+                for(char character:curCode.toCharArray()){
+                    if (character == '0')
+                        node = node.getLeft();
+                    else
+                        node = node.getRight();
+
+
+                    if (node.getLeft() == null && node.getRight() == null) {
+                        fw.write((Character) node.getVar());
+                        node=root;
+                    }
+                }
+            }
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        //this method will do the decimal to binary conversion( 8 bit code)
-        ArrayList<Integer> ans = new ArrayList<>();
+
+    }
+
+    @Override
+    public String getCode(int val){
+        String result = "";
         while (val != 0) {
-            ans.add(val % 2);
+            result = (val%2) + result;
             val = val / 2;
         }
-        if (ans.size() < 8) {
-            while (ans.size() < 8) {
-                ans.add(0);
-            }
-        }
-        Collections.reverse(ans);
-
-        return ans;
-    }
-
-
-
-    @Override
-    public StringBuilder getDecodedString(byte[] byteArray) {
-        StringBuilder decoded = new StringBuilder();
-
-        for (byte x : byteArray) {
-
-            int val = x;
-            ArrayList<Integer> newip = null;
-            newip = this.get8bitcode(val < 0 ? val + 256 : val);
-            for (int m = 0; m < 8; m++) {
-                decoded.append(newip.get(m));
+        if (result.length() < 8) {
+            while (result.length() < 8) {
+                result = '0' + result;
             }
         }
 
-        return decoded;
-    }
-
-    @Override
-    public void writeIntoDecompressedFile(TreeNode root, StringBuilder decoded, int noOfZeros) {
-
-        TreeNode node = root;
-        try {
-            FileWriter fileWriter = new FileWriter(Path.decompressedFilePath);
-            for (int i = 0; i < decoded.length() - noOfZeros; i++) {
-                char cc = (decoded.charAt(i));
-                if (cc == '0')
-                {
-                    node= node.getLeft();
-
-                } else {
-                    node = node.getRight();
-
-                }
-
-                if (node.getLeft() == null && node.getRight() == null) {
-                    fileWriter.write((char) node.getVar());
-                    node = root;
-                }
-            }
-            fileWriter.close();
-        }
-        catch (IOException e)
-        {
-            throw new RuntimeException();
-        }
+        return result;
     }
 }

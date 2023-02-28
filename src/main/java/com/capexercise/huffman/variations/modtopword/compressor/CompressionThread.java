@@ -17,9 +17,6 @@ public class CompressionThread implements Callable<CompressionInfo> {
     ICompress compressor;
 
     IMap compressionMap;
-
-    String[] data;
-
     List<Object> keys;
 
     int perc;
@@ -33,7 +30,6 @@ public class CompressionThread implements Callable<CompressionInfo> {
     }
     @Override
     public CompressionInfo call() throws Exception {
-//        double[] result = new double[2];
         System.out.println("current thread running:"+Thread.currentThread().getName());
         IMap tempMap = getOptimalMap(this.compressionMap,this.perc,this.keys);
         TreeNode root = this.constructTree(tempMap);
@@ -42,7 +38,6 @@ public class CompressionThread implements Callable<CompressionInfo> {
 
         int sum = method.getFreqSize(tempMap)+(method.getCodeSize(tempMap) / 8);
 
-
         CompressionInfo compressionInfo = new CompressionInfo(this.perc,sum,tempMap.returnFreqMap(),tempMap.returnHuffMap());
 
         return compressionInfo;
@@ -50,20 +45,12 @@ public class CompressionThread implements Callable<CompressionInfo> {
 
 
     IMap getOptimalMap(IMap imap,int perc,List<Object> keys){
-
         IMap finalMap = new WordMaps();
 
         float size= (float) (perc/100.00);
 
         Set<Object> topWordSet=new HashSet<>(keys.subList(0,(int)(keys.size()*size)));
 
-//        for(int i=0;i<(keys.size()*size);i++)
-//            topWordSet.add(keys.get(i));
-
-//        end = System.currentTimeMillis();
-//        System.out.println("Time to generate list of top words: "+(end-startTime));
-
-//        startTime = System.currentTimeMillis();
 
         Map<Object,Integer> newMap = new HashMap<>();
         for(Object obj:keys)

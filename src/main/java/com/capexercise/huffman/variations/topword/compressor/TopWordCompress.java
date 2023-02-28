@@ -19,53 +19,17 @@ public class TopWordCompress implements ICompress {
     IGeneral method = new GeneralMethods();
     @Override
     public IMap calculateFreq(IDataHandle dataObj) {
-//        long startTIme = System.currentTimeMillis();
-//        IMap imap = new WordMaps();
-//
-//        String[] strData = dataObj.readContentAsArray();
-//
-//        long end = System.currentTimeMillis();
-////        System.out.println("Time to read contents: "+(end-startTIme));
-//
-////        startTIme = System.currentTimeMillis();
-//        for (String str : strData) {
-//            imap.putFrequency(str, imap.getFrequency(str));
-//        }
 
-//        end = System.currentTimeMillis();
-//        System.out.println("Time to generate initial map : "+(end-startTIme));
-
-        long startTime;
-
-        startTime = System.currentTimeMillis();
-//
-//        IMap imap = new WordMaps();
-//
-//        String[] strData = dataObj.readContentAsArray();
-//        System.out.println("Time to read file:"+(System.currentTimeMillis()-startTime));
-//
-//        startTime = System.currentTimeMillis();
-//        for (String str : strData) {
-//            imap.putFrequency(str, imap.getFrequency(str));
-//        }
-//
-//
-//        System.out.println("Time to create inital map:"+(System.currentTimeMillis()-startTime));
         IMap imap = new WordMaps();
+
         dataObj.formMap();
         imap.setFreqMap(dataObj.returnMap());
-        System.out.println("Time to create inital map:"+(System.currentTimeMillis()-startTime));
-        System.out.println("imap frequency size :"+imap.freqSize());
-//        return imap;
-
 
         Map<Object,Integer> freqMap = imap.returnFreqMap();
 
         List<Object> keys=new ArrayList<>(freqMap.keySet());
 
         Set<Object> topWordSet=new HashSet<>();
-
-//        startTIme = System.currentTimeMillis();
 
         Collections.sort(keys, (a, b) -> {
             String str1 = (String) a;
@@ -78,11 +42,6 @@ public class TopWordCompress implements ICompress {
         float size= (float) (38/100.00);
         for(int i=0;i<(keys.size()*size);i++)
             topWordSet.add(keys.get(i));
-
-//        end = System.currentTimeMillis();
-//        System.out.println("Time to generate list of top words: "+(end-startTIme));
-
-//        startTIme = System.currentTimeMillis();
 
         Map<Object,Integer> newMap = new HashMap<>();
         for(Object obj:keys)
@@ -106,50 +65,9 @@ public class TopWordCompress implements ICompress {
 
         imap.setFreqMap(newMap);
 
-//        end = System.currentTimeMillis();
-//        System.out.println("Time to generate final map : "+(end-startTIme));
-        System.out.println("imap final map size:"+imap.freqSize());
         return imap;
     }
 
-    @Override
-    public StringBuilder appendRemainingZeros(StringBuilder coded) {
-        int rem = coded.length() % 8;
-        if (rem != 0) {
-            rem = 8 - rem;
-            while (rem != 0) {
-                coded = coded.append("0");
-                rem--;
-            }
-        }
-        return coded;
-    }
-
-    @Override
-    public int noofZerosToBeAppended(StringBuilder coded) {
-        if (coded.length() == 0 || coded.length() % 8 == 0) {
-            return 0;
-        }
-        return 8 - (coded.length() % 8);
-    }
-
-    @Override
-    public byte[] compress(StringBuilder coded) {
-        byte[] bytearray = new byte[coded.length() / 8];
-        StringBuilder sub = new StringBuilder();
-        int bytearrayIndex = 0;
-        for (int i = 0; i < coded.length(); i = i + 8) {
-            int j = 0;
-            while (j < 8) {
-                sub = sub.append(coded.charAt(i + j));
-                j++;
-            }
-            bytearray[bytearrayIndex] = (byte) Integer.parseInt(sub.toString(), 2);
-            bytearrayIndex++;
-            sub.setLength(0);
-        }
-        return bytearray;
-    }
 
 
     @Override
@@ -158,38 +76,17 @@ public class TopWordCompress implements ICompress {
             return;
         }
         if (newNode.getLeft() == null && newNode.getRight() == null) {
-//            System.out.println(newNode.getVar()+"\t"+s);
             huffmanMap.putHuffManCode(newNode.getVar(), s);
         }
         iterateTreeAndCalculateHuffManCode(newNode.getLeft(), s + "0", huffmanMap);
         iterateTreeAndCalculateHuffManCode(newNode.getRight(), s + "1", huffmanMap);
     }
 
-    @Override
-    public StringBuilder getCodes(IMap huffmanMap, IDataHandle fobj) {
-        StringBuilder finalAns = new StringBuilder();
-        String[] strData = fobj.readContentAsArray();
-        System.out.println("str data size"+strData.length);
-        for(String str:strData){
-            if(huffmanMap.containsHuffKey(str))
-                finalAns.append(huffmanMap.getHuffmanCode(str));
-            else{
-                for(char character:str.toCharArray())
-                    finalAns.append(huffmanMap.getHuffmanCode(String.valueOf(character)));
-            }
-        }
-        System.out.println("huffman codes size:"+finalAns.length());
-        return finalAns;
-    }
-
-
 
     public IFileContents compress(IMap iMap, IDataHandle dataObj) {
 
         String[] fileContents = dataObj.readContentAsArray();
 
-        System.out.println("read file contents");
-        System.out.println(fileContents.length);
         int size = method.getCodeSize(iMap);
 
         if(size%8 != 0)
@@ -219,8 +116,6 @@ public class TopWordCompress implements ICompress {
 
         }
 
-//        System.out.println("done");
-
         int extraBits = 0;
 
         if (!curCode.equals("")) {
@@ -229,10 +124,6 @@ public class TopWordCompress implements ICompress {
                 curCode += '0';
             byteArray[idx] = (byte) Integer.parseInt(curCode.substring(0, 8), 2);
         }
-
-        System.out.println(extraBits);
-        System.out.println(byteArray.length);
-
 
         IFileContents compressedData = new FileContents();
 

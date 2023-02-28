@@ -1,62 +1,29 @@
 package com.capexercise.huffman.variations.character.compressor;
 
+import com.capexercise.general.FileContents;
+import com.capexercise.general.IFileContents;
 import com.capexercise.general.helpers.input.IDataHandle;
 import com.capexercise.general.helpers.maps.CharMaps;
 import com.capexercise.general.helpers.maps.IMap;
 import com.capexercise.general.helpers.nodes.TreeNode;
 import com.capexercise.huffman.compression.ICompress;
+import com.capexercise.huffman.general.GeneralMethods;
+import com.capexercise.huffman.general.IGeneral;
 
 public class CharCompress implements ICompress {
+    IGeneral method;
     @Override
-    public IMap calculateFreq(IDataHandle fileReader) {
+    public IMap calculateFreq(IDataHandle dataObj) {
         IMap imap = new CharMaps();
 
-        String ans = fileReader.readContent();
+        String ans = dataObj.readContent();
 
-        for (char x : ans.toCharArray()) {
-            int val = imap.getFrequency(x);
-            imap.putFrequency(x, val);
-        }
+            for (char x : ans.toCharArray()) {
+                int val = imap.getFrequency(x);
+                imap.putFrequency(x, val);
+            }
+
         return imap;
-    }
-
-    @Override
-    public StringBuilder appendRemainingZeros(StringBuilder coded) {
-        int rem = coded.length() % 8;
-        if (rem != 0) {
-            rem = 8 - rem;
-            while (rem != 0) {
-                coded = coded.append("0");
-                rem--;
-            }
-        }
-        return coded;
-    }
-
-    @Override
-    public int noofZerosToBeAppended(StringBuilder coded) {
-        if (coded.length() == 0 || coded.length() % 8 == 0) {
-            return 0;
-        }
-        return 8 - (coded.length() % 8);
-    }
-
-    @Override
-    public byte[] compress(StringBuilder coded) {
-        byte[] bytearray = new byte[coded.length() / 8];
-        StringBuilder sub = new StringBuilder();
-        int bytearrayIndex = 0;
-        for (int i = 0; i < coded.length(); i = i + 8) {
-            int j = 0;
-            while (j < 8) {
-                sub = sub.append(coded.charAt(i + j));
-                j++;
-            }
-            bytearray[bytearrayIndex] = (byte) Integer.parseInt(sub.toString(), 2);
-            bytearrayIndex++;
-            sub.setLength(0);
-        }
-        return bytearray;
     }
 
 
@@ -72,14 +39,55 @@ public class CharCompress implements ICompress {
         iterateTreeAndCalculateHuffManCode(newNode.getRight(), s + "1", huffmanMap);
     }
 
+
     @Override
-    public StringBuilder getCodes(IMap huffmanMap, IDataHandle fobj) {
-        StringBuilder ans = new StringBuilder();
-        String curr = fobj.readContent();
-        for (char x : curr.toCharArray()) {
-            ans.append(huffmanMap.getHuffmanCode(x));
+    public IFileContents compress(IMap iMap, IDataHandle dataObj) {
+
+        method = new GeneralMethods();
+
+        String fileData = dataObj.readContent();
+
+        int size = method.getCodeSize(iMap);
+
+        if(size%8 != 0)
+            size = (size/8) +1;
+        else
+            size /= 8;
+
+        byte[] byteArray = new byte[size];
+        String curCode = "";
+        int idx = 0;
+
+        for(char character : fileData.toCharArray()){
+
+            curCode += iMap.getHuffmanCode(character);
+            while (curCode.length() > 8) {
+                byte curByte = (byte) Integer.parseInt(curCode.substring(0, 8), 2);
+                curCode = curCode.substring(8);
+                byteArray[idx++] = curByte;
+
+            }
+
         }
-        return ans;
+
+
+        int extraBits = 0;
+
+        if (!curCode.equals("")) {
+            extraBits = 8 - curCode.length();
+            for (int i = 0; i < extraBits; i++)
+                curCode += '0';
+            byteArray[idx] = (byte) Integer.parseInt(curCode.substring(0, 8), 2);
+        }
+
+        IFileContents compressedData = new FileContents();
+
+        compressedData.setFrequencyMap(iMap.returnFreqMap());
+        compressedData.setExtraBits(extraBits);
+        compressedData.setByteArray(byteArray);
+
+        return compressedData;
+
     }
 
 }

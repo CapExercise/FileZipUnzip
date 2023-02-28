@@ -27,71 +27,29 @@ import java.util.logging.Logger;
 public class TopWordZipperUnZipper implements FileZipper {
 
     IGeneral method;
-    TopWordCompress myObj = new TopWordCompress();
 
     public TopWordZipperUnZipper(){
         method = new GeneralMethods();
     }
 
     Logger logger = Logger.getLogger(TopWordZipperUnZipper.class.getName());
-    long startTime;
-    long freq,tree,huff,code,comp,write;
     @Override
     public void compress() {
         ICompress compressor = new TopWordCompress();
 
         IDataHandle dataObj = new FileHandler(Path.inputFilePath);
 
-        startTime = System.currentTimeMillis();
         IMap compressionMaps = compressor.calculateFreq(dataObj);
-//        freq = System.currentTimeMillis() - startTime;
 
-//        startTime = System.currentTimeMillis();
         TreeNode root = this.constructTree(compressionMaps);
-//        tree = System.currentTimeMillis() - startTime;
 
-//        startTime = System.currentTimeMillis();
         compressor.iterateTreeAndCalculateHuffManCode(root, "", compressionMaps);
-//        huff = System.currentTimeMillis() - startTime;
 
-        System.out.println("huffman map size:"+compressionMaps.huffmanSize());
-//        startTime = System.currentTimeMillis();
-//        StringBuilder coded = compressor.getCodes(compressionMaps, dataObj);
-//        code = System.currentTimeMillis() - startTime;
+        IFileContents fileContents = compressor.compress(compressionMaps,dataObj);
 
-//        int noOfZerosAppended = compressor.noofZerosToBeAppended(coded);
-
-//        if (noOfZerosAppended != 0)
-//            coded = compressor.appendRemainingZeros(coded);
-
-//        startTime = System.currentTimeMillis();
-//        byte[] byteArray = compressor.compress(coded);
-//        comp = System.currentTimeMillis() - startTime;
-
-//        compressionMaps.clearHuffMap();
-
-//        startTime = System.currentTimeMillis();
-//        IFileContents fileContents = new FileContents(compressionMaps.returnFreqMap(), noOfZerosAppended, byteArray);
-        IFileContents fileContents = myObj.compress(compressionMaps,dataObj);
         method.addCompressedContents(fileContents);
-        File f=new File("src/main/java/com/capexercise/Files/mapSize.txt");
-        try
-        {
-            ObjectOutputStream out=new ObjectOutputStream(new FileOutputStream(f));
-            out.writeObject(compressionMaps.returnFreqMap());
-            out.close();
-            System.out.println("top Size of map is "+f.length());
-//            System.out.println("Average bit for top word is "+((float)coded.length()/(new File("src/main/java/com/capexercise/Files/input.txt").length())));
-        }
-        catch (FileNotFoundException e)
-        {
-            throw new RuntimeException(e);
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-//        write = System.currentTimeMillis();
-//        logger.info("Time to build frequency map:"+freq+"\nTime to build tree:"+tree+"\ntime to build huffman map:"+huff+"\ntime to get encoded string:"+code+"\nTime to get compressed data:"+comp+"\nTime to write:"+write);
+
+        System.out.println("Average bit for top word is "+((float)method.getCodeSize(compressionMaps)/(new File("src/main/java/com/capexercise/Files/input.txt").length())));
 
         System.out.println("Compression done Successfully");
     }
@@ -99,19 +57,20 @@ public class TopWordZipperUnZipper implements FileZipper {
     @Override
     public void decompress() {
         IDecompress decompressor = new TopWordDecompress();
+
         IFileContents fileContents = method.extractContents(new File(Path.compressedFilePath));
+
         Map<Object, Integer> freq = fileContents.getFrequencyMap();
         int noOfZeros = fileContents.getExtraBits();
         byte[] byteArray = fileContents.getByteArray();
 
         IMap decompressionMap = new WordMaps(freq, null);
-        TreeNode root = this.constructTree(decompressionMap);
-        StringBuilder decoded = decompressor.getDecodedString(byteArray);
-        decompressor.writeIntoDecompressedFile(root, decoded, noOfZeros);
 
+        TreeNode root = this.constructTree(decompressionMap);
+
+        decompressor.decompress(byteArray,noOfZeros, root);
 
         System.out.println("De-Compression done Successfully");
-
 
         method.displayStats(Path.inputFilePath, Path.compressedFilePath, Path.decompressedFilePath);
     }

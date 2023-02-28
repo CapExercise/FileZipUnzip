@@ -25,6 +25,7 @@ import java.util.PriorityQueue;
 public class WordZipperUnZipper implements FileZipper {
 
     IGeneral method;
+    WordCompress obj;
 
     public WordZipperUnZipper(){
         method = new GeneralMethods();
@@ -36,6 +37,8 @@ public class WordZipperUnZipper implements FileZipper {
 
         ICompress compressor = new WordCompress();
 
+        obj = new WordCompress();
+
         IDataHandle dataObj = new FileHandler(Path.inputFilePath);
 
         IMap compressionMaps = compressor.calculateFreq(dataObj);
@@ -44,36 +47,11 @@ public class WordZipperUnZipper implements FileZipper {
 
         compressor.iterateTreeAndCalculateHuffManCode(root, "", compressionMaps);
 
-        StringBuilder coded = compressor.getCodes(compressionMaps, dataObj);
+        IFileContents fileContents = obj.compress(compressionMaps,dataObj);
 
-        int noOfZerosAppended = compressor.noofZerosToBeAppended(coded);
-
-        if (noOfZerosAppended != 0)
-            coded = compressor.appendRemainingZeros(coded);
-
-        byte[] byteArray = compressor.compress(coded);
-
-        compressionMaps.clearHuffMap();
-
-        IFileContents fileContents = new FileContents((Map<Object, Integer>) compressionMaps.returnFreqMap(), noOfZerosAppended, byteArray);
         method.addCompressedContents(fileContents);
-        File f=new File("src/main/java/com/capexercise/Files/mapSize.txt");
-        try
-        {
-            ObjectOutputStream out=new ObjectOutputStream(new FileOutputStream(f));
-            out.writeObject(compressionMaps.returnFreqMap());
-            out.close();
-            System.out.println("top Size of map is "+f.length());
-            System.out.println("Average bit for top word is "+((float)coded.length()/(new File("src/main/java/com/capexercise/Files/input.txt").length())));
 
-        }
-        catch (FileNotFoundException e)
-        {
-            throw new RuntimeException(e);
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        System.out.println("Average bit for top word is "+((float)method.getCodeSize(compressionMaps)/(new File(Path.inputFilePath).length())));
 
         System.out.println("Compression done Successfully");
     }
@@ -81,16 +59,18 @@ public class WordZipperUnZipper implements FileZipper {
     @Override
     public void decompress() {
         IDecompress decompressor = new WordDecompress();
+
         IFileContents fileContents = method.extractContents(new File(Path.compressedFilePath));
+
         Map<Object, Integer> freq = fileContents.getFrequencyMap();
         int noOfZeros = fileContents.getExtraBits();
         byte[] byteArray = fileContents.getByteArray();
 
         IMap decompressionMap = new WordMaps(freq, null);
-        TreeNode root = this.constructTree(decompressionMap);
-        StringBuilder decoded = decompressor.getDecodedString(byteArray);
-        decompressor.writeIntoDecompressedFile(root, decoded, noOfZeros);
 
+        TreeNode root = this.constructTree(decompressionMap);
+
+        decompressor.decompress(byteArray,noOfZeros,root);
 
         System.out.println("De-Compression done Successfully");
 
