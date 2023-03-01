@@ -16,6 +16,8 @@ public class FileHandler implements IDataHandle {
 
     public Map<Object, Integer> freqMap;
 
+    boolean mapFormed=false;
+
     int per;
 
     public FileHandler(String path) {
@@ -44,42 +46,90 @@ public class FileHandler implements IDataHandle {
 
     @Override
     public String[] readContentAsArray() {
+        if(!mapFormed)
+            this.formMap();
         return this.fileContents;
     }
 
+    @Override
+//    public void formMap(){
+//        List<String> stringList = new ArrayList<>();
+//        freqMap = new HashMap<>();
+//          long start = System.currentTimeMillis();
+//        try {
+//
+//            FileReader fin = new FileReader(filObj);
+//            int val = fin.read();
+//            String sub = "";
+//            while (val != -1) {
+//                char character = (char) val;
+//                while (Character.isAlphabetic(character) || Character.isDigit(character)) {
+//                    sub += character;
+//                    val = fin.read();
+//                    character = (char) val;
+//                }
+//
+//                if (sub.length() != 0) {
+//                    stringList.add(sub);
+//                    freqMap.put(sub, freqMap.getOrDefault(sub, 0) + 1);
+//                }
+//                if (val != -1) {
+//                    stringList.add("" + character);
+//                    freqMap.put("" + character, freqMap.getOrDefault("" + character, 0) + 1);
+//                }
+//                sub = "";
+//                val = fin.read();
+//            }
+//            fin.close();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//         System.out.println("time to form string from byte array:"+(System.currentTimeMillis()-start));
+//        fileContents = stringList.toArray(fileContents);
+//        stringList.clear();
+//    }
     public void formMap(){
         List<String> stringList = new ArrayList<>();
         freqMap = new HashMap<>();
-        try {
+        String strData = null;
+        FileInputStream fin = null;
 
-            FileReader fin = new FileReader(filObj);
-            int val = fin.read();
-            String sub = "";
-            while (val != -1) {
-                char character = (char) val;
+        byte[] byteArray = new byte[(int)filObj.length()];
+        try {
+            fin = new FileInputStream(this.filObj);
+            fin.read(byteArray);
+            fin.close();
+            strData = new String(byteArray,"UTF-8");
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        String sub  = "";
+
+        for(int i=0;i< strData.length();i++) {
+            char character = strData.charAt(i);
                 while (Character.isAlphabetic(character) || Character.isDigit(character)) {
                     sub += character;
-                    val = fin.read();
-                    character = (char) val;
+                    character = strData.charAt(++i);
                 }
 
                 if (sub.length() != 0) {
                     stringList.add(sub);
                     freqMap.put(sub, freqMap.getOrDefault(sub, 0) + 1);
                 }
-                if (val != -1) {
+                if (i != byteArray.length) {
                     stringList.add("" + character);
                     freqMap.put("" + character, freqMap.getOrDefault("" + character, 0) + 1);
                 }
                 sub = "";
-                val = fin.read();
             }
-            fin.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
+        strData = null;
         fileContents = stringList.toArray(fileContents);
+        stringList.clear();
+        mapFormed = true;
     }
 
 
@@ -96,6 +146,7 @@ public class FileHandler implements IDataHandle {
         return this.per;
     }
 
+    @Override
     public Map<Object, Integer> returnMap(){
         return this.freqMap;
     }
