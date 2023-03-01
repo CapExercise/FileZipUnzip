@@ -64,7 +64,7 @@ public class ModTopWordZipperUnzipper implements FileZipper{
                 throw new RuntimeException(e);
             }
 
-            if((System.currentTimeMillis()-startTime)/1000>100)
+            if((System.currentTimeMillis()-startTime)/1000>50)
                 break;
 
 
