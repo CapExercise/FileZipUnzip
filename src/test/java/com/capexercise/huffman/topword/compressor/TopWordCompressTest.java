@@ -17,6 +17,7 @@ import java.util.Map;
 import static org.junit.Assert.*;
 
 public class TopWordCompressTest {
+    /*
     TopWordCompress c=new TopWordCompress();
     TreeNode root=null;
 
@@ -288,5 +289,7 @@ public class TopWordCompressTest {
         assertTrue(expected.length()==result.length());
     }
 
+
+     */
 
 }

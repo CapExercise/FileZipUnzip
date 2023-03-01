@@ -13,8 +13,9 @@ import java.util.Collections;
 public class CharDecompress implements IDecompress {
 
     @Override
-    public void decompress(byte[] byteArray, int noOfZeroes, TreeNode root){
-        System.out.println("decompression side byte array size:"+byteArray.length);
+    public void decompress(byte[] byteArray, int noOfZeroes, TreeNode root)
+    {
+      //  System.out.println("decompression side byte array size:"+byteArray.length);
         TreeNode node = root;
         String curCode = "";
         try {

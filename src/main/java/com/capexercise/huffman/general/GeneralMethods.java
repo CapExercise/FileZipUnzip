@@ -20,8 +20,8 @@ public class GeneralMethods implements IGeneral {
         while (val1 != 1 && val2 != -1) {
 
             if (val1 != val2) {
-                System.out.println((char) val1);
-                System.out.println((char) val2);
+//                System.out.println((char) val1);
+//                System.out.println((char) val2);
                 return false;
             }
             val1 = f3.read();
@@ -29,8 +29,8 @@ public class GeneralMethods implements IGeneral {
         }
 
         if ((val1 != -1 && val2 == -1) || (val1 == -1 && val2 != -1)) {
-            System.out.println((char) val1);
-            System.out.println((char) val2);
+//            System.out.println((char) val1);
+//            System.out.println((char) val2);
             return false;
         }
 

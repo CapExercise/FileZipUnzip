@@ -1,6 +1,8 @@
 package com.capexercise.huffman.general;
 
 import com.capexercise.general.GeneralClass;
+import com.capexercise.general.helpers.maps.CharMaps;
+import com.capexercise.general.helpers.maps.IMap;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +10,8 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 public class GeneralMethodsTest {
@@ -87,15 +91,15 @@ public class GeneralMethodsTest {
         }
     }
 
-    @Test
-    public void getExtractContents(){
-
-    }
-
-    @Test
-    public void testAddCompressedComponents(){
-
-    }
+   // @Test
+//    public void getExtractContents(){
+//
+//    }
+//
+//    @Test
+//    public void testAddCompressedComponents(){
+//
+//    }
 
     @After
     public void afterAll()
@@ -105,4 +109,49 @@ public class GeneralMethodsTest {
         new File("src/test/java/generalPackage/test2.txt").delete();
         new File("src/test/java/generalPackage/test3.txt").delete();
     }
+
+
+    @Test
+    public void testgetCodeSize()
+    {
+        IMap map=new CharMaps();
+        Map<Object,Integer> frequencyMap=new HashMap<>();
+        frequencyMap.put('a',3);
+        frequencyMap.put('b',2);
+
+        Map<Object,String> hashMap=new HashMap<>();
+        hashMap.put('a',"0");
+        hashMap.put('b',"1");
+
+        map.setFreqMap(frequencyMap);
+        map.setHuffMap(hashMap);
+
+        assertEquals(5,testRef.getCodeSize(map));
+    }
+
+    @Test
+    public void testcodeSizeForEmpty()
+    {
+        Map<Object,Integer> freqMap=new HashMap<>();
+        Map<Object,String> hashMap=new HashMap<>();
+        IMap map=new CharMaps(freqMap,hashMap);
+        assertEquals(0,testRef.getCodeSize(map));
+    }
+
+    @Test
+    public void testgetFreqSize()
+    {
+        IMap imap=new CharMaps();
+        Map<Object,Integer> freqMap=new HashMap<>();
+        freqMap.put('a',4);
+        freqMap.put('b',2);
+
+        imap.setFreqMap(freqMap);
+        assertEquals(223,testRef.getFreqSize(imap));
+
+
+    }
+
+
+
 }

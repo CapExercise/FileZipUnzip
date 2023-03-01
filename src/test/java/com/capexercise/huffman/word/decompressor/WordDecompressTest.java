@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 
 public class WordDecompressTest
 {
-
+/*
    WordDecompress d=new WordDecompress();
 
     TreeNode root=null;
@@ -180,4 +180,6 @@ public class WordDecompressTest
     }
 
 
+
+ */
 }

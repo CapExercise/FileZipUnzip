@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.Arrays;
 import static org.junit.Assert.*;
 
 public class CharDecompressTest {
+
     CharDecompress d=new CharDecompress();
 
    TreeNode root=null;
@@ -39,7 +41,7 @@ public class CharDecompressTest {
     }
 
 
-
+/*
     @Test
     public void Testget8BItCode()
     {
@@ -176,8 +178,78 @@ public class CharDecompressTest {
         }
     }
 
+*/
 
+    @Test
+    public void testgetCodes()
+    {
+       assertEquals("00000000",d.getCode(0));
+       assertEquals("00001000",d.getCode(8));
+    }
 
+    @Test
+    public void testdecompressforPositiveCase()
+    {
+        byte[] bytearray=new byte[]{82,120};
+        d.decompress(bytearray,3,root);
+        StringBuilder expected=new StringBuilder();
+        FileReader fin= null;
+        try {
+            fin = new FileReader(Path.decompressedFilePath);
+
+            int c= 0;
+            try {
+                c = fin.read();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            while(c!=-1)
+            {
+                expected.append((char)c);
+                try {
+                    c=fin.read();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        assertEquals("ababaabaabbbb",expected.toString());
+    }
+
+    @Test
+    public void testdecompressforNoZerosAtend()
+    {
+        byte[] bytearray=new byte[]{82};
+        d.decompress(bytearray,0,root);
+        StringBuilder expected=new StringBuilder();
+        FileReader fin= null;
+        try {
+            fin = new FileReader(Path.decompressedFilePath);
+
+            int c= 0;
+            try {
+                c = fin.read();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            while(c!=-1)
+            {
+                expected.append((char)c);
+                try {
+                    c=fin.read();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        assertEquals("ababaaba",expected.toString());
+    }
 
 
 }

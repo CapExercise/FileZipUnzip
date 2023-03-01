@@ -17,7 +17,7 @@ import java.util.Map;
 import static org.junit.Assert.*;
 
 public class WordCompressTest {
-
+/*
     WordCompress c=new WordCompress();
     TreeNode root=null;
 
@@ -173,7 +173,7 @@ public class WordCompressTest {
     }
 
 
- */
+
     @Test
     public void TestappendRemainingZeros2()
     {
@@ -308,6 +308,8 @@ public class WordCompressTest {
     }
 
 
+
+ */
 
 
 

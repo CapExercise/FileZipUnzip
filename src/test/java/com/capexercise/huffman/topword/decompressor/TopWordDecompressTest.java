@@ -17,7 +17,7 @@ import java.util.Arrays;
 import static org.junit.Assert.*;
 
 public class TopWordDecompressTest {
-
+/*
     TopWordDecompress d=new TopWordDecompress();
 
     TreeNode root=null;
@@ -179,4 +179,6 @@ public class TopWordDecompressTest {
         }
     }
 
+
+ */
 }

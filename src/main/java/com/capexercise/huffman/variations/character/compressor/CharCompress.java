@@ -5,18 +5,22 @@ import com.capexercise.general.IFileContents;
 import com.capexercise.general.helpers.input.IDataHandle;
 import com.capexercise.general.helpers.maps.CharMaps;
 import com.capexercise.general.helpers.maps.IMap;
+import com.capexercise.general.helpers.maps.WordMaps;
 import com.capexercise.general.helpers.nodes.TreeNode;
 import com.capexercise.huffman.compression.ICompress;
 import com.capexercise.huffman.general.GeneralMethods;
 import com.capexercise.huffman.general.IGeneral;
 
+import java.util.Map;
+
 public class CharCompress implements ICompress {
     IGeneral method;
+    String ans ="";
     @Override
     public IMap calculateFreq(IDataHandle dataObj) {
         IMap imap = new CharMaps();
 
-        String ans = dataObj.readContent();
+         ans=dataObj.readContent();
 
             for (char x : ans.toCharArray()) {
                 int val = imap.getFrequency(x);
@@ -24,6 +28,7 @@ public class CharCompress implements ICompress {
             }
 
         return imap;
+
     }
 
 
@@ -45,7 +50,7 @@ public class CharCompress implements ICompress {
 
         method = new GeneralMethods();
 
-        String fileData = dataObj.readContent();
+        //String fileData = dataObj.readContent();
 
         int size = method.getCodeSize(iMap);
 
@@ -58,9 +63,10 @@ public class CharCompress implements ICompress {
         String curCode = "";
         int idx = 0;
 
-        for(char character : fileData.toCharArray()){
+        for(char character : ans.toCharArray()){
 
             curCode += iMap.getHuffmanCode(character);
+
             while (curCode.length() > 8) {
                 byte curByte = (byte) Integer.parseInt(curCode.substring(0, 8), 2);
                 curCode = curCode.substring(8);

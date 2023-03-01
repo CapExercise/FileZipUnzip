@@ -1,5 +1,6 @@
 package com.capexercise.huffman.character.compressor;
 
+import com.capexercise.general.IFileContents;
 import com.capexercise.general.helpers.input.IDataHandle;
 import com.capexercise.general.helpers.input.StringHandler;
 import com.capexercise.general.helpers.maps.CharMaps;
@@ -21,6 +22,9 @@ public class CharCompressTest {
     CharCompress c=new CharCompress();
     TreeNode root=null;
 
+    IMap imap=new CharMaps();
+
+
     @Before
     public void beforeTest()
     {
@@ -37,6 +41,40 @@ public class CharCompressTest {
         rootNode.setRight(rightNode);
 
         root=rootNode;
+    }
+    //aabba
+    @Test
+    public void testCompressMethodforPositiveCondition()
+    {
+        IDataHandle idata=new StringHandler("aabba");
+
+        Map<Object,Integer> frequencyMap=new HashMap<>();
+      frequencyMap.put('a',3);
+      frequencyMap.put('b',2);
+        imap.setFreqMap(frequencyMap);
+
+        Map<Object,String> hashMap=new HashMap<>();
+        hashMap.put('a',"0");
+        hashMap.put('b',"1");
+        imap.setHuffMap(hashMap);
+
+        IFileContents contents=c.compress(imap,idata);
+        assertEquals(frequencyMap,contents.getFrequencyMap());
+       assertEquals(3,contents.getExtraBits());
+        assertEquals(48,contents.getByteArray()[0]);
+    }
+
+    @Test
+    public void testCompressMethodforEmptyCondition()
+    {
+        IDataHandle idata=new StringHandler("");
+        IMap mp=new CharMaps();
+        mp.setHuffMap(new HashMap<>());
+        mp.setFreqMap(new HashMap<>());
+        IFileContents contents=c.compress(mp,idata);
+       assertEquals(0,contents.getByteArray().length);
+       assertEquals(0,contents.getExtraBits());
+
     }
 
     @Test
@@ -55,15 +93,6 @@ public class CharCompressTest {
     }
 
     @Test
-    public void testFrequencyMapForEmptyCondition()
-    {
-        IDataHandle iFile=new StringHandler("");
-        IMap imap= c.calculateFreq(iFile);
-        Map<Object,Integer> returnedMap= (Map<Object, Integer>) imap.returnFreqMap();
-        assertTrue(returnedMap.isEmpty());
-    }
-
-    @Test
     public void testFrequencyMapForSpecialCharacters()
     {
         IDataHandle iFile=new StringHandler("eerg™");
@@ -79,59 +108,14 @@ public class CharCompressTest {
 
 
     @Test
-    public void TestZerosToBeappended()
+    public void testFrequencyMapForEmptyCondition()
     {
-        StringBuilder str=new StringBuilder("00010");
-        assertEquals(3,c.noofZerosToBeAppended(str));
-    }
-    @Test
-    public void TestZerosToBeappended2()
-    {
-        StringBuilder str=new StringBuilder("");
-        assertEquals(0,c.noofZerosToBeAppended(str));
-    }
-    @Test
-    public void TestZerosToBeappended3()
-    {
-        StringBuilder str=new StringBuilder("0001");
-        assertEquals(4,c.noofZerosToBeAppended(str));
-    }
-    @Test
-    public void TestZerosToBeappended4()
-    {
-        StringBuilder str=new StringBuilder("0001000");
-        assertEquals(1,c.noofZerosToBeAppended(str));
-    }
-    @Test
-    public void TestZerosToBeappended5()
-    {
-        StringBuilder str=new StringBuilder("00010000");
-        assertEquals(0,c.noofZerosToBeAppended(str));
+        IDataHandle iFile=new StringHandler("");
+        IMap imap= c.calculateFreq(iFile);
+        Map<Object,Integer> returnedMap= (Map<Object, Integer>) imap.returnFreqMap();
+        assertTrue(returnedMap.isEmpty());
     }
 
-    @Test
-    public void TestappendRemainingZeros2()
-    {
-        StringBuilder inputString=new StringBuilder("00001");
-        StringBuilder returnedString=c.appendRemainingZeros(inputString);
-        assertEquals("00001000",returnedString.toString());
-    }
-
-    @Test
-    public void TestappendRemainingZeros3()
-    {
-        StringBuilder inputString=new StringBuilder("10101100");
-        StringBuilder returnedString=c.appendRemainingZeros(inputString);
-        assertEquals("10101100",returnedString.toString());
-    }
-
-    @Test
-    public void TestappendRemainingZeros4()
-    {
-        StringBuilder inputString=new StringBuilder("");
-        StringBuilder returnedString=c.appendRemainingZeros(inputString);
-        assertEquals("",returnedString.toString());
-    }
 
     @Test
     public void TestIterateTreeAndCalcuateHuffManMap_ForPositiveCase()
@@ -158,7 +142,6 @@ public class CharCompressTest {
         assertTrue(HuffmanMap.isEmpty());
     }
 
-
     @Test
     public void TestIterateTreeAndCalcuateHUffManMap_ForSingleNode()
     {
@@ -176,66 +159,5 @@ public class CharCompressTest {
         expectedHUffManMap.put('a',"");
         assertEquals(expectedHUffManMap,huffManMap);
     }
-
-
-
-
-    @Test
-    public void TestCompressMethodForPositiveCase()
-    {
-        StringBuilder inputString=new StringBuilder("0101001001111000");
-        byte[] byteArray=c.compress(inputString);
-        assertEquals(byteArray[0],82);
-        assertEquals(byteArray[1],120);
-    }
-
-
-    @Test
-    public void TestCompressMethodForEmmptyCase()
-    {
-        StringBuilder inputString=new StringBuilder("");
-        byte[] byteArray=c.compress(inputString);
-        assertTrue(byteArray.length==0);
-    }
-
-    @Test
-    public void TestCompressMethodForPositiveCase1()
-    {
-        StringBuilder inputString=new StringBuilder("01010010");
-        byte[] byteArray=c.compress(inputString);
-        assertEquals(byteArray[0],82);
-
-    }
-
-    @Test
-    public void TestgetCodeForPositiveCase()
-    {
-        IMap imap=new CharMaps();
-        Map<Object,String> huffManMap=imap.returnHuffMap();
-        huffManMap.put('h',"10");
-        huffManMap.put('o',"111");
-        huffManMap.put('m',"01");
-        huffManMap.put('i',"00");
-        huffManMap.put('e',"110");
-        IDataHandle ifile=new StringHandler("homie");
-        StringBuilder returnedStringBuilder=c.getCodes(imap,ifile);
-        StringBuilder expectedStringBuilder=new StringBuilder("101110100110");
-        assertEquals(returnedStringBuilder.toString(),expectedStringBuilder.toString());
-    }
-
-
-    @Test
-    public void TestgetCodesForCase_ThereisNoMatchBetweenInputAndMap()
-    {
-        IMap imap=new CharMaps();
-        Map<Object,String> huffManMap=imap.returnHuffMap();
-        StringBuilder expected = new StringBuilder("null");
-        huffManMap.put('a',"0");
-        IDataHandle iFile=new StringHandler("A");
-        StringBuilder result= c.getCodes(imap,iFile);
-        assertTrue(expected.toString().equals(result.toString()));
-    }
-
-
 
 }

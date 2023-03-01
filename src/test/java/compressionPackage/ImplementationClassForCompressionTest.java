@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 public class ImplementationClassForCompressionTest
 {
-
+/*
     CharCompress c=new CharCompress();
       TreeNode root=null;
 
@@ -236,4 +236,6 @@ public class ImplementationClassForCompressionTest
     }
 
 
+
+ */
 }

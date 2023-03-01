@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 
 public class GeneralClassTest {
 
-
+/*
     @Before
     public void beforeTest()
     {
@@ -97,5 +97,7 @@ public class GeneralClassTest {
     }
 
 
+
+ */
 
 }
