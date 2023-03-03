@@ -13,11 +13,6 @@ public class WordMaps implements IMap {
         huffmanMap = new HashMap<>();
     }
 
-    public WordMaps(Map<Object, Integer> fMap, Map<Object, String> hMap) {
-        this.frequencyMap = fMap;
-        this.huffmanMap = hMap;
-    }
-
     @Override
     public void putFrequency(Object val, int x) {
         frequencyMap.put(val, x);
