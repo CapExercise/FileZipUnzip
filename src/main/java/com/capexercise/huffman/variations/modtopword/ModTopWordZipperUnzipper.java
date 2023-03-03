@@ -2,7 +2,7 @@ package com.capexercise.huffman.variations.modtopword;
 
 import com.capexercise.filezipunzip.FileZipper;
 import com.capexercise.general.FrequencyComparator;
-import com.capexercise.general.GenearateMD5key;
+import com.capexercise.general.MD5KeyGenerator;
 import com.capexercise.general.IFileContents;
 import com.capexercise.general.Path;
 import com.capexercise.general.helpers.input.FileHandler;
@@ -23,7 +23,6 @@ import com.capexercise.huffman.variations.modtopword.decompressor.ModTopWordDeco
 
 import java.io.File;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
@@ -35,14 +34,16 @@ public class ModTopWordZipperUnzipper implements FileZipper {
     IGeneral method;
     IDataHandle dataObj;
     InputOutput io;
-
-    IDataBase db = new SQLImplemenation();
+    MD5KeyGenerator keyGen;
+    IDataBase db;
 
     @Override
     public void compress(){
+        keyGen = new MD5KeyGenerator();
+        db = new SQLImplemenation();
         String key = "";
         try {
-            key = GenearateMD5key.generateKey(Path.inputFilePath);
+            key = keyGen.generateKey(Path.inputFilePath);
             dataObj = new FileHandler(Path.inputFilePath);
             method = new GeneralMethods();
             io = new DBImplementation();
@@ -79,7 +80,7 @@ public class ModTopWordZipperUnzipper implements FileZipper {
             io.addCompressedContents(fileContents);
 
 
-        } catch (NoSuchAlgorithmException | IOException | SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
@@ -89,6 +90,7 @@ public class ModTopWordZipperUnzipper implements FileZipper {
 
     @Override
     public void decompress() throws SQLException, IOException, ClassNotFoundException {
+        db = new SQLImplemenation();
         ModTopWordDecompress decompressor = new ModTopWordDecompress();
 
         IFileContents fileContents = io.extractContents(new File(Path.compressedFilePath));
