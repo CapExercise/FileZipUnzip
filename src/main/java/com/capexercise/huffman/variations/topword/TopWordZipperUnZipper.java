@@ -2,7 +2,7 @@ package com.capexercise.huffman.variations.topword;
 
 import com.capexercise.filezipunzip.FileZipper;
 import com.capexercise.general.FrequencyComparator;
-import com.capexercise.general.IFileContents;
+import com.capexercise.general.helpers.filedata.IFileContents;
 import com.capexercise.general.Path;
 import com.capexercise.general.helpers.input.FileHandler;
 import com.capexercise.general.helpers.input.IDataHandle;
@@ -22,7 +22,6 @@ import com.capexercise.huffman.variations.topword.decompressor.TopWordDecompress
 import java.io.*;
 import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.logging.Logger;
 
 public class TopWordZipperUnZipper implements FileZipper {
 

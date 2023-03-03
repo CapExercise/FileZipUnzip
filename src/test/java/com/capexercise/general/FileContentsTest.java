@@ -1,8 +1,9 @@
 package com.capexercise.general;
 
+import com.capexercise.general.helpers.filedata.FileContents;
+import com.capexercise.general.helpers.filedata.IFileContents;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.HashMap;

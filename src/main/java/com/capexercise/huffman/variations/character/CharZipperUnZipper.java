@@ -2,7 +2,7 @@ package com.capexercise.huffman.variations.character;
 
 import com.capexercise.filezipunzip.FileZipper;
 import com.capexercise.general.FrequencyComparator;
-import com.capexercise.general.IFileContents;
+import com.capexercise.general.helpers.filedata.IFileContents;
 import com.capexercise.general.Path;
 import com.capexercise.general.helpers.input.FileHandler;
 import com.capexercise.general.helpers.input.IDataHandle;

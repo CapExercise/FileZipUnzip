@@ -1,6 +1,6 @@
 package com.capexercise.huffman.compression;
 
-import com.capexercise.general.IFileContents;
+import com.capexercise.general.helpers.filedata.IFileContents;
 import com.capexercise.general.helpers.input.IDataHandle;
 import com.capexercise.general.helpers.maps.IMap;
 import com.capexercise.general.helpers.nodes.TreeNode;

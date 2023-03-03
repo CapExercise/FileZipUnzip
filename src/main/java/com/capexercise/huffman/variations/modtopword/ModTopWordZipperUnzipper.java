@@ -2,8 +2,9 @@ package com.capexercise.huffman.variations.modtopword;
 
 import com.capexercise.filezipunzip.FileZipper;
 import com.capexercise.general.FrequencyComparator;
-import com.capexercise.general.MD5KeyGenerator;
-import com.capexercise.general.IFileContents;
+import com.capexercise.general.helpers.checksum.IKeyGenerator;
+import com.capexercise.general.helpers.checksum.MD5KeyGenerator;
+import com.capexercise.general.helpers.filedata.IFileContents;
 import com.capexercise.general.Path;
 import com.capexercise.general.helpers.input.FileHandler;
 import com.capexercise.general.helpers.input.IDataHandle;
@@ -34,7 +35,7 @@ public class ModTopWordZipperUnzipper implements FileZipper {
     IGeneral method;
     IDataHandle dataObj;
     InputOutput io;
-    MD5KeyGenerator keyGen;
+    IKeyGenerator keyGen;
     IDataBase db;
 
     @Override

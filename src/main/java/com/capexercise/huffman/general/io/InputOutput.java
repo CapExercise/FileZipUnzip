@@ -1,6 +1,6 @@
 package com.capexercise.huffman.general.io;
 
-import com.capexercise.general.IFileContents;
+import com.capexercise.general.helpers.filedata.IFileContents;
 
 import java.io.File;
 

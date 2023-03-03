@@ -1,9 +1,8 @@
 package com.capexercise.huffman.general.io;
 
-import com.capexercise.general.FileContents;
-import com.capexercise.general.IFileContents;
+import com.capexercise.general.helpers.filedata.FileContents;
+import com.capexercise.general.helpers.filedata.IFileContents;
 import com.capexercise.general.Path;
-import com.capexercise.huffman.general.io.InputOutput;
 
 import java.io.*;
 import java.util.Map;
