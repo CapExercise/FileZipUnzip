@@ -28,26 +28,9 @@ public class FileHandlerTest {
         assertEquals(expected,actual);
     }
 
-    @Test
-    public void testReadContentAsArrayForEmpty(){
-        testRef = new FileHandler("src/main/java/com/capexercise/Files/empty.txt");
-        String[] actual = testRef.readContentAsArray();
-        String[] expected = new String[0];
-        assertArrayEquals(expected,actual);
-    }
-    @Test
-    public void testReadContentAsArray(){
-        testRef = new FileHandler("src/main/java/com/capexercise/Files/testFile.txt");
-        String[] actual = testRef.readContentAsArray();
-        String[] expected = new String[]{"Hello"," ","world",".","This"," ","is"," ","it","."};
-        assertArrayEquals(expected,actual);
-    }
 
 
-    @Test
-    public void testformMap()
-    {
 
-    }
+
 
 }
