@@ -32,7 +32,6 @@ public class SQLImplemenation implements IDataBase {
             rs = stm.executeQuery("select * from fileTable;");
             while (rs.next()) {
                 String returned = rs.getString("md5");
-                System.out.println(returned);
                 if (returned.equals(key))
                     return true;
 
