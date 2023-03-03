@@ -17,12 +17,6 @@ public class FileContents implements IFileContents {
         this.byteArray = new byte[0];
     }
 
-    public FileContents(Map<Object, Integer> freqMap, int extraBits, byte[] byteArray) {
-        this.freqMap = freqMap;
-        this.extraBits = extraBits;
-        this.byteArray = byteArray;
-    }
-
     @Override
     public Map<Object, Integer> getFrequencyMap() {
         return this.freqMap;
