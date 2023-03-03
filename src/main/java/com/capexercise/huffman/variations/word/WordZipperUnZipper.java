@@ -53,9 +53,7 @@ public class WordZipperUnZipper implements FileZipper {
 
         IFileContents fileContents = obj.compress(compressionMaps,dataObj);
 
-//        method.addCompressedContents(fileContents);
         io.addCompressedContents(fileContents);
-
 
         System.out.println("Average bit for top word is "+((float)method.getCodeSize(compressionMaps)/(new File(Path.inputFilePath).length())));
 
@@ -66,9 +64,7 @@ public class WordZipperUnZipper implements FileZipper {
     public void decompress() {
         IDecompress decompressor = new WordDecompress();
 
-//        IFileContents fileContents = method.extractContents(new File(Path.compressedFilePath));
         IFileContents fileContents = io.extractContents(new File(Path.compressedFilePath));
-
 
         Map<Object, Integer> freq = fileContents.getFrequencyMap();
         int noOfZeros = fileContents.getExtraBits();

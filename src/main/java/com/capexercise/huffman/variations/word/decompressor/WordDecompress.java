@@ -38,7 +38,6 @@ public class WordDecompress implements IDecompress {
                         fw.write((String) node.getVar());
                         node=root;
                     }
-//                char cc = (decoded.charAt(i));
 
                 }
             }

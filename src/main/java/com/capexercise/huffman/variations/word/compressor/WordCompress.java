@@ -15,7 +15,6 @@ public class WordCompress implements ICompress {
     @Override
     public IMap calculateFreq(IDataHandle dataObj) {
         IMap imap = new WordMaps();
-//        dataObj.formMap();
         String fileContents = dataObj.readContent();
         String sub  = "";
 
@@ -26,18 +25,15 @@ public class WordCompress implements ICompress {
                 character = fileContents.charAt(++i);
             }
 
-            if (sub.length() != 0) {
-//                   freqMap.put(sub, freqMap.getOrDefault(sub, 0) + 1);
+            if (sub.length() != 0)
                 imap.putFrequency(sub,imap.getFrequency(sub));
-            }
-            if (i != fileContents.length()) {
-                // freqMap.put("" + character, freqMap.getOrDefault("" + character, 0) + 1);
+
+            if (i != fileContents.length())
                 imap.putFrequency(String.valueOf(character),imap.getFrequency(String.valueOf(character)));
-            }
+
             sub = "";
         }
-        fileContents = null;
-//        imap.setFreqMap(dataObj.returnMap());
+
         return imap;
     }
 
@@ -96,8 +92,6 @@ public class WordCompress implements ICompress {
             }
 
         }
-
-        fileContents = null;
 
         int extraBits = 0;
 
