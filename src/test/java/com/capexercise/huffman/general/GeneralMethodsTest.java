@@ -135,7 +135,9 @@ public class GeneralMethodsTest {
     {
         Map<Object,Integer> freqMap=new HashMap<>();
         Map<Object,String> hashMap=new HashMap<>();
-        IMap map=new CharMaps(freqMap,hashMap);
+        IMap map=new CharMaps();
+        map.setFreqMap(freqMap);
+        map.setHuffMap(hashMap);
         assertEquals(0,testRef.getCodeSize(map));
     }
 
