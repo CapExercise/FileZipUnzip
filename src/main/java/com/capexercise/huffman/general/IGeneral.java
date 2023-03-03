@@ -11,9 +11,7 @@ public interface IGeneral {
 
     void displayStats(String inputFilePath, String compressedFilePath, String decompressedFilePath);
 
-    IFileContents extractContents(File fileObj);
 
-    void addCompressedContents(IFileContents fileContents);
 
     int getFreqSize(IMap tempMap);
 

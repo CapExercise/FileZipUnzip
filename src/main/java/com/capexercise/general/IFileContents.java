@@ -14,4 +14,8 @@ public interface IFileContents {
     void setExtraBits(int extraBits);
 
     void setByteArray(byte[] byteArray);
+
+    String getMD5key();
+
+    void setMD5Key(String key);
 }

@@ -12,14 +12,18 @@ public class StringHandler implements IDataHandle {
     StringBuilder strData;
     Map<Object, Integer> freqMap;
 
+    int per;
+
     boolean mapFormed=false;
     List<String> stringList;
 
     public StringHandler(String source) {
+        stringList=new ArrayList<>();
         strData = new StringBuilder(source);
     }
 
     public StringHandler(byte[] byteArray){
+        stringList=new ArrayList<>();
         String temp = new String(byteArray);
         strData = new StringBuilder(temp);
     }
@@ -71,12 +75,12 @@ public class StringHandler implements IDataHandle {
 
     @Override
     public void setPercentage(int per) {
-
+     this.per=per;
     }
 
     @Override
     public int getPercentage() {
-        return 0;
+        return this.per;
     }
 
     @Override

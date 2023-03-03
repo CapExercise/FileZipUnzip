@@ -15,10 +15,29 @@ public class WordCompress implements ICompress {
     @Override
     public IMap calculateFreq(IDataHandle dataObj) {
         IMap imap = new WordMaps();
+//        dataObj.formMap();
+        String fileContents = dataObj.readContent();
+        String sub  = "";
 
-        dataObj.formMap();
-        imap.setFreqMap(dataObj.returnMap());
+        for(int i=0;i< fileContents.length();i++) {
+            char character = fileContents.charAt(i);
+            while (Character.isAlphabetic(character) || Character.isDigit(character)) {
+                sub += character;
+                character = fileContents.charAt(++i);
+            }
 
+            if (sub.length() != 0) {
+//                   freqMap.put(sub, freqMap.getOrDefault(sub, 0) + 1);
+                imap.putFrequency(sub,imap.getFrequency(sub));
+            }
+            if (i != fileContents.length()) {
+                // freqMap.put("" + character, freqMap.getOrDefault("" + character, 0) + 1);
+                imap.putFrequency(String.valueOf(character),imap.getFrequency(String.valueOf(character)));
+            }
+            sub = "";
+        }
+        fileContents = null;
+//        imap.setFreqMap(dataObj.returnMap());
         return imap;
     }
 
@@ -42,7 +61,7 @@ public class WordCompress implements ICompress {
 
         method = new GeneralMethods();
 
-        String[] fileContents = dataObj.readContentAsArray();
+        String fileContents = dataObj.readContent();
 
         int size = method.getCodeSize(iMap);
 
@@ -52,13 +71,22 @@ public class WordCompress implements ICompress {
             size /= 8;
 
         byte[] byteArray = new byte[size];
-        String curCode = "";
+        String curCode = "",str="";
         int idx = 0;
 
-        for (String str:fileContents) {
+        for (int i=0;i<fileContents.length();i++) {
 
+            char character = fileContents.charAt(i);
+            while (Character.isAlphabetic(character) || Character.isDigit(character)) {
+                str += character;
+                character = fileContents.charAt(++i);
+            }
 
             curCode += iMap.getHuffmanCode(str);
+
+            str = "";
+
+            curCode +=iMap.getHuffmanCode(String.valueOf(character));
 
             while (curCode.length() > 8) {
                 byte curByte = (byte) Integer.parseInt(curCode.substring(0, 8), 2);
@@ -69,7 +97,7 @@ public class WordCompress implements ICompress {
 
         }
 
-//        System.out.println("done");
+        fileContents = null;
 
         int extraBits = 0;
 
@@ -80,6 +108,7 @@ public class WordCompress implements ICompress {
             byteArray[idx] = (byte) Integer.parseInt(curCode.substring(0, 8), 2);
         }
 
+        System.out.println("byte array ready!");
 
         IFileContents compressedData = new FileContents();
 

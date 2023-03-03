@@ -60,7 +60,7 @@ public class GeneralMethods implements IGeneral {
         System.out.println("\n");
         System.out.println("Compression Percentage " + ans * 100 + " %");
     }
-
+/*
     @Override
     public IFileContents extractContents(File fileObj) {
         IFileContents fileContents;
@@ -72,10 +72,10 @@ public class GeneralMethods implements IGeneral {
 
             fileContents = new FileContents();
 
-            fileContents.setFrequencyMap((Map<Object, Integer>) obj.readObject());
+            fileContents.setMD5Key((String) obj.readObject());
+          //  fileContents.setFrequencyMap((Map<Object, Integer>) obj.readObject());
             fileContents.setExtraBits(obj.readInt());
             fileContents.setByteArray((byte[]) obj.readObject());
-
             obj.close();
             fin.close();
 
@@ -98,7 +98,8 @@ public class GeneralMethods implements IGeneral {
             fout = new FileOutputStream(newFile);
             ObjectOutputStream obj = new ObjectOutputStream(fout);
 
-            obj.writeObject(fileContents.getFrequencyMap());
+         //  obj.writeObject(fileContents.getFrequencyMap());
+          obj.writeObject(fileContents.getMD5key());
             obj.writeInt(fileContents.getExtraBits());
             obj.writeObject(fileContents.getByteArray());
 
@@ -113,6 +114,8 @@ public class GeneralMethods implements IGeneral {
             throw new RuntimeException(e);
         }
     }
+
+ */
     @Override
     public int getCodeSize(IMap map) {
         Map<Object, Integer> freqMap = map.returnFreqMap();
@@ -123,6 +126,8 @@ public class GeneralMethods implements IGeneral {
 
         return size;
     }
+
+
 
     @Override
     public int getFreqSize(IMap map) {

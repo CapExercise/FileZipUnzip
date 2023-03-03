@@ -2,18 +2,25 @@ package com.capexercise;
 
 import com.capexercise.filezipunzip.FileZipper;
 import com.capexercise.general.Path;
+import com.capexercise.huffman.general.IDataBase;
 import com.capexercise.huffman.variations.character.CharZipperUnZipper;
 import com.capexercise.huffman.general.GeneralMethods;
 import com.capexercise.huffman.variations.modtopword.ModTopWordZipperUnzipper;
+import com.capexercise.huffman.variations.modtopword.SQLImplemenation;
 import com.capexercise.huffman.variations.topword.TopWordZipperUnZipper;
 import com.capexercise.huffman.variations.word.WordZipperUnZipper;
 
 import java.io.IOException;
+import java.sql.*;
 import java.util.Scanner;
 
 public class Main {
+    static Connection connection;
+    static Statement stm;
+    static ResultSet rs;
 
-    public static void main(String[] args) throws IOException {
+
+    public static void main(String[] args) throws IOException, SQLException {
 
         Scanner scr = new Scanner(System.in);
         int choice = 0;
@@ -21,6 +28,12 @@ public class Main {
         int atleastOnce = 0;
         boolean flag = true;
 
+
+        //IDataBase db=new SQLImplemenation();
+
+//        connection = DriverManager.getConnection("jdbc:sqlite:freqTable.db");
+//        stm = connection.createStatement();
+//        stm.executeUpdate("create table fileTable (md5 text,file blob)");
 
 
        FileZipper zipper=null;
@@ -69,7 +82,11 @@ public class Main {
             switch (choice) {
                 case 1:
                     atleastOnce = 1;
-                    zipper.compress();
+                    try {
+                        zipper.compress();
+                    } catch (ClassNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
                     System.out.println("Time for compression:" + ((int) System.currentTimeMillis() - startTime));
                     break;
 
@@ -79,7 +96,11 @@ public class Main {
                         System.out.println("You have to perform compression at least once");
                         break;
                     }
-                    zipper.decompress();
+                    try {
+                        zipper.decompress();
+                    } catch (ClassNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
                     System.out.println("Time for De-compression:" + ((int) System.currentTimeMillis() - startTime));
                     break;
 
@@ -93,9 +114,8 @@ public class Main {
                     }
                     break;
 
-                case 4:
-                    flag = false;
-                    break;
+                case 4:flag=false;
+                break;
 
                 default:
                     System.out.println("Enter a valid choice");

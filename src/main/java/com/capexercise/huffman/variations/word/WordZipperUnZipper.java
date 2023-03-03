@@ -15,6 +15,8 @@ import com.capexercise.huffman.compression.ICompress;
 import com.capexercise.huffman.decompression.IDecompress;
 import com.capexercise.huffman.general.GeneralMethods;
 import com.capexercise.huffman.general.IGeneral;
+import com.capexercise.huffman.general.InputOutput;
+import com.capexercise.huffman.general.NormalImplemenation;
 import com.capexercise.huffman.variations.word.compressor.WordCompress;
 import com.capexercise.huffman.variations.word.decompressor.WordDecompress;
 
@@ -27,8 +29,11 @@ public class WordZipperUnZipper implements FileZipper {
     IGeneral method;
     WordCompress obj;
 
+    InputOutput io;
+
     public WordZipperUnZipper(){
         method = new GeneralMethods();
+        io=new NormalImplemenation();
     }
 
 
@@ -49,7 +54,9 @@ public class WordZipperUnZipper implements FileZipper {
 
         IFileContents fileContents = obj.compress(compressionMaps,dataObj);
 
-        method.addCompressedContents(fileContents);
+//        method.addCompressedContents(fileContents);
+        io.addCompressedContents(fileContents);
+
 
         System.out.println("Average bit for top word is "+((float)method.getCodeSize(compressionMaps)/(new File(Path.inputFilePath).length())));
 
@@ -60,7 +67,9 @@ public class WordZipperUnZipper implements FileZipper {
     public void decompress() {
         IDecompress decompressor = new WordDecompress();
 
-        IFileContents fileContents = method.extractContents(new File(Path.compressedFilePath));
+//        IFileContents fileContents = method.extractContents(new File(Path.compressedFilePath));
+        IFileContents fileContents = io.extractContents(new File(Path.compressedFilePath));
+
 
         Map<Object, Integer> freq = fileContents.getFrequencyMap();
         int noOfZeros = fileContents.getExtraBits();

@@ -21,9 +21,27 @@ public class TopWordCompress implements ICompress {
     public IMap calculateFreq(IDataHandle dataObj) {
 
         IMap imap = new WordMaps();
+//        dataObj.formMap();
+        String fileContents = dataObj.readContent();
+        String sub  = "";
 
-        dataObj.formMap();
-        imap.setFreqMap(dataObj.returnMap());
+        for(int i=0;i< fileContents.length();i++) {
+            char character = fileContents.charAt(i);
+            while (Character.isAlphabetic(character) || Character.isDigit(character)) {
+                sub += character;
+                character = fileContents.charAt(++i);
+            }
+
+            if (sub.length() != 0)
+                imap.putFrequency(sub,imap.getFrequency(sub));
+
+            if (i != fileContents.length())
+                imap.putFrequency(String.valueOf(character),imap.getFrequency(String.valueOf(character)));
+
+            sub = "";
+        }
+
+        fileContents = null;
 
         Map<Object,Integer> freqMap = imap.returnFreqMap();
 
@@ -85,7 +103,7 @@ public class TopWordCompress implements ICompress {
 
     public IFileContents compress(IMap iMap, IDataHandle dataObj) {
 
-        String[] fileContents = dataObj.readContentAsArray();
+        String fileContents = dataObj.readContent();
 
         int size = method.getCodeSize(iMap);
 
@@ -95,26 +113,38 @@ public class TopWordCompress implements ICompress {
             size /= 8;
 
         byte[] byteArray = new byte[size];
-        String curCode = "";
+        String curCode = "",str="";
         int idx = 0;
 
-        for (String str:fileContents) {
+        for (int i=0;i<fileContents.length();i++) {
+
+            char character = fileContents.charAt(i);
+            while (Character.isAlphabetic(character) || Character.isDigit(character)) {
+                str += character;
+                character = fileContents.charAt(++i);
+            }
 
             if(iMap.containsHuffKey(str))
                 curCode += iMap.getHuffmanCode(str);
             else{
-                for(char character:str.toCharArray())
-                    curCode += iMap.getHuffmanCode(String.valueOf(character));
+                for(char ch:str.toCharArray())
+                    curCode += iMap.getHuffmanCode(String.valueOf(ch));
             }
 
-                while (curCode.length() > 8) {
-                    byte curByte = (byte) Integer.parseInt(curCode.substring(0, 8), 2);
-                    curCode = curCode.substring(8);
-                    byteArray[idx++] = curByte;
+            str = "";
+
+            curCode +=iMap.getHuffmanCode(String.valueOf(character));
+
+            while (curCode.length() > 8) {
+                byte curByte = (byte) Integer.parseInt(curCode.substring(0, 8), 2);
+                curCode = curCode.substring(8);
+                byteArray[idx++] = curByte;
 
             }
 
         }
+
+        fileContents = null;
 
         int extraBits = 0;
 
@@ -124,6 +154,8 @@ public class TopWordCompress implements ICompress {
                 curCode += '0';
             byteArray[idx] = (byte) Integer.parseInt(curCode.substring(0, 8), 2);
         }
+
+        System.out.println("byte array ready!");
 
         IFileContents compressedData = new FileContents();
 

@@ -9,6 +9,8 @@ public class FileContents implements IFileContents {
     private int extraBits;
     private byte[] byteArray;
 
+    String key;
+
     public FileContents() {
         this.freqMap = new HashMap<>();
         this.extraBits = 0;
@@ -49,5 +51,15 @@ public class FileContents implements IFileContents {
     @Override
     public void setByteArray(byte[] byteArray) {
         this.byteArray = byteArray;
+    }
+
+    @Override
+    public String getMD5key() {
+        return this.key;
+    }
+
+    @Override
+    public void setMD5Key(String key) {
+this.key=key;
     }
 }

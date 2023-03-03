@@ -2,7 +2,6 @@ package com.capexercise.general.helpers.input;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class FileHandler implements IDataHandle {
-    File filObj;
+    File fileObj;
 
     String[] fileContents;
 
@@ -21,33 +20,73 @@ public class FileHandler implements IDataHandle {
     int per;
 
     public FileHandler(String path) {
-        filObj = new File(path);
-        fileContents  = new String[0];
+        fileObj = new File(path);
     }
 
     @Override
-    public String readContent() {
-        StringBuilder ans = new StringBuilder();
+    public String readContent()
+    {
+        String strData="";
+        FileInputStream fin = null;
+        byte[] byteArray = new byte[(int) fileObj.length()];
         try {
-
-            FileReader fin = new FileReader(filObj);
-            int c = fin.read();
-            while (c != -1) {
-                ans.append((char) c);
-                c = fin.read();
-            }
+            fin = new FileInputStream(this.fileObj);
+            fin.read(byteArray);
             fin.close();
+            strData = new String(byteArray,"UTF-8");
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        return ans.toString();
+        return strData;
     }
 
     @Override
     public String[] readContentAsArray() {
+
         if(!mapFormed)
-            this.formMap();
+           // formMap();
+        {
+            List<String> stringList = new ArrayList<>();
+            String strData="";
+            FileInputStream fin = null;
+            byte[] byteArray = new byte[(int) fileObj.length()];
+            try {
+                fin = new FileInputStream(this.fileObj);
+                fin.read(byteArray);
+                fin.close();
+                strData = new String(byteArray,"UTF-8");
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            String sub  = "";
+
+            for(int i=0;i< strData.length();i++) {
+                char character = strData.charAt(i);
+                while (Character.isAlphabetic(character) || Character.isDigit(character)) {
+                    sub += character;
+                    character = strData.charAt(++i);
+                }
+
+                if (sub.length() != 0) {
+                    stringList.add(sub);
+                 //   freqMap.put(sub, freqMap.getOrDefault(sub, 0) + 1);
+                }
+                if (i != byteArray.length) {
+                    stringList.add("" + character);
+                   // freqMap.put("" + character, freqMap.getOrDefault("" + character, 0) + 1);
+                }
+                sub = "";
+            }
+
+            fileContents  = new String[stringList.size()];
+            for(int i=0;i< stringList.size();i++)
+                fileContents[i] = stringList.get(i);
+//            fileContents = stringList.toArray(fileContents);
+            stringList.clear();
+        }
+
         return this.fileContents;
     }
 
@@ -94,9 +133,9 @@ public class FileHandler implements IDataHandle {
         String strData = null;
         FileInputStream fin = null;
 
-        byte[] byteArray = new byte[(int)filObj.length()];
+        byte[] byteArray = new byte[(int) fileObj.length()];
         try {
-            fin = new FileInputStream(this.filObj);
+            fin = new FileInputStream(this.fileObj);
             fin.read(byteArray);
             fin.close();
             strData = new String(byteArray,"UTF-8");
@@ -127,7 +166,9 @@ public class FileHandler implements IDataHandle {
             }
 
         strData = null;
-        fileContents = stringList.toArray(fileContents);
+        fileContents  = new String[stringList.size()];
+        for(int i=0;i< stringList.size();i++)
+            fileContents[i] = stringList.get(i);
         stringList.clear();
         mapFormed = true;
     }
