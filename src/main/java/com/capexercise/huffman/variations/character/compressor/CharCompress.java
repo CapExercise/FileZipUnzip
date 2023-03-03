@@ -20,7 +20,7 @@ public class CharCompress implements ICompress {
         String ans = dataObj.readContent();
 
         for (char x : ans.toCharArray())
-                imap.putFrequency(x, imap.getFrequency(x));
+            imap.putFrequency(x, imap.getFrequency(x));
 
         return imap;
 
@@ -49,8 +49,8 @@ public class CharCompress implements ICompress {
 
         int size = method.getCodeSize(iMap);
 
-        if(size%8 != 0)
-            size = (size/8) +1;
+        if (size % 8 != 0)
+            size = (size / 8) + 1;
         else
             size /= 8;
 
@@ -58,7 +58,7 @@ public class CharCompress implements ICompress {
         String curCode = "";
         int idx = 0;
 
-        for(char character : ans.toCharArray()){
+        for (char character : ans.toCharArray()) {
 
             curCode += iMap.getHuffmanCode(character);
 
