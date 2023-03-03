@@ -1,4 +1,4 @@
-package com.capexercise.general;
+package com.capexercise.general.helpers.checksum;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,8 +6,9 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class MD5KeyGenerator
+public class MD5KeyGenerator implements IKeyGenerator
 {
+    @Override
     public String generateKey(String path){
         String key = "";
         File file = new File(path);

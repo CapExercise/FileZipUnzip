@@ -1,5 +1,7 @@
 package com.capexercise.general;
 
+import com.capexercise.general.helpers.checksum.IKeyGenerator;
+import com.capexercise.general.helpers.checksum.MD5KeyGenerator;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -7,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class MD5KeyGeneratorTest {
 
-    MD5KeyGenerator testRef;
+    IKeyGenerator testRef;
     String filePath, fileKey;
 
     @Before
