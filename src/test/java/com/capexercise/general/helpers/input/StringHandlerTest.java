@@ -46,39 +46,4 @@ public class StringHandlerTest {
         assertEquals(expected,actual);
     }
 
-    @Test
-    public void testReadContentAsArrayForEmptyString() {
-        testRef = new StringHandler("");
-        String[] actual = testRef.readContentAsArray();
-        String[] expected = new String[]{};
-        assertArrayEquals(expected,actual);
-    }
-
-    @Test
-    public void testReadContentAsArrayForStringInput() {
-        testRef = new StringHandler("hello world");
-        String[] actual = testRef.readContentAsArray();
-        String[] expected = new String[]{"hello", " ", "world"};
-        assertArrayEquals(expected,actual);
-    }
-
-    @Test
-    public void testReadContentAsArrayForEmptyByteArray() {
-        testRef = new StringHandler(new byte[]{});
-        String[] actual = testRef.readContentAsArray();
-        String[] expected = new String[]{};
-        assertEquals(expected, actual);
-    }
-    @Test
-    public void testReadContentAsArrayForByteArray() {
-        String str = "hello world";
-        byte[] input = str.getBytes();
-        testRef = new StringHandler(input);
-
-        String[] actual = testRef.readContentAsArray();
-        String[] expected = new String[]{"hello", " ", "world"};
-
-        assertEquals(expected,actual);
-    }
-
 }

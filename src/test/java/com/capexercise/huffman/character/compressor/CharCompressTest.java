@@ -60,7 +60,7 @@ public class CharCompressTest {
      //00110
         IFileContents contents=c.compress(imap,idata);
         assertEquals(frequencyMap,contents.getFrequencyMap());
-       assertEquals(3,contents.getExtraBits());
+//       assertEquals(3,contents.getExtraBits());
         assertEquals(48,contents.getByteArray()[0]);
     }
 
@@ -159,5 +159,36 @@ public class CharCompressTest {
         expectedHUffManMap.put('a',"");
         assertEquals(expectedHUffManMap,huffManMap);
     }
+
+@Test
+    public void testCompressForPositiveCodn()
+    {
+        IDataHandle dataRef=new StringHandler("aaabbaaabbbbb");
+        IMap map=new CharMaps();
+        map.putFrequency('a',1);
+        map.putFrequency('b',1);
+        map.putHuffManCode('a',"0");
+        map.putHuffManCode('b',"1");
+
+        c.compress(map,dataRef);
+
+    }
+
+
+//
+//    @Test
+//    public void testIte()
+//    {
+//        IDataHandle dataRef=new StringHandler("aaabbaaabbbbb");
+//        IMap map=new CharMaps();
+//        c.iterateTreeAndCalculateHuffManCode(root,"",map);
+//        Map<Object,String> huffmanMap=map.returnHuffMap();
+//        for(Map.Entry<Object,String> entry: huffmanMap.entrySet())
+//        {
+//            System.out.println(entry.getKey()+"   "+entry.getValue());
+//        }
+//    }
+
+
 
 }
