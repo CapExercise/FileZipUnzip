@@ -11,6 +11,8 @@ import com.capexercise.general.helpers.maps.IMap;
 import com.capexercise.general.helpers.maps.WordMaps;
 import com.capexercise.general.helpers.nodes.CharTreeNode;
 import com.capexercise.general.helpers.nodes.TreeNode;
+import com.capexercise.huffman.general.InputOutput;
+import com.capexercise.huffman.general.NormalImplemenation;
 import com.capexercise.huffman.variations.character.compressor.CharCompress;
 import com.capexercise.huffman.variations.character.decompressor.CharDecompress;
 import com.capexercise.huffman.compression.ICompress;
@@ -26,8 +28,11 @@ public class CharZipperUnZipper implements FileZipper {
     CharCompress obj;
     IGeneral method;
 
+    InputOutput io;
+
     public CharZipperUnZipper() {
         method = new GeneralMethods();
+        io=new NormalImplemenation();
     }
 
     @Override
@@ -45,7 +50,9 @@ public class CharZipperUnZipper implements FileZipper {
 
         IFileContents fileContents = compressor.compress(compressionMaps,dataObj);
 
-        method.addCompressedContents(fileContents);
+      //  method.addCompressedContents(fileContents);
+       io.addCompressedContents(fileContents);
+
 
         float size = (float) method.getCodeSize(compressionMaps);
         System.out.println("Average bit for Char is "+(size/(new File(Path.inputFilePath).length())));
@@ -56,7 +63,9 @@ public class CharZipperUnZipper implements FileZipper {
     public void decompress() {
         IDecompress decompressor = new CharDecompress();
 
-        IFileContents fileContents = method.extractContents(new File(Path.compressedFilePath));
+//        IFileContents fileContents = method.extractContents(new File(Path.compressedFilePath));
+        IFileContents fileContents = io.extractContents(new File(Path.compressedFilePath));
+
 
         Map<Object, Integer> freqMap = fileContents.getFrequencyMap();
 
