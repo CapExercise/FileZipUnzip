@@ -49,7 +49,6 @@ public class CharZipperUnZipper implements FileZipper {
 
         IFileContents fileContents = compressor.compress(compressionMaps,dataObj);
 
-      //  method.addCompressedContents(fileContents);
        io.addCompressedContents(fileContents);
 
 
@@ -62,7 +61,6 @@ public class CharZipperUnZipper implements FileZipper {
     public void decompress() {
         IDecompress decompressor = new CharDecompress();
 
-//        IFileContents fileContents = method.extractContents(new File(Path.compressedFilePath));
         IFileContents fileContents = io.extractContents(new File(Path.compressedFilePath));
 
 

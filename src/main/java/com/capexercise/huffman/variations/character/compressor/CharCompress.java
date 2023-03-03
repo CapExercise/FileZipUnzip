@@ -12,17 +12,15 @@ import com.capexercise.huffman.general.auxiliary.IGeneral;
 
 public class CharCompress implements ICompress {
     IGeneral method;
-    String ans ="";
+
     @Override
     public IMap calculateFreq(IDataHandle dataObj) {
         IMap imap = new CharMaps();
 
-         ans=dataObj.readContent();
+        String ans = dataObj.readContent();
 
-            for (char x : ans.toCharArray()) {
-                int val = imap.getFrequency(x);
-                imap.putFrequency(x, val);
-            }
+        for (char x : ans.toCharArray())
+                imap.putFrequency(x, imap.getFrequency(x));
 
         return imap;
 
@@ -47,7 +45,7 @@ public class CharCompress implements ICompress {
 
         method = new GeneralMethods();
 
-        //String fileData = dataObj.readContent();
+        String ans = dataObj.readContent();
 
         int size = method.getCodeSize(iMap);
 
