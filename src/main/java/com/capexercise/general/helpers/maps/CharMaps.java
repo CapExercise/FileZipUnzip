@@ -12,10 +12,6 @@ public class CharMaps implements IMap {
         huffmanMap = new HashMap<>();
     }
 
-    public CharMaps(Map<Object, Integer> fMap, Map<Object, String> hMap) {
-        this.frequecyMap = fMap;
-        this.huffmanMap = hMap;
-    }
 
 
     @Override
