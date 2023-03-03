@@ -21,7 +21,7 @@ public class CharMaps implements IMap {
     @Override
     public void putFrequency(Object val, int x) {
 
-        frequecyMap.put(val, x + 1);
+        frequecyMap.put(val, x);
     }
 
     @Override
