@@ -2,6 +2,7 @@ package com.capexercise.general.helpers.input;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import static org.junit.Assert.*;
 
@@ -44,6 +45,22 @@ public class StringHandlerTest {
         String expected = "hello world";
 
         assertEquals(expected,actual);
+    }
+
+    @Test
+    public void testSetPercentage(){
+//        testRef.setPercentage(20);
+        IDataHandle mySpy = Mockito.spy(testRef);
+        mySpy.setPercentage(20);
+        Mockito.verify(mySpy,Mockito.times(1)).setPercentage(20);
+    }
+
+    @Test
+    public void testGetPercentage(){
+        testRef.setPercentage(20);
+        int actual = testRef.getPercentage();
+        int expected = 20;
+        assertEquals(expected, actual);
     }
 
 }
