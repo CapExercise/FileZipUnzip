@@ -5,27 +5,27 @@ import java.util.Map;
 
 public class WordMaps implements IMap {
 
-    Map<Object, Integer> frequecyMap;
+    Map<Object, Integer> frequencyMap;
     Map<Object, String> huffmanMap;
 
     public WordMaps() {
-        frequecyMap = new HashMap<>();
+        frequencyMap = new HashMap<>();
         huffmanMap = new HashMap<>();
     }
 
     public WordMaps(Map<Object, Integer> fMap, Map<Object, String> hMap) {
-        this.frequecyMap = fMap;
+        this.frequencyMap = fMap;
         this.huffmanMap = hMap;
     }
 
     @Override
     public void putFrequency(Object val, int x) {
-        frequecyMap.put(val, x + 1);
+        frequencyMap.put(val, x);
     }
 
     @Override
     public int getFrequency(Object val) {
-        return frequecyMap.getOrDefault(val, 0);
+        return frequencyMap.getOrDefault(val, 0);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class WordMaps implements IMap {
 
     @Override
     public Map<Object,Integer> returnFreqMap() {
-        return frequecyMap;
+        return frequencyMap;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class WordMaps implements IMap {
     }
 
     public int freqSize() {
-        return frequecyMap.size();
+        return frequencyMap.size();
     }
 
     @Override
@@ -59,7 +59,7 @@ public class WordMaps implements IMap {
 
     @Override
     public void clearFreqMap() {
-        this.frequecyMap.clear();
+        this.frequencyMap.clear();
     }
 
     @Override
@@ -69,7 +69,7 @@ public class WordMaps implements IMap {
 
     @Override
     public boolean containsFreqKey(Object key) {
-        return this.frequecyMap.containsKey(key);
+        return this.frequencyMap.containsKey(key);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class WordMaps implements IMap {
 
     @Override
     public void setFreqMap(Map<Object, Integer> map) {
-            this.frequecyMap = map;
+            this.frequencyMap = map;
     }
 
     @Override
