@@ -17,6 +17,8 @@ public class SQLImplemenation implements IDataBase
         try {
             connection= DriverManager.getConnection("jdbc:sqlite:freqTable.db");
             stm = connection.createStatement();
+            stm.executeUpdate("create table if not exists fileTable (md5 text,file blob)");
+
         } catch (SQLException e) {
             flag=false;
 //            throw new RuntimeException(e);
@@ -64,9 +66,7 @@ public class SQLImplemenation implements IDataBase
     public Map<Object, Integer> retriveMap(String key) throws SQLException, IOException, ClassNotFoundException {
         rs=stm.executeQuery("select * from fileTable where md5='"+key+"'");
 
-            System.out.println(rs.getString("md5"));
             byte[] arr=rs.getBytes("file");
-            System.out.println("-------------------");
 
             ObjectInputStream ip=null;
             try {
@@ -76,10 +76,7 @@ public class SQLImplemenation implements IDataBase
             }
 
                 Map<Object,Integer> frequencyMap=(Map<Object, Integer>) ip.readObject();
-//                for(Map.Entry<Object,Integer> entry:frequencyMap.entrySet())
-//                {
-//                    System.out.println(entry.getKey()+"   "+entry.getValue());
-//                }
+
             return frequencyMap;
     }
 
