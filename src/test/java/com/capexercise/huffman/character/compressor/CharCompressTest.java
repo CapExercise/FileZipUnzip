@@ -57,7 +57,7 @@ public class CharCompressTest {
         hashMap.put('a',"0");
         hashMap.put('b',"1");
         imap.setHuffMap(hashMap);
-
+     //00110
         IFileContents contents=c.compress(imap,idata);
         assertEquals(frequencyMap,contents.getFrequencyMap());
        assertEquals(3,contents.getExtraBits());
