@@ -35,7 +35,6 @@ public class TopWordZipperUnZipper implements FileZipper {
         io=new NormalImplemenation();
     }
 
-    Logger logger = Logger.getLogger(TopWordZipperUnZipper.class.getName());
     @Override
     public void compress() {
         ICompress compressor = new TopWordCompress();
@@ -50,7 +49,6 @@ public class TopWordZipperUnZipper implements FileZipper {
 
         IFileContents fileContents = compressor.compress(compressionMaps,dataObj);
 
-//        method.addCompressedContents(fileContents);
         io.addCompressedContents(fileContents);
 
 
@@ -63,10 +61,7 @@ public class TopWordZipperUnZipper implements FileZipper {
     public void decompress() {
         IDecompress decompressor = new TopWordDecompress();
 
-//        IFileContents fileContents = method.extractContents(new File(Path.compressedFilePath));
         IFileContents fileContents = io.extractContents(new File(Path.compressedFilePath));
-
-
 
         Map<Object, Integer> freq = fileContents.getFrequencyMap();
         int noOfZeros = fileContents.getExtraBits();

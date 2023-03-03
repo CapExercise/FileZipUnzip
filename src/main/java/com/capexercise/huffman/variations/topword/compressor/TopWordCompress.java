@@ -18,7 +18,6 @@ public class TopWordCompress implements ICompress {
     public IMap calculateFreq(IDataHandle dataObj) {
 
         IMap imap = new WordMaps();
-//        dataObj.formMap();
         String fileContents = dataObj.readContent();
         String sub  = "";
 
@@ -38,7 +37,6 @@ public class TopWordCompress implements ICompress {
             sub = "";
         }
 
-        fileContents = null;
 
         Map<Object,Integer> freqMap = imap.returnFreqMap();
 
@@ -141,7 +139,6 @@ public class TopWordCompress implements ICompress {
 
         }
 
-        fileContents = null;
 
         int extraBits = 0;
 
@@ -151,8 +148,6 @@ public class TopWordCompress implements ICompress {
                 curCode += '0';
             byteArray[idx] = (byte) Integer.parseInt(curCode.substring(0, 8), 2);
         }
-
-        System.out.println("byte array ready!");
 
         IFileContents compressedData = new FileContents();
 

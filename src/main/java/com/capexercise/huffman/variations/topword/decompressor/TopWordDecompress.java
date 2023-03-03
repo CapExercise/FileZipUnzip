@@ -13,7 +13,7 @@ public class TopWordDecompress implements IDecompress {
 
     @Override
     public void decompress(byte[] byteArray, int noOfZeroes, TreeNode root){
-        System.out.println("decompression side byte array size:"+byteArray.length);
+
         TreeNode node = root;
         String curCode = "";
         try {
@@ -37,7 +37,6 @@ public class TopWordDecompress implements IDecompress {
                         fw.write((String) node.getVar());
                         node=root;
                     }
-//                char cc = (decoded.charAt(i));
 
                 }
             }
