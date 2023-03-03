@@ -78,6 +78,7 @@ public class GeneralMethods implements IGeneral {
             size = output.toByteArray().length;
         }catch(IOException e){
             System.out.println("I/O Error occurred!!!");
+            throw new RuntimeException();
         }
         return size;
     }
