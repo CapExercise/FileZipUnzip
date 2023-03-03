@@ -20,7 +20,7 @@ public class CharCompress implements ICompress {
         String ans = dataObj.readContent();
 
         for (char x : ans.toCharArray())
-            imap.putFrequency(x, imap.getFrequency(x));
+            imap.putFrequency(x, imap.getFrequency(x) + 1);
 
         return imap;
 
