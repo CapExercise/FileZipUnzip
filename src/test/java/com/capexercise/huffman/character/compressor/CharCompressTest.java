@@ -154,31 +154,43 @@ public class CharCompressTest {
 
     @Test
     public void testCompressForPositiveCodn() {
-        IDataHandle dataRef = new StringHandler("aaabbaaabbbbb");
+        IDataHandle dataRef = new StringHandler("aaaaaabbbbbbb");
+        //0000001111111
         IMap map = new CharMaps();
-        map.putFrequency('a', 1);
-        map.putFrequency('b', 1);
+        map.putFrequency('a', 5);
+        map.putFrequency('b', 6);
         map.putHuffManCode('a', "0");
         map.putHuffManCode('b', "1");
 
-        c.compress(map, dataRef);
+        IFileContents contents=c.compress(map, dataRef);
+        byte[] bytearr=contents.getByteArray();
+        int returnedNoOfZeros=contents.getExtraBits();
+
+
+        assertArrayEquals(bytearr,new byte[]{3,-8});
+        assertEquals(returnedNoOfZeros,3);
 
     }
 
 
-//
-//    @Test
-//    public void testIte()
-//    {
-//        IDataHandle dataRef=new StringHandler("aaabbaaabbbbb");
-//        IMap map=new CharMaps();
-//        c.iterateTreeAndCalculateHuffManCode(root,"",map);
-//        Map<Object,String> huffmanMap=map.returnHuffMap();
-//        for(Map.Entry<Object,String> entry: huffmanMap.entrySet())
-//        {
-//            System.out.println(entry.getKey()+"   "+entry.getValue());
-//        }
-//    }
+
+    @Test
+    public void testCompressForEmptyCodn()
+    {
+        IDataHandle dataRef = new StringHandler("");
+
+        IMap map = new CharMaps();
+
+        IFileContents contents=c.compress(map, dataRef);
+        byte[] bytearr=contents.getByteArray();
+        int returnedNoOfZeros=contents.getExtraBits();
+        assertTrue(bytearr.length==0);
+        assertTrue(returnedNoOfZeros==0);
+
+    }
+
+
+
 
 
 }
