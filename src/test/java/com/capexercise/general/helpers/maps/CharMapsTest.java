@@ -136,7 +136,7 @@ public class CharMapsTest {
     }
 
     @Test
-    public void testSettHuffMap() {
+    public void testSetHuffMap() {
         IMap mySpy = Mockito.spy(CharMaps.class);
         mySpy.setHuffMap(testHuff);
         Mockito.verify(mySpy, Mockito.times(1)).setHuffMap(testHuff);
