@@ -1,4 +1,4 @@
-package com.capexercise.general;
+package com.capexercise.general.helpers.checksum;
 
 import com.capexercise.general.helpers.checksum.IKeyGenerator;
 import com.capexercise.general.helpers.checksum.MD5KeyGenerator;

@@ -1,4 +1,4 @@
-package com.capexercise.general;
+package com.capexercise.general.helpers.filedata;
 
 import com.capexercise.general.helpers.filedata.FileContents;
 import com.capexercise.general.helpers.filedata.IFileContents;
