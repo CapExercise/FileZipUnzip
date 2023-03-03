@@ -58,62 +58,7 @@ public class GeneralMethods implements IGeneral {
         System.out.println("\n");
         System.out.println("Compression Percentage " + ans * 100 + " %");
     }
-/*
-    @Override
-    public IFileContents extractContents(File fileObj) {
-        IFileContents fileContents;
 
-        try {
-
-            FileInputStream fin = new FileInputStream(fileObj);
-            ObjectInputStream obj = new ObjectInputStream(fin);
-
-            fileContents = new FileContents();
-
-            fileContents.setMD5Key((String) obj.readObject());
-          //  fileContents.setFrequencyMap((Map<Object, Integer>) obj.readObject());
-            fileContents.setExtraBits(obj.readInt());
-            fileContents.setByteArray((byte[]) obj.readObject());
-            obj.close();
-            fin.close();
-
-
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        return fileContents;
-    }
-
-    @Override
-    public void addCompressedContents(IFileContents fileContents) {
-        String outputFilePath = Path.compressedFilePath;
-        File newFile = new File(outputFilePath);
-
-
-        FileOutputStream fout = null;
-        try {
-            fout = new FileOutputStream(newFile);
-            ObjectOutputStream obj = new ObjectOutputStream(fout);
-
-         //  obj.writeObject(fileContents.getFrequencyMap());
-          obj.writeObject(fileContents.getMD5key());
-            obj.writeInt(fileContents.getExtraBits());
-            obj.writeObject(fileContents.getByteArray());
-
-            obj.flush();
-
-            obj.close();
-            fout.close();
-
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
- */
     @Override
     public int getCodeSize(IMap map) {
         Map<Object, Integer> freqMap = map.returnFreqMap();
@@ -124,8 +69,6 @@ public class GeneralMethods implements IGeneral {
 
         return size;
     }
-
-
 
     @Override
     public int getFreqSize(IMap map) {
