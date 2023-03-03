@@ -21,7 +21,7 @@ public class GeneralMethodsTest {
 
     IGeneral testRef;
     @Before
-    public void beforeTest()
+    public void setup()
     {
         testRef = new GeneralMethods();
         FileWriter f1=null;
@@ -79,7 +79,7 @@ public class GeneralMethodsTest {
 
     }
     @Test
-    public void TestComparison()
+    public void testComparison()
     {
         try
         {
@@ -91,7 +91,7 @@ public class GeneralMethodsTest {
     }
 
     @Test
-    public void TestComparisonNegativeOne()
+    public void testComparisonNegativeOne()
     {
         try
         {
@@ -104,7 +104,7 @@ public class GeneralMethodsTest {
     }
 
     @Test
-    public void TestComparisonNegativeTwo()
+    public void testComparisonNegativeTwo()
     {
         try
         {
@@ -116,19 +116,8 @@ public class GeneralMethodsTest {
         }
     }
 
-    @After
-    public void afterAll()
-    {
-        new File("src/test/java/generalPackage/test.txt").delete();
-        new File("src/test/java/generalPackage/test1.txt").delete();
-        new File("src/test/java/generalPackage/test2.txt").delete();
-        new File("src/test/java/generalPackage/test3.txt").delete();
-        new File("src/test/java/generalPackage/test4.txt").delete();
-    }
-
-
     @Test
-    public void testgetCodeSize()
+    public void testGetCodeSize()
     {
         IMap map=new CharMaps();
         Map<Object,Integer> frequencyMap=new HashMap<>();
@@ -146,7 +135,7 @@ public class GeneralMethodsTest {
     }
 
     @Test
-    public void testcodeSizeForEmpty()
+    public void testCodeSizeForEmpty()
     {
         Map<Object,Integer> freqMap=new HashMap<>();
         Map<Object,String> hashMap=new HashMap<>();
@@ -157,7 +146,7 @@ public class GeneralMethodsTest {
     }
 
     @Test
-    public void testgetFreqSize()
+    public void testGetFreqSize()
     {
         IMap imap=new CharMaps();
         Map<Object,Integer> freqMap=new HashMap<>();
@@ -170,11 +159,28 @@ public class GeneralMethodsTest {
 
     }
 
+    @Test(expected = RuntimeException.class)
+    public void testGetFreqSizeException(){
+        IMap map = new CharMaps();
+        IGeneral mySpy = Mockito.spy(GeneralMethods.class);
+        Mockito.when(mySpy.getFreqSize(map)).thenThrow(IOException.class);
+    }
+
     @Test
     public void testGetStats(){
         IGeneral mySpy = Mockito.spy(GeneralMethods.class);
         mySpy.displayStats(Path.inputFilePath,Path.compressedFilePath, Path.decompressedFilePath);
         Mockito.verify(mySpy,   Mockito.times(1)).displayStats(Path.inputFilePath,Path.compressedFilePath, Path.decompressedFilePath);
+    }
+
+    @After
+    public void afterAll()
+    {
+        new File("src/test/java/generalPackage/test.txt").delete();
+        new File("src/test/java/generalPackage/test1.txt").delete();
+        new File("src/test/java/generalPackage/test2.txt").delete();
+        new File("src/test/java/generalPackage/test3.txt").delete();
+        new File("src/test/java/generalPackage/test4.txt").delete();
     }
 
 
