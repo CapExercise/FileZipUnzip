@@ -19,53 +19,50 @@ public class CompressionThread implements Callable<CompressionInfo> {
     IMap compressionMap;
     List<Object> keys;
 
-    int perc;
+    int percentage;
 
-    public CompressionThread(IMap map, int perc,List<Object> keys){
+    public CompressionThread(IMap map, int percentage, List<Object> keys) {
         this.compressionMap = map;
-        this.perc = perc;
+        this.percentage = percentage;
         this.keys = keys;
         method = new GeneralMethods();
         compressor = new ModTopWordCompress();
     }
+
     @Override
     public CompressionInfo call() throws Exception {
-        System.out.println("current thread running:"+Thread.currentThread().getName());
-        IMap tempMap = getOptimalMap(this.compressionMap,this.perc,this.keys);
+
+        IMap tempMap = getOptimalMap(this.compressionMap, this.percentage, this.keys);
         TreeNode root = this.constructTree(tempMap);
 
         compressor.iterateTreeAndCalculateHuffManCode(root, "", tempMap);
 
-        int sum = method.getFreqSize(tempMap)+(method.getCodeSize(tempMap) / 8);
+        int sum = method.getFreqSize(tempMap) + (method.getCodeSize(tempMap) / 8);
 
-        CompressionInfo compressionInfo = new CompressionInfo(this.perc,sum,tempMap.returnFreqMap(),tempMap.returnHuffMap());
+        CompressionInfo compressionInfo = new CompressionInfo(this.percentage, sum, tempMap.returnFreqMap(), tempMap.returnHuffMap());
 
         return compressionInfo;
     }
 
 
-    IMap getOptimalMap(IMap imap,int perc,List<Object> keys){
+    IMap getOptimalMap(IMap imap, int perc, List<Object> keys) {
         IMap finalMap = new WordMaps();
 
-        float size= (float) (perc/100.00);
+        float size = (float) (perc / 100.00);
 
-        Set<Object> topWordSet=new HashSet<>(keys.subList(0,(int)(keys.size()*size)));
+        Set<Object> topWordSet = new HashSet<>(keys.subList(0, (int) (keys.size() * size)));
 
 
-        Map<Object,Integer> newMap = new HashMap<>();
-        for(Object obj:keys)
-        {
+        Map<Object, Integer> newMap = new HashMap<>();
+        for (Object obj : keys) {
             String str = (String) obj;
-            if(str.length()!=0)
-            {
-                if(!topWordSet.contains(str))
-                {   int val = imap.getFrequency(obj);
-                    for(int idx=0;idx<str.length();idx++)
-                    {
-                        newMap.put(String.valueOf(str.charAt(idx)),newMap.getOrDefault(String.valueOf(str.charAt(idx)),0)+val);
+            if (str.length() != 0) {
+                if (!topWordSet.contains(str)) {
+                    int val = imap.getFrequency(obj);
+                    for (int idx = 0; idx < str.length(); idx++) {
+                        newMap.put(String.valueOf(str.charAt(idx)), newMap.getOrDefault(String.valueOf(str.charAt(idx)), 0) + val);
                     }
-                }
-                else
+                } else
                     newMap.put(str, imap.getFrequency(obj));
 
             }
@@ -82,7 +79,7 @@ public class CompressionThread implements Callable<CompressionInfo> {
         Map<Object, Integer> freq = imap.returnFreqMap();
 
         for (Map.Entry<Object, Integer> entry : freq.entrySet()) {
-            TreeNode node = new StringTreeNode( entry.getKey(), entry.getValue());
+            TreeNode node = new StringTreeNode(entry.getKey(), entry.getValue());
             pq.add(node);
         }
         TreeNode root = null;
@@ -107,7 +104,6 @@ public class CompressionThread implements Callable<CompressionInfo> {
         }
         return root;
     }
-
 
 
 }

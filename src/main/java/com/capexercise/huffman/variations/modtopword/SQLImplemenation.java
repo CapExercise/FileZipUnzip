@@ -6,87 +6,105 @@ import java.io.*;
 import java.sql.*;
 import java.util.Map;
 
-public class SQLImplemenation implements IDataBase
-{
+public class SQLImplemenation implements IDataBase {
     static Connection connection;
     static Statement stm;
     static ResultSet rs;
+
     @Override
     public boolean setUpConnection() {
-        boolean flag=true;
+        boolean flag = true;
         try {
-            connection= DriverManager.getConnection("jdbc:sqlite:freqTable.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:freqTable.db");
             stm = connection.createStatement();
             stm.executeUpdate("create table if not exists fileTable (md5 text,file blob)");
 
         } catch (SQLException e) {
-            flag=false;
-//            throw new RuntimeException(e);
+            flag = false;
         }
 
         return flag;
     }
 
     @Override
-    public boolean checkIfKeyExists(String key) throws SQLException {
+    public boolean checkIfKeyExists(String key) {
         try {
-            rs=stm.executeQuery("select * from fileTable ");
+            rs = stm.executeQuery("select * from fileTable;");
+            while (rs.next()) {
+                String returned = rs.getString("md5");
+                System.out.println(returned);
+                if (returned.equals(key))
+                    return true;
+
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        while(rs.next())
-        {
-            String returned=rs.getString("md5");
-            System.out.println(returned);
-            if(returned.equals(key))
-            {
-                return true;
-            }
-        }
+
         return false;
     }
 
     @Override
-    public boolean addMapIntoTable(String key, Map<Object, Integer> frequencyMap) throws IOException, SQLException {
-        ByteArrayOutputStream obj=new ByteArrayOutputStream();
-        byte[] bytarr= null;
-        ObjectOutputStream op=new ObjectOutputStream(obj);
-        op.writeObject(frequencyMap);
-        op.flush();
-        op.close();
-        bytarr=obj.toByteArray();
-        PreparedStatement prepareStatement = connection.prepareStatement("insert into fileTable values(?,?)");
-        prepareStatement.setString(1, key);
-        prepareStatement.setBytes(2,bytarr);
-        prepareStatement.executeUpdate();
-        return true;
+    public boolean addMapIntoTable(String key, Map<Object, Integer> frequencyMap) {
+
+        boolean flag = true;
+
+        try {
+            ByteArrayOutputStream obj = new ByteArrayOutputStream();
+            ObjectOutputStream op = null;
+
+            op = new ObjectOutputStream(obj);
+
+            op.writeObject(frequencyMap);
+            op.flush();
+            op.close();
+            byte[] byteArray = obj.toByteArray();
+
+            PreparedStatement prepareStatement = connection.prepareStatement("insert into fileTable values(?,?)");
+            prepareStatement.setString(1, key);
+            prepareStatement.setBytes(2, byteArray);
+            prepareStatement.executeUpdate();
+
+        } catch (IOException | SQLException e) {
+            flag = false;
+            System.out.println("Exception caused:\n" + e.getMessage());
+        }
+
+        return flag;
     }
 
     @Override
-    public Map<Object, Integer> retriveMap(String key) throws SQLException, IOException, ClassNotFoundException {
-        rs=stm.executeQuery("select * from fileTable where md5='"+key+"'");
+    public Map<Object, Integer> retriveMap(String key) {
+        Map<Object, Integer> frequencyMap = null;
+        try {
+            rs = stm.executeQuery("select * from fileTable where md5='" + key + "'");
 
-            byte[] arr=rs.getBytes("file");
+            byte[] arr = rs.getBytes("file");
 
-            ObjectInputStream ip=null;
-            try {
-                ip=new ObjectInputStream(new ByteArrayInputStream(arr));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            ObjectInputStream ip = new ObjectInputStream(new ByteArrayInputStream(arr));
 
-                Map<Object,Integer> frequencyMap=(Map<Object, Integer>) ip.readObject();
+            frequencyMap = (Map<Object, Integer>) ip.readObject();
 
-            return frequencyMap;
+        } catch (SQLException | IOException | ClassNotFoundException e) {
+            frequencyMap = null;
+            System.out.println("Exception caused:\n" + e.getMessage());
+        }
+
+        return frequencyMap;
     }
 
     @Override
-    public boolean closeConnection() throws SQLException {
-        connection.close();
-        stm.close();
-        rs.close();
-
-        return true;
+    public boolean closeConnection() {
+        boolean flag = true;
+        try {
+            connection.close();
+            stm.close();
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println("SQL Exception:" + e.getMessage());
+            flag = false;
+        }
+        return flag;
 
     }
 }

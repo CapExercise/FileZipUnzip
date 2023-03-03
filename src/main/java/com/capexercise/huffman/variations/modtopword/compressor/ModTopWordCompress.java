@@ -17,33 +17,31 @@ public class ModTopWordCompress implements ICompress {
     public IMap calculateFreq(IDataHandle dataObj) {
 
         IMap imap = new WordMaps();
-//        dataObj.formMap();
         String fileContents = dataObj.readContent();
         String sub  = "";
 
         for(int i=0;i< fileContents.length();i++) {
             char character = fileContents.charAt(i);
+
             while (Character.isAlphabetic(character) || Character.isDigit(character)) {
                 sub += character;
                 character = fileContents.charAt(++i);
             }
 
-            if (sub.length() != 0) {
-//                   freqMap.put(sub, freqMap.getOrDefault(sub, 0) + 1);
+            if (sub.length() != 0)
                 imap.putFrequency(sub,imap.getFrequency(sub));
-            }
-            if (i != fileContents.length()) {
-                // freqMap.put("" + character, freqMap.getOrDefault("" + character, 0) + 1);
+
+            if (i != fileContents.length())
                 imap.putFrequency(String.valueOf(character),imap.getFrequency(String.valueOf(character)));
-            }
+
             sub = "";
+
         }
-        fileContents = null;
-//        imap.setFreqMap(dataObj.returnMap());
+
         return imap;
     }
 
-
+@Override
     public void iterateTreeAndCalculateHuffManCode(TreeNode newNode, String s, IMap huffmanMap) {
         if (newNode == null) {
             return;
@@ -56,16 +54,12 @@ public class ModTopWordCompress implements ICompress {
     }
 
 
-
+    @Override
     public IFileContents compress(IMap iMap, IDataHandle dataObj) {
 
         method = new GeneralMethods();
 
-        System.out.println("entered compress");
-
-      //  String[] fileContents = dataObj.readContentAsArray();
         String fileContents=dataObj.readContent();
-        System.out.println("file contents read");
 
         int size = method.getCodeSize(iMap);
 
@@ -74,14 +68,11 @@ public class ModTopWordCompress implements ICompress {
         else
             size /= 8;
 
-        System.out.println("size calculated");
-
         byte[] byteArray = new byte[size];
         String curCode = "",str="";
         int idx = 0;
 
 
-        System.out.println("forming byte array...");
         for (int i=0;i<fileContents.length();i++) {
 
             char character = fileContents.charAt(i);
@@ -97,7 +88,9 @@ public class ModTopWordCompress implements ICompress {
                 for(char ch:str.toCharArray())
                     curCode += iMap.getHuffmanCode(String.valueOf(ch));
             }
+
             str = "";
+
             curCode +=iMap.getHuffmanCode(String.valueOf(character));
 
             while (curCode.length() > 8) {
@@ -109,7 +102,6 @@ public class ModTopWordCompress implements ICompress {
 
         }
 
-        fileContents = null;
 
         int extraBits = 0;
 
@@ -120,16 +112,12 @@ public class ModTopWordCompress implements ICompress {
             byteArray[idx] = (byte) Integer.parseInt(curCode.substring(0, 8), 2);
         }
 
-        System.out.println("byte array ready!");
 
         IFileContents compressedData = new FileContents();
 
-
-    //    compressedData.setFrequencyMap(iMap.returnFreqMap());
         compressedData.setExtraBits(extraBits);
         compressedData.setByteArray(byteArray);
 
-        byteArray=null;
 
         return compressedData;
 

@@ -6,28 +6,26 @@ import com.capexercise.huffman.decompression.IDecompress;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class ModTopWordDecompress implements IDecompress {
 
 
     @Override
-    public void decompress(byte[] byteArray, int noOfZeroes, TreeNode root){
-            System.out.println("decompression side byte array size:"+byteArray.length);
-            TreeNode node = root;
-            String curCode = "";
+    public void decompress(byte[] byteArray, int noOfZeroes, TreeNode root) {
+
+        TreeNode node = root;
+        String curCode = "";
         try {
             FileWriter fw = new FileWriter(Path.decompressedFilePath);
-            for(int i=0;i< byteArray.length;i++){
+            for (int i = 0; i < byteArray.length; i++) {
 
                 int val = byteArray[i];
-                curCode = getCode((val<0)?val+256:val);
+                curCode = getCode((val < 0) ? val + 256 : val);
 
-                if(i == byteArray.length-1)
-                    curCode = curCode.substring(0,8-noOfZeroes);
+                if (i == byteArray.length - 1)
+                    curCode = curCode.substring(0, 8 - noOfZeroes);
 
-                for(char character:curCode.toCharArray()){
+                for (char character : curCode.toCharArray()) {
                     if (character == '0')
                         node = node.getLeft();
                     else
@@ -36,9 +34,8 @@ public class ModTopWordDecompress implements IDecompress {
 
                     if (node.getLeft() == null && node.getRight() == null) {
                         fw.write((String) node.getVar());
-                        node=root;
+                        node = root;
                     }
-//                char cc = (decoded.charAt(i));
 
                 }
             }
@@ -48,11 +45,12 @@ public class ModTopWordDecompress implements IDecompress {
         }
 
     }
+
     @Override
-    public String getCode(int val){
+    public String getCode(int val) {
         String result = "";
         while (val != 0) {
-            result = (val%2) + result;
+            result = (val % 2) + result;
             val = val / 2;
         }
         if (result.length() < 8) {
