@@ -52,7 +52,7 @@ public class TopWordZipperUnZipper implements FileZipper {
         io.addCompressedContents(fileContents);
 
 
-        System.out.println("Average bit for top word is "+((float)method.getCodeSize(compressionMaps)/(new File("src/main/java/com/capexercise/Files/input.txt").length())));
+        System.out.println("Average bit for top word is "+((float)method.getCodeSize(compressionMaps)/(new File(Path.inputFilePath).length())));
 
         System.out.println("Compression done Successfully");
     }
