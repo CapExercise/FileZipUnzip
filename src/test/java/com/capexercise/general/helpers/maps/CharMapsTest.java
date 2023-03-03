@@ -151,8 +151,8 @@ public class CharMapsTest {
 
     @Test
     public void testClearHuffMap() {
-        testRef.clearFreqMap();
-        int size = testRef.freqSize();
+        testRef.clearHuffMap();
+        int size = testRef.huffmanSize();
         assertTrue(size == 0);
     }
 }
