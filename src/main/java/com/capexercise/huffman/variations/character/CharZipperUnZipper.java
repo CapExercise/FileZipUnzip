@@ -11,7 +11,7 @@ import com.capexercise.general.helpers.maps.WordMaps;
 import com.capexercise.general.helpers.nodes.CharTreeNode;
 import com.capexercise.general.helpers.nodes.TreeNode;
 import com.capexercise.huffman.general.io.InputOutput;
-import com.capexercise.huffman.general.io.NormalImplemenation;
+import com.capexercise.huffman.general.io.NormalImplementation;
 import com.capexercise.huffman.variations.character.compressor.CharCompress;
 import com.capexercise.huffman.variations.character.decompressor.CharDecompress;
 import com.capexercise.huffman.compression.ICompress;
@@ -31,7 +31,7 @@ public class CharZipperUnZipper implements FileZipper {
 
     public CharZipperUnZipper() {
         method = new GeneralMethods();
-        io=new NormalImplemenation();
+        io=new NormalImplementation();
     }
 
     @Override

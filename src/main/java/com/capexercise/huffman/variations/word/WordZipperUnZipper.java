@@ -15,7 +15,7 @@ import com.capexercise.huffman.decompression.IDecompress;
 import com.capexercise.huffman.general.auxiliary.GeneralMethods;
 import com.capexercise.huffman.general.auxiliary.IGeneral;
 import com.capexercise.huffman.general.io.InputOutput;
-import com.capexercise.huffman.general.io.NormalImplemenation;
+import com.capexercise.huffman.general.io.NormalImplementation;
 import com.capexercise.huffman.variations.word.compressor.WordCompress;
 import com.capexercise.huffman.variations.word.decompressor.WordDecompress;
 
@@ -32,7 +32,7 @@ public class WordZipperUnZipper implements FileZipper {
 
     public WordZipperUnZipper(){
         method = new GeneralMethods();
-        io=new NormalImplemenation();
+        io=new NormalImplementation();
     }
 
 

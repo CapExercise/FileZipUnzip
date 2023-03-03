@@ -7,7 +7,7 @@ import com.capexercise.general.Path;
 import java.io.*;
 import java.util.Map;
 
-public class NormalImplemenation implements InputOutput {
+public class NormalImplementation implements InputOutput {
     @Override
     public IFileContents extractContents(File fileObj) {
         IFileContents fileContents;
