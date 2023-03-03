@@ -1,5 +1,6 @@
 package com.capexercise.huffman.general;
 
+import com.capexercise.general.Path;
 import com.capexercise.general.helpers.maps.CharMaps;
 import com.capexercise.general.helpers.maps.IMap;
 import com.capexercise.huffman.general.auxiliary.GeneralMethods;
@@ -7,6 +8,7 @@ import com.capexercise.huffman.general.auxiliary.IGeneral;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -65,10 +67,19 @@ public class GeneralMethodsTest {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        FileWriter f5=null;
+        try {
+            f5 =new FileWriter("src/test/java/generalPackage/test4.txt");
+            f5.write("eebbc");
+            f5.flush();
+            f5.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
     @Test
-    public void TestComparaion()
+    public void TestComparison()
     {
         try
         {
@@ -80,7 +91,7 @@ public class GeneralMethodsTest {
     }
 
     @Test
-    public void TestComparaionfornegativeSituation()
+    public void TestComparisonNegativeOne()
     {
         try
         {
@@ -92,15 +103,18 @@ public class GeneralMethodsTest {
         }
     }
 
-   // @Test
-//    public void getExtractContents(){
-//
-//    }
-//
-//    @Test
-//    public void testAddCompressedComponents(){
-//
-//    }
+    @Test
+    public void TestComparisonNegativeTwo()
+    {
+        try
+        {
+            assertFalse(testRef.check("src/test/java/generalPackage/test3.txt","src/test/java/generalPackage/test4.txt"));
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
 
     @After
     public void afterAll()
@@ -109,6 +123,7 @@ public class GeneralMethodsTest {
         new File("src/test/java/generalPackage/test1.txt").delete();
         new File("src/test/java/generalPackage/test2.txt").delete();
         new File("src/test/java/generalPackage/test3.txt").delete();
+        new File("src/test/java/generalPackage/test4.txt").delete();
     }
 
 
@@ -155,6 +170,12 @@ public class GeneralMethodsTest {
 
     }
 
+    @Test
+    public void testGetStats(){
+        IGeneral mySpy = Mockito.spy(GeneralMethods.class);
+        mySpy.displayStats(Path.inputFilePath,Path.compressedFilePath, Path.decompressedFilePath);
+        Mockito.verify(mySpy,   Mockito.times(1)).displayStats(Path.inputFilePath,Path.compressedFilePath, Path.decompressedFilePath);
+    }
 
 
 }
