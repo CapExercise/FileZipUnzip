@@ -42,4 +42,12 @@ public class FileHandlerTest {
         String[] expected = new String[]{"Hello"," ","world",".","This"," ","is"," ","it","."};
         assertArrayEquals(expected,actual);
     }
+
+
+    @Test
+    public void testformMap()
+    {
+
+    }
+
 }
