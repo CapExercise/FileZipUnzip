@@ -20,7 +20,7 @@ public class CharTreeNode implements TreeNode {
 
     @Override
     public void setFrequency(int freq) {
-        this.frequency = frequency;
+        this.frequency = freq;
     }
 
     @Override
