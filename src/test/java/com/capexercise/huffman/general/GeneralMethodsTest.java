@@ -1,8 +1,9 @@
 package com.capexercise.huffman.general;
 
-import com.capexercise.general.GeneralClass;
 import com.capexercise.general.helpers.maps.CharMaps;
 import com.capexercise.general.helpers.maps.IMap;
+import com.capexercise.huffman.general.auxiliary.GeneralMethods;
+import com.capexercise.huffman.general.auxiliary.IGeneral;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

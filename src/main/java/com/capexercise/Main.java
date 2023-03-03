@@ -2,11 +2,9 @@ package com.capexercise;
 
 import com.capexercise.filezipunzip.FileZipper;
 import com.capexercise.general.Path;
-import com.capexercise.huffman.general.IDataBase;
 import com.capexercise.huffman.variations.character.CharZipperUnZipper;
-import com.capexercise.huffman.general.GeneralMethods;
+import com.capexercise.huffman.general.auxiliary.GeneralMethods;
 import com.capexercise.huffman.variations.modtopword.ModTopWordZipperUnzipper;
-import com.capexercise.huffman.variations.modtopword.SQLImplemenation;
 import com.capexercise.huffman.variations.topword.TopWordZipperUnZipper;
 import com.capexercise.huffman.variations.word.WordZipperUnZipper;
 

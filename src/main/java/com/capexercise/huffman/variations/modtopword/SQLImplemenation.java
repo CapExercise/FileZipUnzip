@@ -1,6 +1,6 @@
 package com.capexercise.huffman.variations.modtopword;
 
-import com.capexercise.huffman.general.IDataBase;
+import com.capexercise.huffman.general.database.IDataBase;
 
 import java.io.*;
 import java.sql.*;

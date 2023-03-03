@@ -6,8 +6,8 @@ import com.capexercise.general.helpers.maps.WordMaps;
 import com.capexercise.general.helpers.nodes.StringTreeNode;
 import com.capexercise.general.helpers.nodes.TreeNode;
 import com.capexercise.huffman.compression.ICompress;
-import com.capexercise.huffman.general.GeneralMethods;
-import com.capexercise.huffman.general.IGeneral;
+import com.capexercise.huffman.general.auxiliary.GeneralMethods;
+import com.capexercise.huffman.general.auxiliary.IGeneral;
 
 import java.util.*;
 import java.util.concurrent.Callable;

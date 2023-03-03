@@ -1,4 +1,4 @@
-package com.capexercise.huffman.general;
+package com.capexercise.huffman.general.database;
 
 import java.io.IOException;
 import java.sql.SQLException;

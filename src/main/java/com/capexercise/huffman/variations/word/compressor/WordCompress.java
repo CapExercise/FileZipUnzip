@@ -7,8 +7,8 @@ import com.capexercise.general.helpers.maps.IMap;
 import com.capexercise.general.helpers.maps.WordMaps;
 import com.capexercise.general.helpers.nodes.TreeNode;
 import com.capexercise.huffman.compression.ICompress;
-import com.capexercise.huffman.general.GeneralMethods;
-import com.capexercise.huffman.general.IGeneral;
+import com.capexercise.huffman.general.auxiliary.GeneralMethods;
+import com.capexercise.huffman.general.auxiliary.IGeneral;
 
 public class WordCompress implements ICompress {
     IGeneral method;

@@ -5,13 +5,10 @@ import com.capexercise.general.IFileContents;
 import com.capexercise.general.helpers.input.IDataHandle;
 import com.capexercise.general.helpers.maps.CharMaps;
 import com.capexercise.general.helpers.maps.IMap;
-import com.capexercise.general.helpers.maps.WordMaps;
 import com.capexercise.general.helpers.nodes.TreeNode;
 import com.capexercise.huffman.compression.ICompress;
-import com.capexercise.huffman.general.GeneralMethods;
-import com.capexercise.huffman.general.IGeneral;
-
-import java.util.Map;
+import com.capexercise.huffman.general.auxiliary.GeneralMethods;
+import com.capexercise.huffman.general.auxiliary.IGeneral;
 
 public class CharCompress implements ICompress {
     IGeneral method;

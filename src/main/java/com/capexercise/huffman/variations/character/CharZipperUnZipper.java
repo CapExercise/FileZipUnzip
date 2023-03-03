@@ -1,7 +1,6 @@
 package com.capexercise.huffman.variations.character;
 
 import com.capexercise.filezipunzip.FileZipper;
-import com.capexercise.general.FileContents;
 import com.capexercise.general.FrequencyComparator;
 import com.capexercise.general.IFileContents;
 import com.capexercise.general.Path;
@@ -11,14 +10,14 @@ import com.capexercise.general.helpers.maps.IMap;
 import com.capexercise.general.helpers.maps.WordMaps;
 import com.capexercise.general.helpers.nodes.CharTreeNode;
 import com.capexercise.general.helpers.nodes.TreeNode;
-import com.capexercise.huffman.general.InputOutput;
-import com.capexercise.huffman.general.NormalImplemenation;
+import com.capexercise.huffman.general.io.InputOutput;
+import com.capexercise.huffman.general.io.NormalImplemenation;
 import com.capexercise.huffman.variations.character.compressor.CharCompress;
 import com.capexercise.huffman.variations.character.decompressor.CharDecompress;
 import com.capexercise.huffman.compression.ICompress;
 import com.capexercise.huffman.decompression.IDecompress;
-import com.capexercise.huffman.general.GeneralMethods;
-import com.capexercise.huffman.general.IGeneral;
+import com.capexercise.huffman.general.auxiliary.GeneralMethods;
+import com.capexercise.huffman.general.auxiliary.IGeneral;
 
 import java.io.*;
 import java.util.Map;

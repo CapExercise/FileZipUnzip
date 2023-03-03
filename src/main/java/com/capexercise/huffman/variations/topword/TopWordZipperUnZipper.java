@@ -1,7 +1,6 @@
 package com.capexercise.huffman.variations.topword;
 
 import com.capexercise.filezipunzip.FileZipper;
-import com.capexercise.general.FileContents;
 import com.capexercise.general.FrequencyComparator;
 import com.capexercise.general.IFileContents;
 import com.capexercise.general.Path;
@@ -13,13 +12,12 @@ import com.capexercise.general.helpers.nodes.StringTreeNode;
 import com.capexercise.general.helpers.nodes.TreeNode;
 import com.capexercise.huffman.compression.ICompress;
 import com.capexercise.huffman.decompression.IDecompress;
-import com.capexercise.huffman.general.GeneralMethods;
-import com.capexercise.huffman.general.IGeneral;
-import com.capexercise.huffman.general.InputOutput;
-import com.capexercise.huffman.general.NormalImplemenation;
+import com.capexercise.huffman.general.auxiliary.GeneralMethods;
+import com.capexercise.huffman.general.auxiliary.IGeneral;
+import com.capexercise.huffman.general.io.InputOutput;
+import com.capexercise.huffman.general.io.NormalImplemenation;
 import com.capexercise.huffman.variations.topword.compressor.TopWordCompress;
 import com.capexercise.huffman.variations.topword.decompressor.TopWordDecompress;
-import sun.rmi.runtime.Log;
 
 import java.io.*;
 import java.util.Map;

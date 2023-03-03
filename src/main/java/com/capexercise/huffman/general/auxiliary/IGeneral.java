@@ -1,4 +1,4 @@
-package com.capexercise.huffman.general;
+package com.capexercise.huffman.general.auxiliary;
 
 import com.capexercise.general.IFileContents;
 import com.capexercise.general.helpers.maps.IMap;
