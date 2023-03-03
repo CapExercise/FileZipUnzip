@@ -98,9 +98,11 @@ public class ModTopWordZipperUnzipper implements FileZipper {
         byte[] byteArray = fileContents.getByteArray();
 
         IMap decompressionMap = new WordMaps();
+
         db.setUpConnection();
         Map<Object, Integer> freq = db.retriveMap(key);
         db.closeConnection();
+
         decompressionMap.setFreqMap(freq);
 
         TreeNode root = this.constructTree(decompressionMap);

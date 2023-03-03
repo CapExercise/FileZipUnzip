@@ -70,7 +70,9 @@ public class WordZipperUnZipper implements FileZipper {
         int noOfZeros = fileContents.getExtraBits();
         byte[] byteArray = fileContents.getByteArray();
 
-        IMap decompressionMap = new WordMaps(freq, null);
+        IMap decompressionMap = new WordMaps();
+
+        decompressionMap.setFreqMap(freq);
 
         TreeNode root = this.constructTree(decompressionMap);
 
