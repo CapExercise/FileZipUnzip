@@ -1,12 +1,13 @@
-package com.capexercise.huffman.general;
+package com.capexercise.huffman.general.io;
 
 import com.capexercise.general.FileContents;
 import com.capexercise.general.IFileContents;
 import com.capexercise.general.Path;
+import com.capexercise.huffman.general.io.InputOutput;
 
 import java.io.*;
 
-public class DBImplementation implements InputOutput{
+public class DBImplementation implements InputOutput {
     @Override
     public IFileContents extractContents(File fileObj) {
         IFileContents fileContents;
@@ -19,7 +20,6 @@ public class DBImplementation implements InputOutput{
             fileContents = new FileContents();
 
             fileContents.setMD5Key((String) obj.readObject());
-            //  fileContents.setFrequencyMap((Map<Object, Integer>) obj.readObject());
             fileContents.setExtraBits(obj.readInt());
             fileContents.setByteArray((byte[]) obj.readObject());
             obj.close();
@@ -44,7 +44,6 @@ public class DBImplementation implements InputOutput{
             fout = new FileOutputStream(newFile);
             ObjectOutputStream obj = new ObjectOutputStream(fout);
 
-            //  obj.writeObject(fileContents.getFrequencyMap());
             obj.writeObject(fileContents.getMD5key());
             obj.writeInt(fileContents.getExtraBits());
             obj.writeObject(fileContents.getByteArray());

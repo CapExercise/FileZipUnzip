@@ -1,4 +1,4 @@
-package com.capexercise.huffman.general;
+package com.capexercise.huffman.general.io;
 
 import com.capexercise.general.IFileContents;
 
