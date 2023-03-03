@@ -26,10 +26,10 @@ public class WordCompress implements ICompress {
             }
 
             if (sub.length() != 0)
-                imap.putFrequency(sub,imap.getFrequency(sub));
+                imap.putFrequency(sub,imap.getFrequency(sub)+1);
 
             if (i != fileContents.length())
-                imap.putFrequency(String.valueOf(character),imap.getFrequency(String.valueOf(character)));
+                imap.putFrequency(String.valueOf(character),imap.getFrequency(String.valueOf(character))+1);
 
             sub = "";
         }
