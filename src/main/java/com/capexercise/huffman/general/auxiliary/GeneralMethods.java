@@ -17,20 +17,16 @@ public class GeneralMethods implements IGeneral {
         int val2 = f4.read();
         while (val1 != 1 && val2 != -1) {
 
-            if (val1 != val2) {
-//                System.out.println((char) val1);
-//                System.out.println((char) val2);
+            if (val1 != val2)
                 return false;
-            }
+
             val1 = f3.read();
             val2 = f4.read();
         }
 
-        if ((val1 != -1 && val2 == -1) || (val1 == -1 && val2 != -1)) {
-//            System.out.println((char) val1);
-//            System.out.println((char) val2);
+        if (val1 != -1 || val2 != -1)
             return false;
-        }
+
 
         return true;
     }
