@@ -39,9 +39,8 @@ public class NormalImplementation implements InputOutput {
         File newFile = new File(outputFilePath);
 
 
-        FileOutputStream fout = null;
         try {
-            fout = new FileOutputStream(newFile);
+            FileOutputStream fout = new FileOutputStream(newFile);
             ObjectOutputStream obj = new ObjectOutputStream(fout);
 
             obj.writeObject(fileContents.getFrequencyMap());
@@ -53,8 +52,6 @@ public class NormalImplementation implements InputOutput {
             obj.close();
             fout.close();
 
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
