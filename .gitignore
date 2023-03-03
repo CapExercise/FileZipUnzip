@@ -3,3 +3,4 @@ target/
 src/main/java/com/capexercise/Files/compressed/
 src/main/java/com/capexercise/Files/decompressed/
 src/main/java/com/capexercise/Files/bigfile.txt
+freqTable.db
