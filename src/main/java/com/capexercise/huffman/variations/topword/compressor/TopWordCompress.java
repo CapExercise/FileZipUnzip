@@ -10,6 +10,7 @@ import com.capexercise.huffman.compression.ICompress;
 import com.capexercise.huffman.general.auxiliary.GeneralMethods;
 import com.capexercise.huffman.general.auxiliary.IGeneral;
 
+import java.io.FileReader;
 import java.util.*;
 
 public class TopWordCompress implements ICompress {
@@ -23,7 +24,7 @@ public class TopWordCompress implements ICompress {
 
         for(int i=0;i< fileContents.length();i++) {
             char character = fileContents.charAt(i);
-            while (Character.isAlphabetic(character) || Character.isDigit(character)) {
+            while (i<fileContents.length()-1 && Character.isAlphabetic(character) || Character.isDigit(character)) {
                 sub += character;
                 character = fileContents.charAt(++i);
             }
@@ -52,7 +53,7 @@ public class TopWordCompress implements ICompress {
             return imap.getFrequency(b) - imap.getFrequency(a);
         });
 
-        float size= (float) (38/100.00);
+        float size= (float) (37/100.00);
         for(int i=0;i<(keys.size()*size);i++)
             topWordSet.add(keys.get(i));
 
@@ -107,6 +108,7 @@ public class TopWordCompress implements ICompress {
         else
             size /= 8;
 
+     //   System.out.println(size);
         byte[] byteArray = new byte[size];
         String curCode = "",str="";
         int idx = 0;
@@ -114,7 +116,7 @@ public class TopWordCompress implements ICompress {
         for (int i=0;i<fileContents.length();i++) {
 
             char character = fileContents.charAt(i);
-            while (Character.isAlphabetic(character) || Character.isDigit(character)) {
+            while (i<fileContents.length()-1 && Character.isAlphabetic(character) || Character.isDigit(character)) {
                 str += character;
                 character = fileContents.charAt(++i);
             }
@@ -140,6 +142,7 @@ public class TopWordCompress implements ICompress {
         }
 
 
+
         int extraBits = 0;
 
         if (!curCode.equals("")) {
@@ -161,4 +164,39 @@ public class TopWordCompress implements ICompress {
 
 
 
+
+//
+//    public void calculateFrequency(FileReader fileReader)
+//    {
+//        /*
+//        code to read the file
+//        using FileReader Object
+//        and initialize frequency map
+//
+//         */
+//    }
+//
+//
+//
+//
+//
+//
+//
+//
+//    public void calculateFrequency(IDataHandle dataObj)
+//    {
+//        /*
+//        Code to read file Contents
+//        dataObj.readContent();
+//         */
+//
+//        /*
+//       Code to initialize frequency map
+//         */
+//    }
+//
+
+
 }
+
+

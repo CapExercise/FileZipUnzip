@@ -1,8 +1,6 @@
 
 b
 2src/test/java/generalPackage/GeneralClassTest.java,9/3/93a1ac924eeda94dcb7317d2ac2579ab73341bf6
-u
-Esrc/main/java/com/capexercise/general/helpers/nodes/CharTreeNode.java,a/7/a7d95b670b764264d8c0ea26011819199e508df5
 q
 Asrc/main/java/com/capexercise/general/helpers/nodes/TreeNode.java,d/5/d5f7253a0a6b75efe0e31b5c0632c0154a1e260b
 t
@@ -11,12 +9,8 @@ u
 Esrc/test/java/com/capexercise/huffman/general/GeneralMethodsTest.java,d/e/de50e35c77a356e00e447e8ff1fb1fe1086912d7
 €
 Psrc/test/java/decompressionPackage/ImplemenatationClassForDecompressionTest.java,6/6/66378aca7dbff07d7aadaa41a5b7437753ad0f72
-{
-Ksrc/test/java/compressionPackage/ImplementationClassForCompressionTest.java,3/0/30a2254d8424db6213778c8fabfeda0ab4375225
 …
 Usrc/test/java/com/capexercise/huffman/topword/decompressor/TopWordDecompressTest.java,b/7/b782e78f24a3228b69d791a5d10983208ae218ca
-
-Osrc/test/java/com/capexercise/huffman/word/decompressor/WordDecompressTest.java,b/2/b21d08aa00d8b2be61468635436fa35664ab2635
 j
 :.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_9_10.xml,e/3/e365b3da4c53ce54a49ed1b479264806e8eff3da
 p
@@ -29,21 +23,11 @@ j
 +.idea/libraries/Maven__junit_junit_4_11.xml,e/c/ec13f10714a5eec675a96e36cd71bd064d063683
 f
 6.idea/libraries/Maven__org_objenesis_objenesis_2_6.xml,7/5/75a5efe07bfd556010ee7fac1ea79d75c68724a1
-‹
-[src/main/java/com/capexercise/huffman/variations/modtopword/compressor/CompressionInfo.java,1/3/135966dc7e4fa5b86bf5be770f6b79435a71e73a
 `
 0src/main/java/com/capexercise/Files/testFile.txt,7/7/77c3f9d20e8e577544f7148f7170cc72bb3857cd
 p
 @src/main/java/com/capexercise/general/helpers/maps/WordMaps.java,d/2/d21ce69ed25480fef5e8cb2d33b599d2c76564ac
-„
-Tsrc/test/java/com/capexercise/huffman/character/decompressor/CharDecompressTest.java,b/2/b229c48901d043265153dfcd0b9351d4834c9ee3
-{
-Ksrc/test/java/com/capexercise/huffman/word/compressor/WordCompressTest.java,7/e/7ef0588f9df94fc493301873c386ed9b4e5ffe0a
 l
 <src/main/java/com/capexercise/general/helpers/maps/IMap.java,3/c/3ce1927fd942fd73c897c6d526fda9bd1a920dcd
-
-]src/main/java/com/capexercise/huffman/variations/modtopword/compressor/CompressionThread.java,8/2/8293f5309184f7caa412faa704a5ef94989b50bb
-]
--src/main/java/com/capexercise/Files/input.txt,b/0/b0fef912b8d292a676c3b91880a2eaff3d50e10f
 n
 >src/main/java/com/capexercise/general/FrequencyComparator.java,f/6/f6f5e4a751868692c3fe7aed71456c7f762cfc98

@@ -41,8 +41,8 @@ public class CharCompress implements ICompress {
 
 
     @Override
-    public IFileContents compress(IMap iMap, IDataHandle dataObj) {
-
+    public IFileContents compress(IMap iMap, IDataHandle dataObj)
+    {
         method = new GeneralMethods();
 
         String ans = dataObj.readContent();
@@ -70,11 +70,10 @@ public class CharCompress implements ICompress {
             }
 
         }
-
-
         int extraBits = 0;
 
-        if (!curCode.equals("")) {
+        if (!curCode.equals(""))
+        {
             extraBits = 8 - curCode.length();
             for (int i = 0; i < extraBits; i++)
                 curCode += '0';

@@ -20,7 +20,7 @@ public class WordCompress implements ICompress {
 
         for(int i=0;i< fileContents.length();i++) {
             char character = fileContents.charAt(i);
-            while (Character.isAlphabetic(character) || Character.isDigit(character)) {
+            while (i<fileContents.length()-1 && (Character.isAlphabetic(character) || Character.isDigit(character))) {
                 sub += character;
                 character = fileContents.charAt(++i);
             }
@@ -73,7 +73,7 @@ public class WordCompress implements ICompress {
         for (int i=0;i<fileContents.length();i++) {
 
             char character = fileContents.charAt(i);
-            while (Character.isAlphabetic(character) || Character.isDigit(character)) {
+            while (i<fileContents.length()-1 && Character.isAlphabetic(character) || Character.isDigit(character)) {
                 str += character;
                 character = fileContents.charAt(++i);
             }

@@ -1,5 +1,7 @@
 package com.capexercise.huffman.general.auxiliary;
 
+import com.capexercise.general.helpers.checksum.IKeyGenerator;
+import com.capexercise.general.helpers.checksum.MD5KeyGenerator;
 import com.capexercise.general.helpers.maps.IMap;
 import com.capexercise.huffman.general.auxiliary.IGeneral;
 
@@ -10,7 +12,7 @@ public class GeneralMethods implements IGeneral {
 
     @Override
     public boolean check(String ipFilepath, String decompressedFilePath) throws IOException {
-        FileReader f3 = new FileReader(ipFilepath);
+       /* FileReader f3 = new FileReader(ipFilepath);
         FileReader f4 = new FileReader(decompressedFilePath);
 
         int val1 = f3.read();
@@ -29,6 +31,20 @@ public class GeneralMethods implements IGeneral {
 
 
         return true;
+
+        */
+
+        IKeyGenerator key=new MD5KeyGenerator();
+        String key1=key.generateKey(ipFilepath);
+        String key2=key.generateKey(decompressedFilePath);
+        if(key1.equals(key2))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     @Override

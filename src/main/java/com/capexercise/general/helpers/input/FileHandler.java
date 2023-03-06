@@ -9,13 +9,14 @@ public class FileHandler implements IDataHandle {
     File fileObj;
 
     int percentage;
-
-    public FileHandler(String path) {
+    public FileHandler(String path)
+    {
         fileObj = new File(path);
     }
 
     @Override
     public String readContent() {
+
         String strData = "";
         try {
             byte[] byteArray = new byte[(int) fileObj.length()];
@@ -28,6 +29,8 @@ public class FileHandler implements IDataHandle {
             throw new RuntimeException(e);
         }
         return strData;
+
+
     }
 
 
@@ -39,5 +42,8 @@ public class FileHandler implements IDataHandle {
     public int getPercentage() {
         return this.percentage;
     }
+
+
+
 
 }

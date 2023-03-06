@@ -53,7 +53,11 @@ public class CharZipperUnZipper implements FileZipper {
 
 
         float size = (float) method.getCodeSize(compressionMaps);
-        System.out.println("Average bit for Char is "+(size/(new File(Path.inputFilePath).length())));
+        long compressed_size=new File(Path.compressedFilePath).length();
+        System.out.println("Average bit for Char is "+(float)(size/(new File(Path.inputFilePath).length())));
+        System.out.println("Size of  header is "+(compressed_size-(float)(size/8)));
+        System.out.println("size of content is "+(float)size/8);
+        System.out.println("");
         System.out.println("Compression done Successfully");
     }
 

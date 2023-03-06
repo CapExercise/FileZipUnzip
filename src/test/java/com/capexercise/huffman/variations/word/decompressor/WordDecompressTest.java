@@ -1,39 +1,37 @@
-package com.capexercise.huffman.character.decompressor;
+package com.capexercise.huffman.variations.word.decompressor;
 
 import com.capexercise.general.Path;
-import com.capexercise.general.helpers.nodes.CharTreeNode;
+import com.capexercise.general.helpers.nodes.StringTreeNode;
 import com.capexercise.general.helpers.nodes.TreeNode;
-import com.capexercise.huffman.variations.character.decompressor.CharDecompress;
+import com.capexercise.huffman.variations.topword.decompressor.TopWordDecompress;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
-public class CharDecompressTest {
+public class WordDecompressTest {
 
-    CharDecompress d=new CharDecompress();
+    WordDecompress d=new WordDecompress();
 
-   TreeNode root=null;
-   TreeNode leftNode=null;
+    TreeNode root=null;
+    TreeNode leftNode=null;
     TreeNode rightNode=null;
 
     @Before
     public void beforeTest()
     {
-       leftNode=new CharTreeNode('a',6);
+        leftNode=new StringTreeNode("Hello",1);
 
 
 
-      rightNode=new CharTreeNode('b',7);
 
-       TreeNode rootNode=new CharTreeNode('-',leftNode.getFrequency()+ rightNode.getFrequency());
+        rightNode=new StringTreeNode("World",1);
+
+        TreeNode rootNode=new StringTreeNode("-",leftNode.getFrequency()+ rightNode.getFrequency());
         rootNode.setLeft(leftNode);
         rootNode.setRight(rightNode);
 
@@ -183,8 +181,8 @@ public class CharDecompressTest {
     @Test
     public void testgetCodes()
     {
-       assertEquals("00000000",d.getCode(0));
-       assertEquals("00001000",d.getCode(8));
+        assertEquals("00000000",d.getCode(0));
+        assertEquals("00001000",d.getCode(8));
     }
 
     @Test
@@ -216,7 +214,7 @@ public class CharDecompressTest {
             throw new RuntimeException(e);
         }
 
-        assertEquals("ababaabaabbbb",expected.toString());
+        assertEquals("HelloWorldHelloWorldHelloHelloWorldHelloHelloWorldWorldWorldWorld",expected.toString());
     }
 
     @Test
@@ -248,9 +246,7 @@ public class CharDecompressTest {
             throw new RuntimeException(e);
         }
 
-        assertEquals("ababaaba",expected.toString());
+        assertEquals("HelloWorldHelloWorldHelloHelloWorldHello",expected.toString());
     }
-
-
 
 }

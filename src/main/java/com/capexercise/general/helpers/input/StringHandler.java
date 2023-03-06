@@ -10,24 +10,26 @@ import java.util.Map;
 
 public class StringHandler implements IDataHandle {
     StringBuilder strData;
+
     Map<Object, Integer> freqMap;
 
     int per;
 
-
     public StringHandler(String source) {
         strData = new StringBuilder(source);
-    }
-
-    public StringHandler(byte[] byteArray){
-        String temp = new String(byteArray);
-        strData = new StringBuilder(temp);
     }
 
     @Override
     public String readContent() {
         return strData.toString();
     }
+
+
+    public StringHandler(byte[] byteArray){
+        String temp = new String(byteArray);
+        strData = new StringBuilder(temp);
+    }
+
 
     @Override
     public void setPercentage(int per) {
@@ -38,5 +40,7 @@ public class StringHandler implements IDataHandle {
     public int getPercentage() {
         return this.per;
     }
+
+
 
 }

@@ -1,25 +1,21 @@
-package com.capexercise.huffman.word.decompressor;
+package com.capexercise.huffman.variations.character.decompressor;
 
 import com.capexercise.general.Path;
 import com.capexercise.general.helpers.nodes.CharTreeNode;
-import com.capexercise.general.helpers.nodes.StringTreeNode;
 import com.capexercise.general.helpers.nodes.TreeNode;
-import com.capexercise.huffman.variations.word.decompressor.WordDecompress;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
-public class WordDecompressTest
-{
-/*
-   WordDecompress d=new WordDecompress();
+public class CharDecompressTest {
+
+
+    CharDecompress d=new CharDecompress();
 
     TreeNode root=null;
     TreeNode leftNode=null;
@@ -28,11 +24,11 @@ public class WordDecompressTest
     @Before
     public void beforeTest()
     {
-        leftNode=new StringTreeNode("a",6);
+        leftNode=new CharTreeNode('a',6);
 
 
 
-        rightNode=new StringTreeNode("b",7);
+        rightNode=new CharTreeNode('b',7);
 
         TreeNode rootNode=new CharTreeNode('-',leftNode.getFrequency()+ rightNode.getFrequency());
         rootNode.setLeft(leftNode);
@@ -42,7 +38,7 @@ public class WordDecompressTest
     }
 
 
-
+/*
     @Test
     public void Testget8BItCode()
     {
@@ -102,7 +98,7 @@ public class WordDecompressTest
     public void TestgetCodedString_UsingMocking()
     {
 
-        WordDecompress mockedDecompression= Mockito.spy(d);
+        CharDecompress mockedDecompression= Mockito.spy(d);
 
         ArrayList<Integer> list1=new ArrayList<Integer>(Arrays.asList(0,1,0,1,0,0,1,0));
         ArrayList<Integer> list2=new ArrayList<Integer>(Arrays.asList(0,1,1,1,1,0,0,0));
@@ -142,22 +138,22 @@ public class WordDecompressTest
     {
         StringBuilder decodedString=new StringBuilder("01101000");//acab
 
-        TreeNode leftNode=new StringTreeNode("a",2);
+       TreeNode leftNode=new CharTreeNode('a',2);
 
 
-        TreeNode rightLeft=new StringTreeNode("b",3);
+       TreeNode rightLeft=new CharTreeNode('b',3);
 
 
-        TreeNode rightRight=new StringTreeNode("c",2);
+       TreeNode rightRight=new CharTreeNode('c',2);
 
 
-        TreeNode rightNode=new StringTreeNode("-",rightRight.getFrequency()+rightLeft.getFrequency());
+       TreeNode rightNode=new CharTreeNode('-',rightRight.getFrequency()+rightLeft.getFrequency());
         rightNode.setLeft(rightLeft);
         rightNode.setRight(rightRight);
 
 
 
-        TreeNode parent=new StringTreeNode("-",leftNode.getFrequency()+rightNode.getFrequency());
+       TreeNode parent=new CharTreeNode('-',leftNode.getFrequency()+rightNode.getFrequency());
         parent.setLeft(leftNode);
         parent.setRight(rightNode);
 
@@ -179,7 +175,79 @@ public class WordDecompressTest
         }
     }
 
+*/
+
+    @Test
+    public void testgetCodes()
+    {
+        assertEquals("00000000",d.getCode(0));
+        assertEquals("00001000",d.getCode(8));
+    }
+
+    @Test
+    public void testdecompressforPositiveCase()
+    {
+        byte[] bytearray=new byte[]{82,120};
+        d.decompress(bytearray,3,root);
+        StringBuilder expected=new StringBuilder();
+        FileReader fin= null;
+        try {
+            fin = new FileReader(Path.decompressedFilePath);
+
+            int c= 0;
+            try {
+                c = fin.read();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            while(c!=-1)
+            {
+                expected.append((char)c);
+                try {
+                    c=fin.read();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        assertEquals("ababaabaabbbb",expected.toString());
+    }
+
+    @Test
+    public void testdecompressforNoZerosAtend()
+    {
+        byte[] bytearray=new byte[]{82};
+        d.decompress(bytearray,0,root);
+        StringBuilder expected=new StringBuilder();
+        FileReader fin= null;
+        try {
+            fin = new FileReader(Path.decompressedFilePath);
+
+            int c= 0;
+            try {
+                c = fin.read();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            while(c!=-1)
+            {
+                expected.append((char)c);
+                try {
+                    c=fin.read();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        assertEquals("ababaaba",expected.toString());
+    }
 
 
- */
+
 }

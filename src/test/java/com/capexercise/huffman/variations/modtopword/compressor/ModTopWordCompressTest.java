@@ -1,4 +1,4 @@
-package com.capexercise.huffman.variations.topword.compressor;
+package com.capexercise.huffman.variations.modtopword.compressor;
 
 import com.capexercise.general.helpers.filedata.IFileContents;
 import com.capexercise.general.helpers.input.IDataHandle;
@@ -9,18 +9,18 @@ import com.capexercise.general.helpers.maps.WordMaps;
 import com.capexercise.general.helpers.nodes.CharTreeNode;
 import com.capexercise.general.helpers.nodes.StringTreeNode;
 import com.capexercise.general.helpers.nodes.TreeNode;
+import com.capexercise.huffman.variations.word.compressor.WordCompress;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
-import java.util.IdentityHashMap;
 import java.util.Map;
 
 import static org.junit.Assert.*;
 
-public class TopWordCompressTest {
+public class ModTopWordCompressTest {
 
-    TopWordCompress testRef=new TopWordCompress();
+    ModTopWordCompress testRef=new ModTopWordCompress();
 
     TreeNode root=null;
 
@@ -51,21 +51,13 @@ public class TopWordCompressTest {
         Map<Object,Integer> returnedmap=imap.returnFreqMap();
 
         Map<Object,Integer> expectedMap=new HashMap<>();
+
         expectedMap.put(" ",3);
-        expectedMap.put("A",2);
-        expectedMap.put("C",1);
-        expectedMap.put("D",1);
         expectedMap.put("HELLO",2);
-        expectedMap.put("F",1);
-        expectedMap.put("I",1);
-        expectedMap.put("L",3);
-        expectedMap.put("M",1);
+        expectedMap.put("FROM",1);
+        expectedMap.put("WORLD",1);
+        expectedMap.put("CAPILLARY",1);
         expectedMap.put(".",2);
-        expectedMap.put("O",2);
-        expectedMap.put("P",1);
-        expectedMap.put("R",3);
-        expectedMap.put("W",1);
-        expectedMap.put("Y",1);
         assertEquals(expectedMap,returnedmap);
 
     }
@@ -85,25 +77,17 @@ public class TopWordCompressTest {
     {
         IDataHandle dataRef=new StringHandler("HELLO WORLD.HELLO FROM CAPILLARY ™.");
 
-       IMap imap=testRef.calculateFreq(dataRef);
-       Map<Object,Integer> returnedMap=imap.returnFreqMap();
-       Map<Object,Integer> expectedMap=new HashMap<>();
+        IMap imap=testRef.calculateFreq(dataRef);
+        Map<Object,Integer> returnedMap=imap.returnFreqMap();
+        Map<Object,Integer> expectedMap=new HashMap<>();
         expectedMap.put(" ",4);
+
         expectedMap.put("™",1);
-        expectedMap.put("A",2);
-        expectedMap.put("C",1);
-        expectedMap.put("D",1);
         expectedMap.put("HELLO",2);
-        expectedMap.put("F",1);
-        expectedMap.put("I",1);
-        expectedMap.put("L",3);
-        expectedMap.put("M",1);
+        expectedMap.put("FROM",1);
+        expectedMap.put("WORLD",1);
+        expectedMap.put("CAPILLARY",1);
         expectedMap.put(".",2);
-        expectedMap.put("O",2);
-        expectedMap.put("P",1);
-        expectedMap.put("R",3);
-        expectedMap.put("W",1);
-        expectedMap.put("Y",1);
         assertEquals(expectedMap,returnedMap);
     }
 
@@ -116,8 +100,10 @@ public class TopWordCompressTest {
         testRef.iterateTreeAndCalculateHuffManCode(root,ans,imap);
         Map<Object,String> expectedMap=new HashMap<>();
         Map<Object,String> huffmanMap=imap.returnHuffMap();
+
         expectedMap.put("a","0");
         expectedMap.put("b","1");
+
         assertEquals(expectedMap,huffmanMap);
     }
 

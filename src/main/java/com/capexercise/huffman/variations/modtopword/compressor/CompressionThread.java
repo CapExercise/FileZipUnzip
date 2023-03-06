@@ -20,6 +20,10 @@ public class CompressionThread implements Callable<CompressionInfo> {
     List<Object> keys;
 
     int percentage;
+    CompressionThread()
+    {
+
+    }
 
     public CompressionThread(IMap map, int percentage, List<Object> keys) {
         this.compressionMap = map;
@@ -32,7 +36,7 @@ public class CompressionThread implements Callable<CompressionInfo> {
     @Override
     public CompressionInfo call() throws Exception {
 
-        IMap tempMap = getOptimalMap(this.compressionMap, this.percentage, this.keys);
+        IMap tempMap = this.getOptimalMap(this.compressionMap, this.percentage, this.keys);
         TreeNode root = this.constructTree(tempMap);
 
         compressor.iterateTreeAndCalculateHuffManCode(root, "", tempMap);
@@ -46,10 +50,10 @@ public class CompressionThread implements Callable<CompressionInfo> {
 
 
     IMap getOptimalMap(IMap imap, int perc, List<Object> keys) {
+
         IMap finalMap = new WordMaps();
 
         float size = (float) (perc / 100.00);
-
         Set<Object> topWordSet = new HashSet<>(keys.subList(0, (int) (keys.size() * size)));
 
 
