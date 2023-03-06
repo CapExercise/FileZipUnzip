@@ -13,10 +13,6 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class Main {
-    static Connection connection;
-    static Statement stm;
-    static ResultSet rs;
-
 
     public static void main(String[] args) throws IOException, SQLException {
 
@@ -25,14 +21,6 @@ public class Main {
 
         int atleastOnce = 0;
         boolean flag = true;
-
-
-        //IDataBase db=new SQLImplemenation();
-
-//        connection = DriverManager.getConnection("jdbc:sqlite:freqTable.db");
-//        stm = connection.createStatement();
-//        stm.executeUpdate("create table fileTable (md5 text,file blob)");
-
 
        FileZipper zipper=null;
         System.out.println("Enter 1 for Using Character based compression\nEnter 2 for Word based Compression\nEnter 3 for Combination of Word and Character based Compression\nEnter 4 for modified Top Word");
@@ -55,22 +43,6 @@ public class Main {
                      break;
 
             }
-
-    //   FileZipper zipper = new CharZipperUnZipper();
-  //  FileZipper zipper=new WordZipperUnZipper();
-  //    FileZipper zipper=new TopWordZipperUnZipper();
-
-
-/*
-      if I want some new Zipping Algorithm to be implemented
-
-        General_Package.FileZipper zipper=new SomeNewAlgorithm();
-
-        zipper.compress()  -> it will call that corresponding Algorithms Compression_Package.Compress Method
-
-        zipper.decompress()  -> it will call that corresponding Algorithms Decompression Method
-        */
-
 
         while (flag) {
 
